@@ -1,0 +1,1 @@
+insert into user(id, first_name, last_name, email, phone_number, password, address, city, country,  user_role) values (1, 'Mika', 'Mikic', 'p1@p1.com', 0691116111, '123', 'Pacijentica 11/11', 'Novi Sad', 'Srbija', 0)
