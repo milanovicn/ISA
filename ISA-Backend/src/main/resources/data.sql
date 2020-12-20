@@ -17,6 +17,9 @@ insert into pharmacy.dermatologist(id, email, first_name, last_name, password, p
 insert into  pharmacy.pharmacy_dermatologist(pharmacy_id,dermatologist_id) values (1,1)
 insert into  pharmacy.pharmacy_dermatologist(pharmacy_id,dermatologist_id) values (2,2)
 
+-- PHARMACY ADMIN
+INSERT INTO pharmacy.pharmacy_admin(id,address,city,country,email,first_name,last_name,password,phone_number,user_role,pharmacy_id) values (1,'Alekse Santica 48','Novi Sad','Srbija','pharmacyadmin1@pharmacy.com','Pera','Peric','123',061123123,1,1)
+
 -- MEDICINES AND REPLACEMENTS
 insert into pharmacy.medicine(id, code, contraindications, name, type) values (1, 0110, 'Tahikardija, mucnina, hipotenzija i poremecaj cirkulacije', 'Analgin 500mg tableta', 3)
 insert into pharmacy.medicine(id, code, contraindications, name, type) values (2, 0120, 'Aktivni gastrični ili duodenalni ulkus, krvarenje ili perforacija', 'Rapten-K 50mg obložena tableta', 3)
