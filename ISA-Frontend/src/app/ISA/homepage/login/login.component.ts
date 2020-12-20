@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["/user-homepage"]);
 
         } else if(this.user.userRole == "PHARMACY_ADMIN"){
+          console.log(this.user);
           this.router.navigate(["/pharmacy-admin-homepage"]);
         } 
             /*

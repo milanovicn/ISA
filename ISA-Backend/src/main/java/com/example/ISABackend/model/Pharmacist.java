@@ -1,6 +1,7 @@
 package com.example.ISABackend.model;
 
 import com.example.ISABackend.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ public class Pharmacist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Pharmacy pharmacy;
 

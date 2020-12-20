@@ -26,17 +26,21 @@ public class Pharmacy {
     private double rate;
 
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Pharmacy_Admin> pharmacistAdmin = new HashSet<Pharmacy_Admin>();
+
+    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacist> pharmacist = new HashSet<Pharmacist>();
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Dermatologist> dermatologist = new HashSet<Dermatologist>();
 
-    public Pharmacy(String name, String description, String address, String city, double rate, Set<Pharmacist> pharmacist, Set<Dermatologist> dermatologist) {
+    public Pharmacy(String name, String description, String address, String city, double rate, Set<Pharmacy_Admin> pharmacistAdmin, Set<Pharmacist> pharmacist, Set<Dermatologist> dermatologist) {
         this.name = name;
         this.description = description;
         this.address = address;
         this.city = city;
         this.rate = rate;
+        this.pharmacistAdmin = pharmacistAdmin;
         this.pharmacist = pharmacist;
         this.dermatologist = dermatologist;
     }
@@ -106,5 +110,13 @@ public class Pharmacy {
 
     public void setDermatologist(Set<Dermatologist> dermatologist) {
         this.dermatologist = dermatologist;
+    }
+
+    public Set<Pharmacy_Admin> getPharmacistAdmin() {
+        return pharmacistAdmin;
+    }
+
+    public void setPharmacistAdmin(Set<Pharmacy_Admin> pharmacistAdmin) {
+        this.pharmacistAdmin = pharmacistAdmin;
     }
 }
