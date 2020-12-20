@@ -1,0 +1,114 @@
+<user-navbar></user-navbar>
+<div>
+
+    <div style="margin-left:300px; margin-top:50px; padding:60px;">
+        <h1>My Profile</h1>
+        <form (ngSubmit)="edit()" #loginForm="ngForm">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="E-mail" class="form-control" name="email"
+                            #email="ngModel" [(ngModel)]="user.email" disabled />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Password" class="form-control" name="password"
+                            #password="ngModel" [(ngModel)]="user.password" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="First Name" class="form-control" name="firstName"
+                            #firstName="ngModel" [(ngModel)]="user.firstName" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Last Name" class="form-control" name="lastName"
+                            #lastName="ngModel" [(ngModel)]="user.lastName" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="City" class="form-control" name="city" #city="ngModel"
+                            [(ngModel)]="user.city" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Country" class="form-control" name="country"
+                            #country="ngModel" [(ngModel)]="user.country" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Address" class="form-control" name="address"
+                            #address="ngModel" [(ngModel)]="user.address" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="number" value="" placeholder="Phone Number" class="form-control" name="phoneNumber"
+                            #phoneNumber="ngModel" [(ngModel)]="user.phoneNumber" />
+                    </div>
+                </div>
+
+                <div>
+                    <input type="submit" value="Edit profile" mat-raised-button class="btn btn-success">
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div style="margin-left:300px; margin-top:-50px; padding:60px;">
+        <h1>My Allergies</h1>
+        <div class="row">
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Allergies</h4>
+                    <p class="card-category">This is the list of your allergies. You can add more medications below.</p>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+                        <thead class="text-success">
+                            <th>Code</th>
+                            <th>Name</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let k of myAllergies'>
+                                <td>{{k.code}}</td>
+                                <td>{{k.name}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <form (ngSubmit)="addAllergy()" #allergyForm="ngForm">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <select name="nemamPojma" #nemamPojma="ngModel" [(ngModel)]='newAllergy'>
+                                <option *ngFor='let med of allMedications' [ngValue]="med.id">{{med.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" value="Add" mat-raised-button class="btn btn-success">
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>

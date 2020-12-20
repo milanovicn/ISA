@@ -1,5 +1,5 @@
 <div class="wrapper" style="background-image: url(./assets/img/6.jpg); margin-top: -2px; ">
-    
+    <div>
         <div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
             <div class="sidebar-background" style="background-image: url(./assets/img/background.jpg)"></div>
             <div class="logo">
@@ -13,10 +13,16 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link sidebar-1" [routerLink]="['/login']" > <i class="material-icons">person</i>
-                            <p style="color: green; font-weight: 500;">Log in</p>
+                        <a class="nav-link sidebar-1" [routerLink]="['./user-profile']" > <i class="material-icons">person</i>
+                            <p style="color: green; font-weight: 500;">My Profile</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a (click)="logOut()"  class="nav-link sidebar-1" > <i class="material-icons">power_settings_new</i>
+                            <p style="color: green; font-weight: 500;">Log Out</p>
+                        </a>
+                    </li>
+                    
                     <li routerLinkActive="active" class="nav-item">
                         <a class="nav-link sidebar-1" [routerLink]="['/login']"> <i
                                 class="material-icons">add_business</i>
@@ -29,9 +35,10 @@
                             <p style="color: green; font-weight: 500;">Medicines</p>
                         </a>
                     </li>
+                    
                 </ul>
             </div>
         </div>
-   
-</div>
+    </div>
 
+</div>
