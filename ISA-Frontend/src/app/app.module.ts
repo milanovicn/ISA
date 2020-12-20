@@ -24,6 +24,15 @@ import {
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HomePageComponent } from './ISA/homepage/homepage.component';
 import { LoginComponent } from './ISA/homepage/login/login.component';
+import { LoginService } from './ISA/shared/service/login.service';
+import { UserHomepageComponent } from './ISA/user/user-homepage/user-homepage.component';
+import { UserModule } from './ISA/user/user.module';
+import { UserNavbarComponent } from './ISA/user/user-navbar/user-navbar.component';
+import { UserService } from './ISA/shared/service/user.service';
+import { MedicineService } from './ISA/shared/service/medicine.service';
+import { PharmacyAdminModule } from './ISA/pharmacy-admin/pharmacy-admin.module';
+import { PharmacyAdminService } from './ISA/shared/service/pharmacy-admin.service';
+import { PharmacyAdminHomepageComponent } from './ISA/pharmacy-admin/pharmacy-admin-homepage/pharmacy-admin-homepage.component';
 
 @NgModule({
   imports: [
@@ -38,22 +47,25 @@ import { LoginComponent } from './ISA/homepage/login/login.component';
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
     RouterModule.forRoot([
-      { path: '', redirectTo: 'homepage', pathMatch: 'full',}, 
-      { path: '**', redirectTo: 'homepage', pathMatch: 'full'},
+
       { path: 'homepage', component: HomePageComponent },
       { path: 'login', component: LoginComponent },
-
+      //{path: 'user-homepage', component: UserHomepageComponent },
+      { path: '', redirectTo: 'homepage', pathMatch: 'full', },
+      { path: '**', redirectTo: 'homepage', pathMatch: 'full' },
     ]),
-    
+    UserModule,
+    PharmacyAdminModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     HomePageComponent,
-    LoginComponent
-
+    LoginComponent,
+    UserHomepageComponent,
+    PharmacyAdminHomepageComponent
   ],
-  providers: [],
+  providers: [LoginService, UserService, MedicineService, PharmacyAdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

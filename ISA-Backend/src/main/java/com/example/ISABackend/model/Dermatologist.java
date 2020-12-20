@@ -1,14 +1,12 @@
 package com.example.ISABackend.model;
 
 import com.example.ISABackend.enums.UserRole;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-public class User {
+public class Dermatologist {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,19 +38,7 @@ public class User {
     @Column(name = "userRole", nullable = false)
     private UserRole userRole;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Medicine> allergies = new HashSet<Medicine>();
-
-    // za studenta 4
-    //@Column(name = "verified")
-    //private boolean verified;
-
-
-    public User() {
-    }
-
-    public User(String firstName, String lastName, String email, String phoneNumber, String password, String address, String city, String country, UserRole userRole, Set<Medicine> allergies) {
+    public Dermatologist(String firstName, String lastName, String email, String phoneNumber, String password, String address, String city, String country, UserRole userRole) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -61,8 +47,10 @@ public class User {
         this.address = address;
         this.city = city;
         this.country = country;
-        this.userRole = UserRole.PATIENT;
-        this.allergies = allergies;
+        this.userRole = UserRole.DERMATOLOGIST;
+    }
+
+    public Dermatologist() {
     }
 
     public Long getId() {
@@ -113,6 +101,14 @@ public class User {
         this.password = password;
     }
 
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -135,21 +131,5 @@ public class User {
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
-    }
-
-    public Set<Medicine> getAllergies() {
-        return allergies;
-    }
-
-    public void setAllergies(Set<Medicine> allergies) {
-        this.allergies = allergies;
     }
 }

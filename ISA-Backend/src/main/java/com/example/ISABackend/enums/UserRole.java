@@ -6,5 +6,5 @@ public enum UserRole {
     PATIENT,
     PHARMACIST,
     DERMATOLOGIST,
-    SUPPLIER;
+    SUPPLIER
 }

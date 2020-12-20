@@ -1,6 +1,6 @@
 package com.example.ISABackend.controller;
 
-import com.example.ISABackend.dto.LoginRequest;
+import com.example.ISABackend.model.Medicine;
 import com.example.ISABackend.model.User;
 import com.example.ISABackend.repository.UserRepository;
 import com.example.ISABackend.service.UserService;
@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
 
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     @Autowired
@@ -23,42 +24,41 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping(value = "/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, @Context HttpServletRequest request) {
-
-        User user = userService.getByEmail(loginRequest.getEmail());
-        if (user != null) {
-            if (loginRequest.getPassword().equals(user.getPassword())) {
-                HttpSession session = request.getSession();
-                //moguce je da ce ti se atribut zvati po roli zbog fronta, not sure yet
-                session.setAttribute("user", user);
-
-                return new ResponseEntity<User>(user, HttpStatus.CREATED);
-            }
+    @PutMapping(value = "/edit")
+    public ResponseEntity updateUser(@RequestBody User updatedUser, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        User user=userService.updateUser(updatedUser);
+        request.getSession().setAttribute("user", user);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/logOut")
-    public ResponseEntity logOut(@Context HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.invalidate();
-
-        return ResponseEntity.status(200).build();
+    @GetMapping(value = "/allergies/{user_id}")
+    public Object getMyAllergies(@PathVariable("user_id") Long user_id, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+      return  userService.getById(user_id).getAllergies();
     }
 
-    @GetMapping(value = "/whoIsLoggedIn")
-    public Object whoIsLoggedIn(@Context HttpServletRequest request) {
 
+    @PutMapping(value = "/allergy/{medicine_id}")
+    public ResponseEntity<?> addNewAllergy(@RequestBody User updatedUser, @PathVariable("medicine_id") Long medicine_id, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        User u = userService.addAllergy(updatedUser.getId(), medicine_id);
+        if (u == null) {
+            return new ResponseEntity<String>("This allergy is already added!", HttpStatus.METHOD_NOT_ALLOWED);
+        }
+        return new ResponseEntity<User>(u, HttpStatus.CREATED);
+    }
+
+    private User authorize(HttpServletRequest request){
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-
-        if (user != null){
-            return user;
-        }
-        else {
-            return null;
-        }
+        return user;
     }
-
 }
