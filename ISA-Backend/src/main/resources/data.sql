@@ -4,8 +4,8 @@ insert into pharmacy.pharmacy(id,address,city,description,name,rate) values (2,'
 insert into pharmacy.pharmacy(id,address,city,description,name,rate) values (3,'Njegoseva 16','Banja Koviljaca','Banjokoviljcanska apoteka broj 1','Apoteka Mitrovic',5)
 
 -- PATIENTS
-insert into user(id, first_name, last_name, email, phone_number, password, address, city, country,  user_role) values (1, 'Mika', 'Mikic', 'patient1@pharmacy.com', 0691116111, '123', 'Pacijentica 11/11', 'Novi Sad', 'Srbija', 2)
-insert into user(id, first_name, last_name, email, phone_number, password, address, city, country,  user_role) values (2, 'Zika', 'Zikic', 'patient2@pharmacy.com', 0692226222, '123', 'Pacijentica 22/22', 'Novi Sad', 'Srbija', 2)
+insert into user(id, first_name, last_name, email, phone_number, password, address, city, country,  user_role, prvi_put_logovan) values (1, 'Mika', 'Mikic', 'patient1@pharmacy.com', 0691116111, '123', 'Pacijentica 11/11', 'Novi Sad', 'Srbija', 2,0)
+insert into user(id, first_name, last_name, email, phone_number, password, address, city, country,  user_role,prvi_put_logovan) values (2, 'Zika', 'Zikic', 'patient2@pharmacy.com', 0692226222, '123', 'Pacijentica 22/22', 'Novi Sad', 'Srbija', 2,0)
 
 -- PHARMACISTS
 insert into  pharmacy.pharmacist(id, email, first_name, last_name, password, phone_number, user_role, pharmacy_id, address, city, country ) values (1, 'pharmacist1@pharmacy.com', 'Sanja', 'Sanjic', '123', 0651234567, 3, 1, 'Ulica Farmaceuta 1', 'Novi Sad', 'Srbija')
@@ -18,7 +18,7 @@ insert into  pharmacy.pharmacy_dermatologist(pharmacy_id,dermatologist_id) value
 insert into  pharmacy.pharmacy_dermatologist(pharmacy_id,dermatologist_id) values (2,2)
 
 -- PHARMACY ADMIN
-INSERT INTO pharmacy.pharmacy_admin(id,address,city,country,email,first_name,last_name,password,phone_number,user_role,pharmacy_id) values (1,'Alekse Santica 48','Novi Sad','Srbija','pharmacyadmin1@pharmacy.com','Pera','Peric','123',061123123,1,1)
+INSERT INTO pharmacy.pharmacy_admin(id,address,city,country,email,first_name,last_name,password,phone_number,user_role,pharmacy_id,prvi_put_logovan) values (1,'Alekse Santica 48','Novi Sad','Srbija','pharmacyadmin1@pharmacy.com','Pera','Peric','123',061123123,1,1,1)
 
 -- MEDICINES AND REPLACEMENTS
 insert into pharmacy.medicine(id, code, contraindications, name, type) values (1, 0110, 'Tahikardija, mucnina, hipotenzija i poremecaj cirkulacije', 'Analgin 500mg tableta', 3)

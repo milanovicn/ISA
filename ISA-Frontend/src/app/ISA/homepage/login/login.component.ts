@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.respBool = false;
     this.loginService.login(this.loginRequest).subscribe(result => this.getUser(),
       err => this.respBool = true
-     
+
     );
 
   }
@@ -44,22 +44,22 @@ export class LoginComponent implements OnInit {
         console.log(this.user);
 
         if (this.user.userRole == "PATIENT") {
-        console.log(this.user);
+          console.log(this.user);
           this.router.navigate(["/user-homepage"]);
 
-        } else if(this.user.userRole == "PHARMACY_ADMIN"){
-          console.log(this.user);
-          this.router.navigate(["/pharmacy-admin-homepage"]);
-        } 
-            /*
-             else if(this.korisnik.uloga=="LEKAR"){
-               this.router.navigate(["/lekar"]);
-           }
-             else{
-                this.router.navigate(["/signup"]);
-             }
-            
-         */
+        } else if (this.user.userRole == "PHARMACY_ADMIN") {
+
+          if (user.prviPutLogovan == true) {
+            console.log(this.user);
+            this.router.navigate(["/pharmacy-admin-homepage/changepassword"]);
+          }
+          else {
+            console.log(this.user);
+
+            this.router.navigate(["/pharmacy-admin-homepage"]);
+          }
+        }
+       
       }
 
     });
