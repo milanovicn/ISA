@@ -1,5 +1,7 @@
 package com.example.ISABackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,12 +27,15 @@ public class Pharmacy {
     @Column(name = "rate", nullable = false)
     private double rate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacy_Admin> pharmacistAdmin = new HashSet<Pharmacy_Admin>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacist> pharmacist = new HashSet<Pharmacist>();
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Dermatologist> dermatologist = new HashSet<Dermatologist>();
 

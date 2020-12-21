@@ -1,7 +1,4 @@
-import { books_v1 } from "googleapis";
-
-  
-export class User{
+export class PharmacyAdmin{
     id: number;
     firstName:string;
     lastName:string;

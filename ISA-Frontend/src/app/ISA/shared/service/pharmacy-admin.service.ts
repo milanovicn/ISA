@@ -11,6 +11,9 @@ export class PharmacyAdminService {
     constructor(private http: HttpClient) {
     }
 
-   
+    public update(updatedUser:number,newPassword:string){
+        return this.http.put<User>("/api/pharmacy-admin/firstlogin/"+newPassword, updatedUser);
+    }
+
 
 }

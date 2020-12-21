@@ -44,15 +44,13 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Medicine> allergies = new HashSet<Medicine>();
 
-    // za studenta 4
-    //@Column(name = "verified")
-    //private boolean verified;
-
+    @Column(name = "PrviPutLogovan", nullable = false)
+    private boolean prviPutLogovan;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String phoneNumber, String password, String address, String city, String country, UserRole userRole, Set<Medicine> allergies) {
+    public User(String firstName, String lastName, String email, String phoneNumber, String password, String address, String city, String country, UserRole userRole, Set<Medicine> allergies, boolean prviPutLogovan) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -63,6 +61,15 @@ public class User {
         this.country = country;
         this.userRole = UserRole.PATIENT;
         this.allergies = allergies;
+        this.prviPutLogovan=prviPutLogovan;
+    }
+
+    public boolean isPrviPutLogovan() {
+        return prviPutLogovan;
+    }
+
+    public void setPrviPutLogovan(boolean prviPutLogovan) {
+        this.prviPutLogovan = prviPutLogovan;
     }
 
     public Long getId() {
