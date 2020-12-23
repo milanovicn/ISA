@@ -102,4 +102,36 @@ public class Medicine {
     public void setReplacement(Set<Medicine> replacement) {
         this.replacement = replacement;
     }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public MedicineForm getForm() {
+        return form;
+    }
+
+    public void setForm(MedicineForm form) {
+        this.form = form;
+    }
+
+    public MedicinePrescription getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(MedicinePrescription prescription) {
+        this.prescription = prescription;
+    }
 }

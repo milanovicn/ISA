@@ -15,4 +15,6 @@ public interface MedicineService {
     public Medicine getById(Long id);
     public List<Medicine> getAll();
     public ArrayList<Medicine> search(SearchMedicine searchParameters);
+    public ArrayList<Medicine> sort(ArrayList<Medicine> sortMedicines, String sortType);
+    public Medicine download(Long medicine_id);
 }

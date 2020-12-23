@@ -8,7 +8,7 @@ import { MedicineService } from 'app/ISA/shared/service/medicine.service';
 import { UserService } from '../../shared/service/user.service';
 import { PharmacyAdminService } from 'app/ISA/shared/service/pharmacy-admin.service';
 import { Pharmacy } from 'app/ISA/shared/model/Pharmacy';
-import { PharmacyService } from 'app/ISA/shared/service/pharmacy-service';
+import { PharmacyService } from 'app/ISA/shared/service/pharmacy.service';
 import { pagespeedonline_v5 } from 'googleapis';
 
 @Component({

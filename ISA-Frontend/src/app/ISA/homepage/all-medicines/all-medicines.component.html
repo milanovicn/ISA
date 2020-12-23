@@ -46,18 +46,19 @@
                                 #name="ngModel" [(ngModel)]="searchParameters.name" />
                         </div>
                     </div>
-    
+
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <input type="number" value="" placeholder="Code" class="form-control" name="code" #code="ngModel"
-                                [(ngModel)]="searchParameters.code" />
+                            <input type="number" value="" placeholder="Code" class="form-control" name="code"
+                                #code="ngModel" [(ngModel)]="searchParameters.code" />
                         </div>
                     </div>
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <input type="text" value="" placeholder="Contraindications" class="form-control" name="contraindications"
-                                #contraindications="ngModel" [(ngModel)]="searchParameters.contraindications" />
+                            <input type="text" value="" placeholder="Contraindications" class="form-control"
+                                name="contraindications" #contraindications="ngModel"
+                                [(ngModel)]="searchParameters.contraindications" />
                         </div>
                     </div>
 
@@ -71,9 +72,9 @@
                     <div class="col-sm-3">
                         <input type="submit" value="Search" mat-raised-button class="btn btn-success">
                     </div>
-                   
+
                 </div>
-               
+
 
             </form>
 
@@ -85,9 +86,15 @@
                 <div class="card-content table-responsive table-full-width">
                     <table class="table">
                         <thead class="text-success">
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Type</th>
+                            <th style="min-width: 100px;">Name<i (click)="sort('NAME')"
+                                    style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i>
+                            </th>
+                            <th style="min-width: 100px;">Code<i (click)="sort('CODE')"
+                                    style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i>
+                            </th>
+                            <th style="min-width: 100px;">Type<i (click)="sort('TYPE')"
+                                    style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i>
+                            </th>
                             <th>Contraindications</th>
                         </thead>
                         <tbody>
@@ -100,6 +107,32 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+
+            <div class="row" style="margin-left:20px; ">
+                <h4>Download Specifications</h4>
+            </div>
+
+
+            <div class="row" style="margin-top:20px; margin-left: -170px;">
+
+                <form (ngSubmit)="downloadSpecifications()" #specificationsForm="ngForm">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <select name="nemamPojma" #nemamPojma="ngModel" [(ngModel)]='downloadMedicine'>
+                                    <option *ngFor='let med of allMedicines' [ngValue]="med.id">{{med.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="submit" value="Download" mat-raised-button class="btn btn-success">
+                    </div>
+
+                </form>
+
             </div>
         </div>
 
