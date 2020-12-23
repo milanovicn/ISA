@@ -19,4 +19,11 @@ export class MedicineService {
       return this.http.post<Medicine[]>("/api/medicine/search", sm);
     }
 
+    public sortMedicines(medicineList:Medicine[], sortType:string):Observable<Medicine[]>{
+      return this.http.post<Medicine[]>("/api/medicine/sort/"+sortType, medicineList);
+    }
+
+    public downloadSpecifications( medicine_id:number){
+      return this.http.post<number>("/api/medicine/download/" + medicine_id, medicine_id);
+    }
 }

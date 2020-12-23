@@ -7,7 +7,7 @@ import { Pharmacy } from "../model/Pharmacy";
 
 
 @Injectable()
-export class PharmacyService {
+export class PharmacyService1 {
     
 
     constructor(private http: HttpClient) {

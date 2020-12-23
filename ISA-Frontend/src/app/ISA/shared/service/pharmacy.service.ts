@@ -22,4 +22,8 @@ export class PharmacyService {
       return this.http.post<Pharmacy[]>("/api/pharmacy/sort/"+sortType, pharmacyList);
     }
 
+    public updatePharmacy(updatedPharmacy:Pharmacy){
+      return this.http.put("/api/pharmacy/editPharmacy", updatedPharmacy);
+  }
+  
 }

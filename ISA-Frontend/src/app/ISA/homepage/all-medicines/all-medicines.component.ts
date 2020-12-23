@@ -17,9 +17,11 @@ import { PharmacyService } from 'app/ISA/shared/service/pharmacy.service';
 export class AllMedicinesComponent implements OnInit {
     allMedicines : Medicine[] = [];
     searchParameters  : SearchMedicine;
+    downloadMedicine : number;
 
     constructor(private router: Router, private medicineService: MedicineService) { 
         this.searchParameters = new SearchMedicine();
+        this.downloadMedicine =0;
     }
 
     ngOnInit(): void {
@@ -72,5 +74,19 @@ export class AllMedicinesComponent implements OnInit {
        
     }
 
+    sort(sortType:string){
+        console.log(sortType);
+        this.medicineService.sortMedicines(this.allMedicines, sortType).subscribe({
+            next: meds => {
+                this.allMedicines = meds;
+            }
 
+        });
+    }
+
+    downloadSpecifications(){
+    
+        console.log(this.downloadMedicine);
+        this.medicineService.downloadSpecifications(this.downloadMedicine).subscribe();
+      }
 }

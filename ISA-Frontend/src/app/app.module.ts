@@ -39,7 +39,7 @@ import { AllPharmaciesComponent } from './ISA/homepage/all-pharmacies/all-pharma
 import { AllMedicinesComponent } from './ISA/homepage/all-medicines/all-medicines.component';
 
 import { PharmacyAdminHisPharmacyComponent } from './ISA/pharmacy-admin/pharmacy-admin-hispharmacy/pharmacy-admin-hispharmacy.component';
-import { PharmacyService } from './ISA/shared/service/pharmacy-service';
+import { PharmacyService1 } from './ISA/shared/service/pharmacy-service';
 
 
 @NgModule({

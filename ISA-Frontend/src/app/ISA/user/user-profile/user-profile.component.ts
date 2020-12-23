@@ -7,6 +7,7 @@ import { Medicine } from 'app/ISA/shared/model/Medicine';
 import { MedicineService } from 'app/ISA/shared/service/medicine.service';
 import { UserService } from '../../shared/service/user.service';
 
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',

@@ -23,7 +23,7 @@ export class UserService {
     }
 
      public addAllergy(updatedUser:User, medicine_id:number){
-      return this.http.put<User>("/api/user/allergy/4" + medicine_id, updatedUser);
+      return this.http.put<User>("/api/user/allergy/" + medicine_id, updatedUser);
     }
 
 }
