@@ -1,1 +1,80 @@
 <pharmacy-admin-navbar></pharmacy-admin-navbar>
+<div>
+
+    <div style="margin-left:300px; margin-top:50px; padding:60px;">
+        <h1>Pharmacy admin profile</h1>
+        <form (ngSubmit)="editA()" #loginForm="ngForm">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <th>Email</th>
+                        <input type="text" value="" placeholder="E-mail" class="form-control" name="email"
+                            #email="ngModel" [(ngModel)]="user.email" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <th>Password</th>
+                        <input type="text" value="" placeholder="Password" class="form-control" name="password"
+                            #password="ngModel" [(ngModel)]="user.password" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <th>First Name</th>
+                        <input type="text" value="" placeholder="First Name" class="form-control" name="firstName"
+                            #firstName="ngModel" [(ngModel)]="user.firstName" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <th>Last Name</th>
+                        <input type="text" value="" placeholder="Last Name" class="form-control" name="lastName"
+                            #lastName="ngModel" [(ngModel)]="user.lastName" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <th>City</th>
+                        <input type="text" value="" placeholder="City" class="form-control" name="city" #city="ngModel"
+                            [(ngModel)]="user.city" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <th>Country</th>
+                        <input type="text" value="" placeholder="Country" class="form-control" name="country"
+                            #country="ngModel" [(ngModel)]="user.country" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <th>Adress</th>
+                        <input type="text" value="" placeholder="Address" class="form-control" name="address"
+                            #address="ngModel" [(ngModel)]="user.address" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <th>Phone Number</th>
+                        <input type="number" value="" placeholder="Phone Number" class="form-control" name="phoneNumber"
+                            #phoneNumber="ngModel" [(ngModel)]="user.phoneNumber" />
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" value="Edit admin profile" mat-raised-button class="btn btn-success">
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>

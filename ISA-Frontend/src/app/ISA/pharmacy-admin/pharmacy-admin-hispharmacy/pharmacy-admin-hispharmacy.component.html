@@ -1,0 +1,44 @@
+<pharmacy-admin-navbar></pharmacy-admin-navbar>
+<div>
+
+    <div style="margin-left:300px; margin-top:50px; padding:60px;">
+        <h1>My Pharmacy</h1>
+
+        <div class="row">
+            <form (ngSubmit)="editPharmacy()" #loginForm="ngForm">
+
+
+
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <th>Naziv apoteke</th>
+
+                        <input type="text" value="" placeholder="Naziv apoteke" class="form-control" name="name"
+                            #name="ngModel" [(ngModel)]="myPharmacy.name" />
+
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <th>Opis apoteke</th>
+                        <input type="text" value="" placeholder="Opis apoteke" class="form-control"
+                            name="description" #description="ngModel" [(ngModel)]="myPharmacy.description" />
+
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <th>Adresa apoteke</th>
+                        <input type="text" value="" placeholder="Adresa apoteke" class="form-control" name="address"
+                            #address="ngModel" [(ngModel)]="myPharmacy.address" />
+                    </div>
+                </div>
+                <div>
+                    <input type="submit" value="Edit profile" mat-raised-button class="btn btn-success">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
