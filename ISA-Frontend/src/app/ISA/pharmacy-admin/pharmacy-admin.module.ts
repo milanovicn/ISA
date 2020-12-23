@@ -7,11 +7,13 @@ import { PharmacyAdminRoutingModule } from './pharmacy-admin-routing.module';
 import { PharmacyAdminNavbarComponent } from './pharmacy-admin-navbar/pharmacy-admin-navbar.component';
 import { PharmacyAdminProfileComponent } from './pharmacy-admin-profile/pharmacy-admin-profile.component';
 import { FirstLoginComponent } from './first-login/first-login.component';
+import { PharmacyAdminHisPharmacyComponent } from './pharmacy-admin-hispharmacy/pharmacy-admin-hispharmacy.component';
 
 
 @NgModule({
   declarations: [ 
     PharmacyAdminNavbarComponent,
+    PharmacyAdminHisPharmacyComponent,
     PharmacyAdminProfileComponent,
     FirstLoginComponent
   ],

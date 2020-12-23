@@ -61,6 +61,22 @@ public class PharmacyAdminController {
         }
         return pharmacyService.getById(pharmacyId);
     }
+    @PutMapping(value = "/edit")
+    public ResponseEntity update(@RequestBody Pharmacy_Admin updatedUser, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        Pharmacy_Admin user=pharmacyAdminService.updateAdmin(updatedUser);
+        request.getSession().setAttribute("pharmacy_admin", user);
+        return new ResponseEntity<Pharmacy_Admin>(user, HttpStatus.CREATED);
+    }
+    @GetMapping(value = "/pharmacy/getByAdminId/{pharmacyAdminId}")
+    public Object getPharmacyByAdminId(@PathVariable("pharmacyAdminId") Long pharmacyAdminId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return pharmacyAdminService.getPharmacyByAdminId(pharmacyAdminId);
+    }
 
     }
 
