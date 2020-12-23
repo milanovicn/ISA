@@ -33,6 +33,9 @@ import { MedicineService } from './ISA/shared/service/medicine.service';
 import { PharmacyAdminModule } from './ISA/pharmacy-admin/pharmacy-admin.module';
 import { PharmacyAdminService } from './ISA/shared/service/pharmacy-admin.service';
 import { PharmacyAdminHomepageComponent } from './ISA/pharmacy-admin/pharmacy-admin-homepage/pharmacy-admin-homepage.component';
+import { PharmacyService } from './ISA/shared/service/pharmacy.service';
+import { AllPharmaciesComponent } from './ISA/homepage/all-pharmacies/all-pharmacies.component';
+import { AllMedicinesComponent } from './ISA/homepage/all-medicines/all-medicines.component';
 
 @NgModule({
   imports: [
@@ -63,9 +66,11 @@ import { PharmacyAdminHomepageComponent } from './ISA/pharmacy-admin/pharmacy-ad
     HomePageComponent,
     LoginComponent,
     UserHomepageComponent,
-    PharmacyAdminHomepageComponent
+    PharmacyAdminHomepageComponent,
+    AllPharmaciesComponent,
+    AllMedicinesComponent,
   ],
-  providers: [LoginService, UserService, MedicineService, PharmacyAdminService],
+  providers: [LoginService, UserService, MedicineService, PharmacyAdminService, PharmacyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

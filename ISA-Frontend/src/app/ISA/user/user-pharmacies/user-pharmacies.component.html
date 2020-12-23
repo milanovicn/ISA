@@ -1,0 +1,87 @@
+<user-navbar></user-navbar>
+
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>All Pharmacies</h1>
+    <div class="row " style="margin-top: 50px;">
+        <form (ngSubmit)="searchPharmacy()" #allergyForm="ngForm">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Name" class="form-control" name="name"
+                            #name="ngModel" [(ngModel)]="searchParameters.name" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="City" class="form-control" name="city" #city="ngModel"
+                            [(ngModel)]="searchParameters.city" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Address" class="form-control" name="address"
+                            #address="ngModel" [(ngModel)]="searchParameters.address" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Description" class="form-control" name="description"
+                            #description="ngModel" [(ngModel)]="searchParameters.description" />
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <input type="number" value="" placeholder="Rate from" class="form-control" name="rateFrom"
+                            #rateFrom="ngModel" [(ngModel)]="searchParameters.rateFrom" />
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <input type="number" value="" placeholder="Rate to" class="form-control" name="rateTo"
+                            #rateTo="ngModel" [(ngModel)]="searchParameters.rateTo" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <input type="submit" value="Search" mat-raised-button class="btn btn-success">
+                </div>
+               
+            </div>
+           
+
+        </form>
+
+        <div class="card" style="margin-top: 150px;">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Pharmacies</h4>
+                <p class="card-category">This is the list of all the pharmacies. You can search them above.</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-success">
+                        <th>Name <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+                        <th>Rate <i  (click)="sort('RATE')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+                        <th>City <i  (click)="sort('CITY')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+                        <th>Address</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of allPharmacies'>
+                            <td>{{k.name}}</td>
+                            <td>{{k.rate}}</td>
+                            <td>{{k.city}}</td>
+                            <td>{{k.address}}</td>
+                            <td>{{k.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
