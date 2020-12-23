@@ -1,5 +1,6 @@
 package com.example.ISABackend.controller;
 
+import com.example.ISABackend.dto.SearchPharmacy;
 import com.example.ISABackend.model.Pharmacy;
 import com.example.ISABackend.model.Pharmacy_Admin;
 import com.example.ISABackend.model.User;
@@ -8,16 +9,21 @@ import com.example.ISABackend.repository.UserRepository;
 import com.example.ISABackend.service.PharmacyService;
 import com.example.ISABackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
+
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping("/api/pharmacy")
 
@@ -40,9 +46,29 @@ public class PharmacyController {
         return new ResponseEntity<Pharmacy>(pharmacy, HttpStatus.CREATED);
     }
 
+   @GetMapping(value = "")
+    public Object getAll() {
+
+        return pharmacyService.findAll();
+    }
+
+    @PostMapping(value = "/search")
+    public Object searchPharmacy(@RequestBody SearchPharmacy searchParameters) {
+
+        return pharmacyService.search(searchParameters);
+    }
+
+    @PostMapping(value = "/sort/{sortType}")
+    public Object sortPharmacy(@RequestBody ArrayList<Pharmacy> sortPharmacies, @PathVariable("sortType") String sortType) {
+
+        return pharmacyService.sort(sortPharmacies, sortType);
+    }
+  
+  
     private Pharmacy_Admin authorize(HttpServletRequest request){
         HttpSession session = request.getSession();
         Pharmacy_Admin pa = (Pharmacy_Admin) session.getAttribute("pharmacy_admin");
         return pa;
     }
+
 }

@@ -1,6 +1,8 @@
 package com.example.ISABackend.model;
 
 
+import com.example.ISABackend.enums.MedicineForm;
+import com.example.ISABackend.enums.MedicinePrescription;
 import com.example.ISABackend.enums.MedicineType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,11 +22,23 @@ public class Medicine {
     @Column(name = "code", nullable = false)
     private int code;
 
+    @Column(name = "contraindications", nullable = false)
+    private String contraindications;
+
+    @Column(name = "ingredients", nullable = false)
+    private String ingredients;
+
+    @Column(name = "manufacturer", nullable = false)
+    private String manufacturer;
+
     @Column(name = "type", nullable = false)
     private MedicineType type;
 
-    @Column(name = "contraindications", nullable = false)
-    private String contraindications;
+    @Column(name = "form", nullable = false)
+    private MedicineForm form;
+
+    @Column(name = "prescription", nullable = false)
+    private MedicinePrescription prescription;
 
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

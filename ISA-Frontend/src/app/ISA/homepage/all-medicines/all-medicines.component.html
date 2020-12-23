@@ -1,0 +1,107 @@
+<div class="wrapper" style="background-color:white; margin-top: -50px; ">
+    <div>
+        <div class="sidebar" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+            <div class="sidebar-background" style="background-image: url(./assets/img/background.jpg)"></div>
+            <div class="logo">
+                <a href="#" class="simple-text">
+                    <div class="logo-img">
+                        <img src="/assets/img/logo.png" />
+                    </div>
+                    My Pharmacy
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['/login']"> <i class="material-icons">person</i>
+                            <p style="color: green; font-weight: 500;">Log in</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['/homepage/pharmacies']"> <i
+                                class="material-icons">add_business</i>
+                            <p style="color: green; font-weight: 500;">Pharmacies</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['/homepage/medicines']"> <i
+                                class="material-icons">scatter_plot</i>
+                            <p style="color: green; font-weight: 500;">Medicines</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-left:300px; margin-top:50px; padding:60px;">
+        <h1>All Medicines</h1>
+        <div class="row">
+            <form (ngSubmit)="searchMedicine()" #allergyForm="ngForm">
+                <div class="row">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Name" class="form-control" name="name"
+                                #name="ngModel" [(ngModel)]="searchParameters.name" />
+                        </div>
+                    </div>
+    
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="number" value="" placeholder="Code" class="form-control" name="code" #code="ngModel"
+                                [(ngModel)]="searchParameters.code" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Contraindications" class="form-control" name="contraindications"
+                                #contraindications="ngModel" [(ngModel)]="searchParameters.contraindications" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Type" class="form-control" name="type"
+                                #type="ngModel" [(ngModel)]="searchParameters.type" />
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <input type="submit" value="Search" mat-raised-button class="btn btn-success">
+                    </div>
+                   
+                </div>
+               
+
+            </form>
+
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Medicines</h4>
+                    <p class="card-category">This is the list of all the medications. You can search them above.</p>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+                        <thead class="text-success">
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Type</th>
+                            <th>Contraindications</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let k of allMedicines'>
+                                <td>{{k.name}}</td>
+                                <td>{{k.code}}</td>
+                                <td>{{k.type}}</td>
+                                <td>{{k.contraindications}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
