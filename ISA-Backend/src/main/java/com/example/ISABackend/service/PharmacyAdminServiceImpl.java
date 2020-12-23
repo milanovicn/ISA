@@ -2,6 +2,7 @@ package com.example.ISABackend.service;
 
 import com.example.ISABackend.model.Pharmacy;
 import com.example.ISABackend.model.Pharmacy_Admin;
+import com.example.ISABackend.model.User;
 import com.example.ISABackend.repository.PharmacyAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,33 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
         }
         return listaByIdPharmacy;
     }
+    @Override
 
+    public Pharmacy getPharmacyByAdminId(Long adminId)
+    {
+        Pharmacy_Admin pa = pharmacyAdminRepository.getOne(adminId);
+        return pa.getPharmacy();
+    }
+@Override
+    public Pharmacy_Admin updateAdmin(Pharmacy_Admin updatedAdmin) {
+        Pharmacy_Admin fromRepository =  getByEmail(updatedAdmin.getEmail());
+
+        fromRepository.setAddress(updatedAdmin.getAddress());
+        fromRepository.setFirstName(updatedAdmin.getFirstName());
+        fromRepository.setLastName(updatedAdmin.getLastName());
+        fromRepository.setCity(updatedAdmin.getCity());
+        fromRepository.setCountry(updatedAdmin.getCountry());
+        fromRepository.setPhoneNumber(updatedAdmin.getPhoneNumber());
+        fromRepository.setPassword(updatedAdmin.getPassword());
+
+        pharmacyAdminRepository.save(fromRepository);
+
+        return fromRepository;
+    }
+
+  //  public Pharmacy_Admin getByIdP(Long id) {
+       // return pharmacyAdminRepository.findByIdPharmacy(id);
+   // }
 
 
 }

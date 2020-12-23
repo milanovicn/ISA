@@ -5,4 +5,5 @@ import com.example.ISABackend.model.Pharmacy_Admin;
 
 public interface PharmacyService {
     public Pharmacy getById(Long id);
+    public Pharmacy updatePharmacy(Pharmacy updatedPharmacy);
 }
