@@ -57,7 +57,7 @@ public class LoginController {
             session.setAttribute("pharmacist", pharmacist);
 */
 
-        return new ResponseEntity<>(HttpStatus.CHECKPOINT);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 }
 
     @PostMapping(value = "/logout")

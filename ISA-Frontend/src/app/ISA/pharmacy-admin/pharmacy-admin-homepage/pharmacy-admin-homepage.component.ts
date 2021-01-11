@@ -35,7 +35,9 @@ export class PharmacyAdminHomepageComponent implements OnInit {
     this.loginService.getLoggedInUser().subscribe({
       next: user => {
         this.user = user;
-
+        if (user.prviPutLogovan == true) {
+          this.router.navigate(["/pharmacy-admin-homepage/changepassword"]);
+        }
       }
 
     });

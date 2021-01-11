@@ -5,44 +5,44 @@
         <h1>My Pharmacy</h1>
 
         <div class="row">
-            <form (ngSubmit)="editPharmacy()" #loginForm="ngForm">
+            <div class="col">
+                <form (ngSubmit)="editPharmacy()" #loginForm="ngForm">
 
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <th>Pharmacy Name</th>
 
+                            <input type="text" value="" placeholder="Naziv apoteke" class="form-control" name="name"
+                                #name="ngModel" [(ngModel)]="myPharmacy.name" />
 
-
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <th>Naziv apoteke</th>
-
-                        <input type="text" value="" placeholder="Naziv apoteke" class="form-control" name="name"
-                            #name="ngModel" [(ngModel)]="myPharmacy.name" />
-
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <th>Opis apoteke</th>
-                        <input type="text" value="" placeholder="Opis apoteke" class="form-control" name="description"
-                            #description="ngModel" [(ngModel)]="myPharmacy.description" />
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <th>Pharmacy Description</th>
+                            <input type="text" value="" placeholder="Opis apoteke" class="form-control"
+                                name="description" #description="ngModel" [(ngModel)]="myPharmacy.description" />
 
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <th>Adresa apoteke</th>
-                        <input type="text" value="" placeholder="Adresa apoteke" class="form-control" name="address"
-                            #address="ngModel" [(ngModel)]="myPharmacy.address" />
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <th>Pharmacy Address</th>
+                            <input type="text" value="" placeholder="Adresa apoteke" class="form-control" name="address"
+                                #address="ngModel" [(ngModel)]="myPharmacy.address" />
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <input type="submit" value="Edit profile" mat-raised-button class="btn btn-success">
-                </div>
-            </form>
+                    <div>
+                        <input type="submit" value="Edit profile" mat-raised-button class="btn btn-success">
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
     <div style="margin-left:300px; margin-top:-50px; padding:60px;">
-        <h1>My Dermatologist</h1>
+        <h1>Dermatologists</h1>
         <div class="row">
             <div class="card">
                 <div class="card-header card-header-success">
@@ -52,11 +52,13 @@
                     <table class="table">
                         <thead class="text-success">
                             <th>ID</th>
+                            <th>First Name</th>
                             <th>Last name</th>
                         </thead>
                         <tbody>
                             <tr *ngFor='let k of myDermas'>
                                 <td>{{k.id}}</td>
+                                <td>{{k.firstName}}</td>
                                 <td>{{k.lastName}}</td>
                             </tr>
                         </tbody>

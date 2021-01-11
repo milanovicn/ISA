@@ -40,31 +40,17 @@
         </div>
     </div>
 
-    <div style="margin-left:300px; margin-top:50px; padding:60px;">
-        <h1>Log in</h1>
-        <form (ngSubmit)="login()" #loginForm="ngForm">
-            <div class="row">
-                <div class="col">
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <input type="text" value="" placeholder="E-mail" class="form-control" required name="email"
-                                #email="ngModel" [(ngModel)]="loginRequest.email"/>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-8">
-                        <div class="form-group">
-                            <input type="password" value="" placeholder="Password" class="form-control" required
-                                name="password" #password="ngModel" [(ngModel)]="loginRequest.password"/>
-                        </div>
-                    </div>
-
-                    <div>
-                        <input type="submit" value="Log in" mat-raised-button class="btn btn-success">
-                    </div>
-                </div>
-
+    <div style="margin-left:300px; margin-top:50px; padding:200px;">
+        <div class="col">
+            <div class="alert alert-success alert-with-icon" data-notify="container">
+                <i class="material-icons" data-notify="icon">mail</i>
+                <button mat-button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="material-icons">close</i>
+                </button>
+                <span data-notify="message" style="text-align: center;">The registration verification was sent to your email address. 
+                    Please confirm your registration there, so you can access your account.
+                </span>
             </div>
-        </form>
+        </div>
     </div>
 </div>

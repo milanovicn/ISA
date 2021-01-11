@@ -1,0 +1,121 @@
+<div class="wrapper" style="background-color:white; margin-top: -50px; ">
+    <div>
+        <div class="sidebar" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+            <div class="sidebar-background" style="background-image: url(./assets/img/background.jpg)"></div>
+            <div class="logo">
+                <a href="#" class="simple-text">
+                    <div class="logo-img">
+                        <img src="/assets/img/logo.png" />
+                    </div>
+                    My Pharmacy
+                </a>
+            </div>
+            <div class="sidebar-wrapper">
+                <ul class="nav">
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['/login']"> <i class="material-icons">person</i>
+                            <p style="color: green; font-weight: 500;">Log in</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['/homepage/registration']"> <i
+                                class="material-icons">person_add</i>
+                            <p style="color: green; font-weight: 500;">Register</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['/homepage/pharmacies']"> <i
+                                class="material-icons">add_business</i>
+                            <p style="color: green; font-weight: 500;">Pharmacies</p>
+                        </a>
+                    </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['/homepage/medicines']"> <i
+                                class="material-icons">scatter_plot</i>
+                            <p style="color: green; font-weight: 500;">Medicines</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-left:300px; margin-top:50px; padding:60px;">
+        <h1>Register</h1>
+        <form (ngSubmit)="register()" #registrationForm="ngForm">
+            <div class="row">
+                <div class="col">
+
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="First Name" class="form-control" required
+                                name="firstName" #firstName="ngModel" [(ngModel)]="registrationRequest.firstName"/>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Last Name" class="form-control" required
+                                name="lastName" #lastName="ngModel" [(ngModel)]="registrationRequest.lastName"/>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Address" class="form-control" required
+                                name="address" #address="ngModel" [(ngModel)]="registrationRequest.address"/>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="City" class="form-control" required
+                                name="city" #city="ngModel" [(ngModel)]="registrationRequest.city"/>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="Country" class="form-control" required
+                                name="country" #country="ngModel" [(ngModel)]="registrationRequest.country"/>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <input type="number" value="" placeholder="Phone Number" class="form-control" required
+                                name="phoneNumber" #phoneNumber="ngModel" [(ngModel)]="registrationRequest.phoneNumber"/>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <input type="text" value="" placeholder="E-mail" class="form-control" required name="email"
+                                #email="ngModel" [(ngModel)]="registrationRequest.email"/>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <input type="password" value="" placeholder="Password" class="form-control" required
+                                name="password" #password="ngModel" [(ngModel)]="registrationRequest.password"/>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <input type="password" value="" placeholder="Repeat Password" class="form-control" required
+                                name="passwordCheck" [(ngModel)]="passwordCheck"/>
+                        </div>
+                    </div>
+                   
+
+                    <div>
+                        <input type="submit" value="Register" mat-raised-button class="btn btn-success">
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

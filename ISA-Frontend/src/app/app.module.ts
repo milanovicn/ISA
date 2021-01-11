@@ -40,6 +40,8 @@ import { AllMedicinesComponent } from './ISA/homepage/all-medicines/all-medicine
 
 import { PharmacyAdminHisPharmacyComponent } from './ISA/pharmacy-admin/pharmacy-admin-hispharmacy/pharmacy-admin-hispharmacy.component';
 import { PharmacyService1 } from './ISA/shared/service/pharmacy-service';
+import { RegistrationComponent } from './ISA/homepage/registration/registration.component';
+import { RegistrationNoticeComponent } from './ISA/homepage/registration-notice/registration-notice.component';
 
 
 @NgModule({
@@ -75,6 +77,8 @@ import { PharmacyService1 } from './ISA/shared/service/pharmacy-service';
     PharmacyAdminHomepageComponent,
     AllPharmaciesComponent,
     AllMedicinesComponent,
+    RegistrationComponent,
+    RegistrationNoticeComponent
     //PharmacyAdminHisPharmacyComponent,
 
 
