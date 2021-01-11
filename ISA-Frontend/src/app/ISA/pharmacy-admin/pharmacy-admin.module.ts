@@ -8,6 +8,10 @@ import { PharmacyAdminNavbarComponent } from './pharmacy-admin-navbar/pharmacy-a
 import { PharmacyAdminProfileComponent } from './pharmacy-admin-profile/pharmacy-admin-profile.component';
 import { FirstLoginComponent } from './first-login/first-login.component';
 import { PharmacyAdminHisPharmacyComponent } from './pharmacy-admin-hispharmacy/pharmacy-admin-hispharmacy.component';
+import { PharmasComponent } from './pharmas-pharmacy/pharmas-pharmacy.component';
+import { DermasComponent } from './dermas-pharmacy/dermas-pharmacy.component';
+
+
 
 
 @NgModule({
@@ -15,7 +19,9 @@ import { PharmacyAdminHisPharmacyComponent } from './pharmacy-admin-hispharmacy/
     PharmacyAdminNavbarComponent,
     PharmacyAdminHisPharmacyComponent,
     PharmacyAdminProfileComponent,
-    FirstLoginComponent
+    FirstLoginComponent,
+    DermasComponent,
+    PharmasComponent
   ],
   imports: [
     CommonModule,
