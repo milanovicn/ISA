@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   response: Response;
   respBool: boolean = false;
   loginRequest: Login;
+  request: Request;
 
   constructor(private router: Router, private loginService: LoginService) {
     this.loginRequest = new Login();
@@ -29,10 +30,15 @@ export class LoginComponent implements OnInit {
   login() {
     this.respBool = false;
     this.loginService.login(this.loginRequest).subscribe(result => this.getUser(),
-      err => this.respBool = true
+      err => this.alertError()
 
     );
+    
 
+  }
+
+  alertError() {
+      alert("Wrong password and/or e-mail. Please, try again.");
   }
 
   getUser() {
@@ -44,25 +50,22 @@ export class LoginComponent implements OnInit {
         console.log(this.user);
 
         if (this.user.userRole == "PATIENT") {
-          console.log(this.user);
+
           this.router.navigate(["/user-homepage"]);
 
         } else if (this.user.userRole == "PHARMACY_ADMIN") {
 
-          if (user.prviPutLogovan == true) {
-            console.log(this.user);
-            this.router.navigate(["/pharmacy-admin-homepage/changepassword"]);
-          }
-          else {
-            console.log(this.user);
 
-            this.router.navigate(["/pharmacy-admin-homepage"]);
-          }
+          this.router.navigate(["/pharmacy-admin-homepage"]);
+
         }
-       
+
       }
 
     });
+
+
+
 
   }
 

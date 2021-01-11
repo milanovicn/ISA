@@ -1,5 +1,6 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.enums.UserRole;
 import com.example.ISABackend.model.Medicine;
 import com.example.ISABackend.model.User;
 import com.example.ISABackend.repository.UserRepository;
@@ -65,6 +66,29 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
+    }
+
+    @Override
+    public User registerUser(User newUser) {
+        if(getByEmail(newUser.getEmail()) == null){
+            User u = new User();
+            u.setPassword(newUser.getPassword());
+            u.setFirstName(newUser.getFirstName());
+            u.setLastName(newUser.getLastName());
+            u.setAddress(newUser.getAddress());
+            u.setCity(newUser.getCity());
+            u.setCountry(newUser.getCountry());
+            u.setPhoneNumber(newUser.getPhoneNumber());
+            u.setEmail(newUser.getEmail());
+            u.setPrviPutLogovan(true);
+            u.setUserRole(UserRole.PATIENT);
+
+            userRepository.save(u);
+            return u;
+        }
+        else {
+            return null;
+        }
     }
 
 

@@ -23,7 +23,7 @@ export class PharmacyAdminHisPharmacyComponent implements OnInit {
   myDermas: Dermatologist[] = [];
 
 
-  constructor(private _router: Router,private pharmacyService: PharmacyService,private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
+  constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
     this.myPharmacy = new Pharmacy();
     this.myDermas = [];
@@ -32,7 +32,7 @@ export class PharmacyAdminHisPharmacyComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
 
-    
+
     console.log(this.user);
   }
 
@@ -42,15 +42,16 @@ export class PharmacyAdminHisPharmacyComponent implements OnInit {
     this.pharmacyService.updatePharmacy(this.myPharmacy).subscribe();
     this.refresh();
   }
- 
+
 
   getAllDermas() {
     this.pharmacyService.getDermatologist(this.myPharmacy.id).subscribe({
-           next: dermatologist => {
-             this.myDermas = dermatologist;
-           }
-       });
+      next: dermatologist => {
+        this.myDermas = dermatologist;
+      }
+    });
   }
+
   getUser() {
 
     this.loginService.getLoggedInUser().subscribe({
@@ -59,24 +60,25 @@ export class PharmacyAdminHisPharmacyComponent implements OnInit {
 
         console.log(this.user);
         this.getPharmacyById();
-        this.getAllDermas();
+        
       }
 
     });
 
   }
 
-
-  refresh(){
+  refresh() {
     window.location.reload();
   }
-  getPharmacyById(){
+
+  getPharmacyById() {
     this.pharmacyAdminService.getPharmacyByAdminId(this.user.id).subscribe({
-        next: pharmacy => {
-       this.myPharmacy = pharmacy;
-        }
+      next: pharmacy => {
+        this.myPharmacy = pharmacy;
+        this.getAllDermas();
+      }
     });
 
   }
- 
+
 }

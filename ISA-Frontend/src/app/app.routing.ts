@@ -12,10 +12,14 @@ import { UserModule } from './ISA/user/user.module';
 import { PharmacyAdminModule } from './ISA/pharmacy-admin/pharmacy-admin.module';
 import { AllPharmaciesComponent } from './ISA/homepage/all-pharmacies/all-pharmacies.component';
 import { AllMedicinesComponent } from './ISA/homepage/all-medicines/all-medicines.component';
+import { RegistrationComponent } from './ISA/homepage/registration/registration.component';
+import { RegistrationNoticeComponent } from './ISA/homepage/registration-notice/registration-notice.component';
 
 const routes: Routes =[
   { path: 'homepage', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'homepage/registration', component: RegistrationComponent },
+  { path: 'homepage/registration-notice', component: RegistrationNoticeComponent },
   { path: 'homepage/pharmacies', component: AllPharmaciesComponent },
   { path: 'homepage/medicines', component: AllMedicinesComponent },
   { path: '', redirectTo: 'homepage', pathMatch: 'full',}, 

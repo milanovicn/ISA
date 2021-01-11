@@ -14,6 +14,10 @@ export class UserService {
     constructor(private http: HttpClient) {
     }
 
+    public register(newUser:User){
+      return this.http.post<User>("/api/user/register", newUser);
+  }
+
     public update(updatedUser:User){
         return this.http.put("/api/user/edit", updatedUser);
     }

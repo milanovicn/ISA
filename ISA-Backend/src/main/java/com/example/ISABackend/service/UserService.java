@@ -10,5 +10,5 @@ public interface UserService {
     public User getByEmail(String email);
     public User updateUser(User updatedUser);
     public User addAllergy(Long user_id, Long medicine_id);
-
+    public User registerUser(User newUser);
 }

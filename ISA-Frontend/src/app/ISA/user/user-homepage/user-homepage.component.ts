@@ -35,7 +35,12 @@ export class UserHomepageComponent implements OnInit {
     this.loginService.getLoggedInUser().subscribe({
       next: user => {
         this.user = user;
-
+        if (user.prviPutLogovan == true) {
+          this.loginService.logout(this.request).subscribe(
+            result=>this.router.navigate(["/homepage/registration-notice"])
+          );
+        
+        }
       }
 
     });
