@@ -32,7 +32,7 @@ public class Pharmacy {
     private Set<Pharmacy_Admin> pharmacistAdmin = new HashSet<Pharmacy_Admin>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacist> pharmacist = new HashSet<Pharmacist>();
 
     @JsonIgnore

@@ -8,12 +8,14 @@ insert into pharmacy.user(id, first_name, last_name, email, phone_number, passwo
 insert into pharmacy.user(id, first_name, last_name, email, phone_number, password, address, city, country,  user_role,prvi_put_logovan) values (2, 'Zika', 'Zikic', 'patient2@pharmacy.com', 0692226222, '123', 'Pacijentica 22/22', 'Novi Sad', 'Srbija', 2,0)
 
 -- PHARMACISTS
-insert into  pharmacy.pharmacist(id, email, first_name, last_name, password, phone_number, user_role, pharmacy_id, address, city, country ) values (1, 'pharmacist1@pharmacy.com', 'Sanja', 'Sanjic', '123', 0651234567, 3, 1, 'Ulica Farmaceuta 1', 'Novi Sad', 'Srbija')
-insert into pharmacy.pharmacist(id, email, first_name, last_name, password, phone_number, user_role, pharmacy_id, address, city, country ) values (2, 'pharmacist2@pharmacy.com', 'Tanja', 'Tanjic', '123', 0657654321, 3, 1, 'Ulica Farmaceuta 2', 'Novi Sad', 'Srbija')
+insert into  pharmacy.pharmacist(id, email, first_name, last_name, password, phone_number, user_role, pharmacy_id, address, city, country, rate) values (1, 'pharmacist1@pharmacy.com', 'Sanja', 'Sanjic', '123', 0651234567, 3, 1, 'Ulica Farmaceuta 1', 'Novi Sad', 'Srbija',4)
+insert into pharmacy.pharmacist(id, email, first_name, last_name, password, phone_number, user_role, pharmacy_id, address, city, country, rate) values (2, 'pharmacist2@pharmacy.com', 'Tanja', 'Tanjic', '123', 0657654321, 3, 1, 'Ulica Farmaceuta 2', 'Novi Sad', 'Srbija',3)
+insert into  pharmacy.pharmacy_pharmacist(pharmacy_id,pharmacist_id) values (1,1)
+insert into  pharmacy.pharmacy_pharmacist(pharmacy_id,pharmacist_id) values (2,2)
 
 -- DERMATOLOGISTS
-insert into  pharmacy.dermatologist(id, email, first_name, last_name, password, phone_number, user_role, address, city, country ) values (1, 'dermatologist1@pharmacy.com', 'Pera', 'Peric', '123', 066123123, 4, 'Ulica Dermatologa 1', 'Novi Sad', 'Srbija')
-insert into pharmacy.dermatologist(id, email, first_name, last_name, password, phone_number, user_role, address, city, country) values (2, 'dermatologist2@pharmacy.com', 'Tanja', 'Tanjic', '123', 066321321, 4, 'Ulica Dermatologa 2', 'Novi Sad', 'Srbija')
+insert into  pharmacy.dermatologist(id, email, first_name, last_name, password, phone_number, user_role, address, city, country, rate) values (1, 'dermatologist1@pharmacy.com', 'Pera', 'Peric', '123', 066123123, 4, 'Ulica Dermatologa 1', 'Novi Sad', 'Srbija',2)
+insert into pharmacy.dermatologist(id, email, first_name, last_name, password, phone_number, user_role, address, city, country, rate) values (2, 'dermatologist2@pharmacy.com', 'Tanja', 'Tanjic', '123', 066321321, 4, 'Ulica Dermatologa 2', 'Novi Sad', 'Srbija',4)
 insert into  pharmacy.pharmacy_dermatologist(pharmacy_id,dermatologist_id) values (1,1)
 insert into  pharmacy.pharmacy_dermatologist(pharmacy_id,dermatologist_id) values (2,2)
 

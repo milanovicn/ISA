@@ -3,12 +3,12 @@
 
     <div style="margin-left:300px; margin-top:50px; padding:60px;">
         <h1>My Pharmacy</h1>
-
         <div class="row">
-            <div class="col">
-                <form (ngSubmit)="editPharmacy()" #loginForm="ngForm">
+            <form (ngSubmit)="editPharmacy()" #loginForm="ngForm">
 
-                    <div class="col-sm-12">
+                <div class="row">
+
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <th>Pharmacy Name</th>
 
@@ -18,7 +18,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <th>Pharmacy Description</th>
                             <input type="text" value="" placeholder="Opis apoteke" class="form-control"
@@ -26,46 +26,90 @@
 
                         </div>
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <div class="form-group">
                             <th>Pharmacy Address</th>
                             <input type="text" value="" placeholder="Adresa apoteke" class="form-control" name="address"
                                 #address="ngModel" [(ngModel)]="myPharmacy.address" />
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <th>Pharmacy Rate</th>
+                            <input type="number" disabled value="" placeholder="Opis apoteke" class="form-control "
+                                name="rate" #description="ngModel" [(ngModel)]="myPharmacy.rate" />
+
+                        </div>
+                    </div>
+
                     <div>
                         <input type="submit" value="Edit profile" mat-raised-button class="btn btn-success">
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
+        </div>
+        
 
-        </div>
-    </div>
-    <div style="margin-left:300px; margin-top:-50px; padding:60px;">
-        <h1>Dermatologists</h1>
-        <div class="row">
-            <div class="card">
-                <div class="card-header card-header-success">
-                    <h4 class="card-title">Dermatologist</h4>
-                </div>
-                <div class="card-content table-responsive table-full-width">
-                    <table class="table">
-                        <thead class="text-success">
-                            <th>ID</th>
-                            <th>First Name</th>
-                            <th>Last name</th>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor='let k of myDermas'>
-                                <td>{{k.id}}</td>
-                                <td>{{k.firstName}}</td>
-                                <td>{{k.lastName}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
     </div>
+
+<div style="margin-left:300px; margin-top:-50px; padding:60px;">
+    <h1>Dermatologists</h1>
+    <div class="row">
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Dermatologist</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-success">
+                      
+                        <th>First Name</th>
+                        <th>Last name</th>
+                        <th>Rate</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of myDermas'>
+                      
+                            <td>{{k.firstName}}</td>
+                            <td>{{k.lastName}}</td>
+                            <td>{{k.rate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div style="margin-left:300px; margin-top:-50px; padding:60px;">
+    <h1>Pharmacists</h1>
+    <div class="row">
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Pharmacists</h4>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-success">
+                    
+                        <th>First Name</th>
+                        <th>Last name</th>
+                        <th>Rate</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let a of myPharmas'>
+                           
+                            <td>{{a.firstName}}</td>
+                            <td>{{a.lastName}}</td>
+                            <td>{{a.rate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
 </div>

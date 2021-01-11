@@ -1,7 +1,7 @@
 import { books_v1 } from "googleapis";
 
   
-export class Dermatologist{
+export class Pharmacist{
     id: number;
     firstName:string;
     lastName:string;

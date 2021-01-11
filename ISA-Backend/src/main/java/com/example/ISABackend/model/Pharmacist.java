@@ -42,8 +42,10 @@ public class Pharmacist {
 
     @Column(name = "userRole", nullable = false)
     private UserRole userRole;
+    @Column(name = "rate", nullable = false)
+    private double rate;
 
-    public Pharmacist(Pharmacy pharmacy, String firstName, String lastName, String email, String phoneNumber, String password, String address, String city, String country, UserRole userRole) {
+    public Pharmacist(Pharmacy pharmacy, String firstName, String lastName, String email, String phoneNumber, String password, String address, String city, String country, UserRole userRole, double rate) {
         this.pharmacy = pharmacy;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -54,6 +56,18 @@ public class Pharmacist {
         this.city = city;
         this.country = country;
         this.userRole = UserRole.PHARMACIST;
+        this.rate = rate;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public Pharmacist() {
     }
 
     public Long getId() {

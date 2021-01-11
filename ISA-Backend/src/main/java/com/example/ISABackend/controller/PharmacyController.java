@@ -79,4 +79,12 @@ public class PharmacyController {
         return  pharmacyService.getById(pharmacyId).getDermatologist();
     }
 
+
+    @GetMapping(value = "/mypharmas/{pharmacyId}")
+    public Object getMyPharma(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        return  pharmacyService.getById(pharmacyId).getPharmacist();
+    }
 }

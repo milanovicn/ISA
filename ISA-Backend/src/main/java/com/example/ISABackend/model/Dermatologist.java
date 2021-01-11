@@ -38,7 +38,10 @@ public class Dermatologist {
     @Column(name = "userRole", nullable = false)
     private UserRole userRole;
 
-    public Dermatologist(String firstName, String lastName, String email, String phoneNumber, String password, String address, String city, String country, UserRole userRole) {
+    @Column(name = "rate", nullable = false)
+    private double rate;
+
+    public Dermatologist(String firstName, String lastName, String email, String phoneNumber, String password, String address, String city, String country, UserRole userRole, double rate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -48,6 +51,15 @@ public class Dermatologist {
         this.city = city;
         this.country = country;
         this.userRole = UserRole.DERMATOLOGIST;
+        this.rate = rate;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     public Dermatologist() {
