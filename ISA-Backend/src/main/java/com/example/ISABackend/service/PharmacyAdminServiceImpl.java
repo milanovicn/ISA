@@ -1,8 +1,12 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.dto.SearchDermatologist;
+import com.example.ISABackend.dto.SearchPharmacy;
+import com.example.ISABackend.model.Dermatologist;
 import com.example.ISABackend.model.Pharmacy;
 import com.example.ISABackend.model.Pharmacy_Admin;
 import com.example.ISABackend.model.User;
+import com.example.ISABackend.repository.DermatologistRepository;
 import com.example.ISABackend.repository.PharmacyAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +18,8 @@ import java.util.Collection;
 public class PharmacyAdminServiceImpl implements PharmacyAdminService {
     @Autowired
     PharmacyAdminRepository pharmacyAdminRepository;
+    @Autowired
+    DermatologistRepository dermatologistRepository;
 
     public Pharmacy_Admin getById(Long id) {
         return pharmacyAdminRepository.findById(id).orElseGet(null);  }
@@ -77,6 +83,85 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
   //  public Pharmacy_Admin getByIdP(Long id) {
        // return pharmacyAdminRepository.findByIdPharmacy(id);
    // }
+  public ArrayList<Dermatologist> searchD(SearchDermatologist searchParameters) {
 
+      ArrayList<Dermatologist> ret = new ArrayList<Dermatologist>();
+
+      // getting all dermas
+      for (Dermatologist p : dermatologistRepository.findAll()) {
+          ret.add(p);
+      }
+
+      for (Dermatologist p : dermatologistRepository.findAll()) {
+
+          // if derma address doesn't meet search condition
+          if (!searchParameters.getAddress().equals("all")) {
+              if (!p.getAddress().toLowerCase().contains(searchParameters.getAddress().toLowerCase())) {
+                  // and it is in the ret list
+                  if (ret.contains(p)) {
+                      // remove it from the ret list
+                      ret.remove(p);
+                  }
+              }
+          }
+
+          // if pharmacy name doesn't meet search condition
+          if (!searchParameters.getFirstname().equals("all")) {
+              if (!p.getFirstName().toLowerCase().contains(searchParameters.getFirstname().toLowerCase())) {
+                  // and it is in the ret list
+                  if (ret.contains(p)) {
+                      // remove it from the ret list
+                      ret.remove(p);
+                  }
+              }
+          }
+          // if  name doesn't meet search condition
+          if (!searchParameters.getLastname().equals("all")) {
+              if (!p.getLastName().toLowerCase().contains(searchParameters.getLastname().toLowerCase())) {
+                  // and it is in the ret list
+                  if (ret.contains(p)) {
+                      // remove it from the ret list
+                      ret.remove(p);
+                  }
+              }
+          }
+
+          // if derma's description doesn't meet search condition
+          if (!searchParameters.getEmail().equals("all")) {
+              if (!p.getEmail().toLowerCase().contains(searchParameters.getEmail().toLowerCase())) {
+                  // and it is in the ret list
+                  if (ret.contains(p)) {
+                      // remove it from the ret list
+                      ret.remove(p);
+                  }
+              }
+          }
+
+          // if derma's city doesn't meet search condition
+          if (!searchParameters.getCity().equals("all")) {
+              if (!p.getCity().toLowerCase().contains(searchParameters.getCity().toLowerCase())) {
+                  // and it is in the ret list
+                  if (ret.contains(p)) {
+                      // remove it from the ret list
+                      ret.remove(p);
+                  }
+              }
+          }
+
+          if (searchParameters.getRateTo() != 123456789 || searchParameters.getRateFrom() != -123456789) {
+              if (!(p.getRate() <= searchParameters.getRateTo() && p.getRate() >= searchParameters.getRateFrom())) {
+                  if (ret.contains(p)) {
+                      ret.remove(p);
+                  }
+              }
+          }
+
+
+      }
+
+      System.out.println("RET : " + ret);
+
+      return ret;
+  }
 
 }

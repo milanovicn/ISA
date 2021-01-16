@@ -5,6 +5,8 @@ import { User } from "../model/User";
 import { Medicine } from "../model/Medicine";
 import { Pharmacy } from "../model/Pharmacy";
 import { PharmacyAdmin } from "../model/PharmacyAdmin";
+import { SearchDermatologist } from "../model/SearchDermatologist";
+import { Dermatologist } from "../model/Dermatologist";
 
 
 @Injectable()
@@ -17,6 +19,9 @@ export class PharmacyAdminService {
         return this.http.put<User>("/api/pharmacy-admin/firstlogin/"+newPassword, updatedUser);
     }
 
+    public searchDermas(sp:SearchDermatologist):Observable<Dermatologist[]>{
+        return this.http.post<Dermatologist[]>("/api/pharmacy-admin/search", sp);
+      }
     
     public getPharmacyByAdminId(user_id:number):Observable<Pharmacy>{
         return this.http.get<Pharmacy>("/api/pharmacy-admin/pharmacy/getByAdminId/"+user_id);

@@ -1,5 +1,8 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.dto.SearchDermatologist;
+import com.example.ISABackend.dto.SearchPharmacy;
+import com.example.ISABackend.model.Dermatologist;
 import com.example.ISABackend.model.Pharmacy;
 import com.example.ISABackend.model.Pharmacy_Admin;
 import com.example.ISABackend.model.User;
@@ -15,7 +18,7 @@ import java.util.Collection;
 public interface PharmacyAdminService {
     public Pharmacy_Admin getById(Long id);
     public Pharmacy_Admin getByEmail(String email);
-
+    public ArrayList<Dermatologist> searchD(SearchDermatologist searchParameters);
 
     public Collection<Pharmacy_Admin> findAll();
     public  Pharmacy_Admin promeniLozinku(Long idAdmin, String noviPassword);
