@@ -1,5 +1,7 @@
 package com.example.ISABackend.controller;
 
+import com.example.ISABackend.dto.SearchDermatologist;
+import com.example.ISABackend.dto.SearchPharmacy;
 import com.example.ISABackend.model.Pharmacy_Admin;
 import com.example.ISABackend.model.User;
 import com.example.ISABackend.repository.MedicineRepository;
@@ -76,6 +78,11 @@ public class PharmacyAdminController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         return pharmacyAdminService.getPharmacyByAdminId(pharmacyAdminId);
+    }
+    @PostMapping(value = "/search")
+    public Object searchDerma(@RequestBody SearchDermatologist searchParameters) {
+
+        return pharmacyAdminService.searchD(searchParameters);
     }
 
     }
