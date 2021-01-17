@@ -33,4 +33,5 @@ export class PharmacyService {
   public getPharmacist(pharmacyId:number):Observable<Pharmacist[]>{
     return this.http.get<Pharmacist[]>("/api/pharmacy/mypharmas/"+pharmacyId);
   }
+  
 }
