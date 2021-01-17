@@ -2,10 +2,10 @@
 <div>
 
 
-
     <div style="margin-left:300px; margin-top:-50px; padding:60px;">
         <h1>Dermatologists</h1>
 
+        
         <form (ngSubmit)="searchDermas()" #allergyForm="ngForm">
             <div class="row">
 
@@ -60,11 +60,15 @@
                 <div class="col-sm-3">
                     <input type="submit" value="Search" mat-raised-button class="btn btn-success">
                 </div>
+                <form (ngSubmit)="refresh()" #allergyForm="ngForm">
+                    <div class="col-sm-3">
+                        <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
+                    </div>
+            </form>
 
             </div>
         </form>
-
-
+        
 
             <div class="row">
                 <div class="card">

@@ -34,6 +34,7 @@ export class DermasComponent implements OnInit {
     this.myPharmas = [];
     this.searchParameters = new SearchDermatologist();
   }
+ 
     searchDermas() {
     let sp = new SearchDermatologist();
     if (this.searchParameters.email == undefined) {

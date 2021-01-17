@@ -12,6 +12,7 @@ import { PharmacyService } from 'app/ISA/shared/service/pharmacy.service';
 import { pagespeedonline_v5 } from 'googleapis';
 import { Dermatologist } from 'app/ISA/shared/model/Dermatologist';
 import { Pharmacist } from 'app/ISA/shared/model/Pharmacist';
+import { SearchPharmacist } from 'app/ISA/shared/model/SearchPharmacist';
 
 @Component({
   selector: 'pharmas-pharmacy',
@@ -22,6 +23,7 @@ export class PharmasComponent implements OnInit {
   myPharmacy: Pharmacy;
   myDermas: Dermatologist[] = [];
   myPharmas: Pharmacist[] = [];
+  searchParameters: SearchPharmacist;
 
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
@@ -29,6 +31,7 @@ export class PharmasComponent implements OnInit {
     this.myPharmacy = new Pharmacy();
     this.myDermas = [];
     this.myPharmas=[];
+    this.searchParameters = new SearchPharmacist();
   }
 
   ngOnInit(): void {
@@ -43,6 +46,61 @@ export class PharmasComponent implements OnInit {
     console.log(this.user);
     this.pharmacyService.updatePharmacy(this.myPharmacy).subscribe();
     this.refresh();
+  }
+  
+  searchPharmas() {
+    let sp = new SearchPharmacist();
+    if (this.searchParameters.email == undefined) {
+      sp.email = "all";
+    } else {
+      sp.email = this.searchParameters.email;
+    }
+
+    if (this.searchParameters.firstname == undefined) {
+      sp.firstname = "all";
+    } else {
+      sp.firstname = this.searchParameters.firstname;
+    }
+    if (this.searchParameters.lastname == undefined) {
+      sp.lastname = "all";
+    } else {
+      sp.lastname = this.searchParameters.lastname;
+    }
+
+    if (this.searchParameters.city == undefined) {
+      sp.city = "all";
+    } else {
+      sp.city = this.searchParameters.city;
+    }
+
+    if (this.searchParameters.address == undefined) {
+      sp.address = "all";
+    } else {
+      sp.address = this.searchParameters.address;
+    }
+
+    if (this.searchParameters.rateFrom == undefined) {
+      sp.rateFrom = -123456789;
+    } else {
+      sp.rateFrom = this.searchParameters.rateFrom;
+    }
+
+    if (this.searchParameters.rateTo == undefined) {
+      sp.rateTo = 123456789;
+    } else {
+      sp.rateFrom = this.searchParameters.rateFrom;
+    }
+
+
+    console.log(this.searchParameters);
+    console.log(sp);
+
+    this.pharmacyAdminService.searchP(sp).subscribe({
+      next: pharmas => {
+        this.myPharmas = pharmas;
+      }
+
+    });
   }
 
 

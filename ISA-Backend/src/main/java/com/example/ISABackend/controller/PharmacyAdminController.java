@@ -1,30 +1,21 @@
 package com.example.ISABackend.controller;
 
 import com.example.ISABackend.dto.SearchDermatologist;
-import com.example.ISABackend.dto.SearchPharmacy;
+import com.example.ISABackend.dto.SearchPharmacist;
+import com.example.ISABackend.model.Pharmacist;
 import com.example.ISABackend.model.Pharmacy_Admin;
-import com.example.ISABackend.model.User;
-import com.example.ISABackend.repository.MedicineRepository;
 import com.example.ISABackend.repository.PharmacyAdminRepository;
-import com.example.ISABackend.service.MedicineService;
 import com.example.ISABackend.service.PharmacyAdminService;
 import com.example.ISABackend.service.PharmacyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
-
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
-
-import java.util.Collection;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/pharmacy-admin")
@@ -83,6 +74,11 @@ public class PharmacyAdminController {
     public Object searchDerma(@RequestBody SearchDermatologist searchParameters) {
 
         return pharmacyAdminService.searchD(searchParameters);
+    }
+    @PostMapping(value = "/searchP")
+    public ArrayList<Pharmacist> searchPharma(@RequestBody SearchPharmacist searchParameters) {
+
+        return pharmacyAdminService.searchP(searchParameters);
     }
 
     }

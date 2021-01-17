@@ -1,31 +1,107 @@
 <pharmacy-admin-navbar></pharmacy-admin-navbar>
+<div>
 
-<div style="margin-left:300px; margin-top:-50px; padding:60px;">
-    <h1>Pharmacists</h1>
-    <div class="row">
-        <div class="card">
-            <div class="card-header card-header-success">
-                <h4 class="card-title">Pharmacists</h4>
+
+
+    <div style="margin-left:300px; margin-top:-50px; padding:60px;">
+        <h1>Pharmacist</h1>
+
+        <form (ngSubmit)="searchPharmas()" #allergyForm="ngForm">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="First Name" class="form-control" name="name" #name="ngModel"
+                            [(ngModel)]="searchParameters.firstname" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Last Name" class="form-control" name="name" #name="ngModel"
+                            [(ngModel)]="searchParameters.lastname" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="City" class="form-control" name="city" #city="ngModel"
+                            [(ngModel)]="searchParameters.city" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Address" class="form-control" name="address"
+                            #address="ngModel" [(ngModel)]="searchParameters.address" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Email" class="form-control" name="description"
+                            #description="ngModel" [(ngModel)]="searchParameters.email" />
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <input type="number" value="" placeholder="Rate from" class="form-control" name="rateFrom"
+                            #rateFrom="ngModel" [(ngModel)]="searchParameters.rateFrom" />
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <input type="number" value="" placeholder="Rate to" class="form-control" name="rateTo"
+                            #rateTo="ngModel" [(ngModel)]="searchParameters.rateTo" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <input type="submit" value="Search" mat-raised-button class="btn btn-success">
+                </div>
+                <form (ngSubmit)="refresh()" #allergyForm="ngForm">
+                    <div class="col-sm-3">
+                        <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
+                    </div>
+            </form>
             </div>
-            <div class="card-content table-responsive table-full-width">
-                <table class="table">
-                    <thead class="text-success">
-                    
-                        <th>First Name</th>
-                        <th>Last name</th>
-                        <th>Rate</th>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor='let a of myPharmas'>
-                           
-                            <td>{{a.firstName}}</td>
-                            <td>{{a.lastName}}</td>
-                            <td>{{a.rate}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+        </form>
+
+
+
+            <div class="row">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title">Pharmacist</h4>
+                    </div>
+                    <div class="card-content table-responsive table-full-width">
+                        <table class="table">
+                            <thead class="text-success">
+
+                                <th>First Name</th>
+                                <th>Last name</th>
+                                <th>Email</th>
+                                <th>City</th>
+                                <th>Rate</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let k of myPharmas'>
+
+                                    <td>{{k.firstName}}</td>
+                                    <td>{{k.lastName}}</td>
+                                    <td>{{k.email}}</td>
+                                    <td>{{k.city}}</td>
+                                    <td>{{k.rate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
+       
+
     </div>
 
+    
 </div>
