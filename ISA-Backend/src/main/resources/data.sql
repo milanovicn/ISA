@@ -12,9 +12,9 @@ insert into  pharmacy.pharmacist(id, email, first_name, last_name, password, pho
 insert into pharmacy.pharmacist(id, email, first_name, last_name, password, phone_number, user_role, pharmacy_id, address, city, country, rate) values (2, 'pharmacist11@pharmacy.com', 'Alvaro', 'Sanchez', '123', 065763421, 3, 1, 'Ulica Farmaceuta 2', 'Novi Sad', 'Srbija',5)
 insert into pharmacy.pharmacist(id, email, first_name, last_name, password, phone_number, user_role, pharmacy_id, address, city, country, rate) values (3, 'pharmacist2@pharmacy.com', 'Tanja', 'Tanjic', '123', 0657654321, 3, 1, 'Ulica Farmaceuta 3', 'Novi Sad', 'Srbija',3)
 
-insert into  pharmacy.pharmacy_pharmacist(pharmacy_id,pharmacist_id) values (1,1)
-insert into  pharmacy.pharmacy_pharmacist(pharmacy_id,pharmacist_id) values (1,2)
-insert into  pharmacy.pharmacy_pharmacist(pharmacy_id,pharmacist_id) values (2,3)
+INSERT INTO pharmacy.pharmacy_pharmacist(pharmacy_id, pharmacist_id) VALUES (1,1)
+INSERT INTO pharmacy.pharmacy_pharmacist(pharmacy_id, pharmacist_id) VALUES (2,2)
+INSERT INTO pharmacy.pharmacy_pharmacist(pharmacy_id, pharmacist_id) VALUES (2,3)
 
 -- DERMATOLOGISTS
 insert into  pharmacy.dermatologist(id, email, first_name, last_name, password, phone_number, user_role, address, city, country, rate) values (1, 'dermatologist1@pharmacy.com', 'Pera', 'Peric', '123', 066123123, 4, 'Ulica Dermatologa 1', 'Novi Sad', 'Srbija',2)
@@ -33,6 +33,7 @@ insert into pharmacy.medicine(id, code, contraindications, name, type, form, pre
 insert into pharmacy.medicine(id, code, contraindications, name, type, form, prescription, manufacturer, ingredients) values (2, 0120, 'Aktivni gastrični ili duodenalni ulkus, krvarenje ili perforacija', 'Rapten-K 50mg obložena tableta', 3, 1, 1, 'Galenika Beograd', 'Sastojci 2')
 insert into  pharmacy.medicine_replacement(medicine_id,replacement_id) values (1,2)
 insert into  pharmacy.medicine_replacement(medicine_id,replacement_id) values (2,1)
+
 
 insert into pharmacy.medicine(id, code, contraindications, name, type, form, prescription, manufacturer, ingredients) values (3, 0210, 'Preosetljivost na paracetamol ili na bilo koju od pomoćnih supstanci ', 'Febricet 500mg tableta', 6, 0, 1, 'Galenika Beograd', 'Sastojci 3')
 insert into pharmacy.medicine(id, code, contraindications, name, type, form, prescription, manufacturer, ingredients) values (4, 0220, 'Preosetljivost na acetilsalicilnu kiselinu ili druge saliciliate ili bilo koju od pomoćnih supstanci ovog
@@ -67,3 +68,19 @@ insert into pharmacy.user_allergies(user_id, allergies_id) values (1,7)
 insert into pharmacy.user_allergies(user_id, allergies_id) values (1,5)
 insert into pharmacy.user_allergies(user_id, allergies_id) values (2,5)
 insert into pharmacy.user_allergies(user_id, allergies_id) values (2,3)
+
+
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,1)
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,2)
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,3)
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (2,4)
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (2,5)
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (2,6)
+
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (3,7)
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (3,8)
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (3,9)
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,10)
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,11)
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,12)
+insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,13)

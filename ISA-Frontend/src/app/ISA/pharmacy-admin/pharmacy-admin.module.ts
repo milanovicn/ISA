@@ -10,6 +10,7 @@ import { FirstLoginComponent } from './first-login/first-login.component';
 import { PharmacyAdminHisPharmacyComponent } from './pharmacy-admin-hispharmacy/pharmacy-admin-hispharmacy.component';
 import { PharmasComponent } from './pharmas-pharmacy/pharmas-pharmacy.component';
 import { DermasComponent } from './dermas-pharmacy/dermas-pharmacy.component';
+import { PharmacyMedicineComponent } from './pharmacy-medicine/pharmacy-medicine.component';
 
 
 
@@ -21,7 +22,8 @@ import { DermasComponent } from './dermas-pharmacy/dermas-pharmacy.component';
     PharmacyAdminProfileComponent,
     FirstLoginComponent,
     DermasComponent,
-    PharmasComponent
+    PharmasComponent,
+    PharmacyMedicineComponent,
   ],
   imports: [
     CommonModule,

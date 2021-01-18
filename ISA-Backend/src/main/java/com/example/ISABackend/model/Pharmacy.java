@@ -39,7 +39,11 @@ public class Pharmacy {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Dermatologist> dermatologist = new HashSet<Dermatologist>();
 
-    public Pharmacy(String name, String description, String address, String city, double rate, Set<Pharmacy_Admin> pharmacistAdmin, Set<Pharmacist> pharmacist, Set<Dermatologist> dermatologist) {
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Medicine> medicine = new HashSet<Medicine>();
+
+    public Pharmacy(String name, String description, String address, String city, double rate, Set<Pharmacy_Admin> pharmacistAdmin, Set<Pharmacist> pharmacist, Set<Dermatologist> dermatologist, Set<Medicine> medicine) {
         this.name = name;
         this.description = description;
         this.address = address;
@@ -48,6 +52,15 @@ public class Pharmacy {
         this.pharmacistAdmin = pharmacistAdmin;
         this.pharmacist = pharmacist;
         this.dermatologist = dermatologist;
+        this.medicine = medicine;
+    }
+
+    public Set<Medicine> getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(Set<Medicine> medicine) {
+        this.medicine = medicine;
     }
 
     public Pharmacy() {
