@@ -93,4 +93,18 @@ public class PharmacyController {
         }
         return  pharmacyService.getById(pharmacyId).getPharmacist();
     }
+
+    @PutMapping(value = "/addmedicine/{medicine_id}")
+    public ResponseEntity<?> addNewMedicine(@RequestBody Pharmacy updatedUser, @PathVariable("medicine_id") Long medicine_id, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        Pharmacy u = pharmacyService.addMedicine(updatedUser.getId(), medicine_id);
+        if (u == null) {
+            return new ResponseEntity<String>("This medicine is already added!", HttpStatus.METHOD_NOT_ALLOWED);
+        }
+        return new ResponseEntity<Pharmacy>(u, HttpStatus.CREATED);
+    }
+
 }

@@ -1,22 +1,21 @@
 package com.example.ISABackend.service;
 
 import com.example.ISABackend.dto.SearchPharmacy;
+import com.example.ISABackend.model.Medicine;
 import com.example.ISABackend.model.Pharmacy;
 import com.example.ISABackend.model.User;
 import com.example.ISABackend.repository.PharmacyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 @Service
 public class PharmacyServiceImpl implements PharmacyService {
     @Autowired
     private PharmacyRepository pharmacyRepository;
-
+    @Autowired
+    private MedicineService medicineService;
 
     @Override
     public Pharmacy getById(Long id) {
@@ -130,6 +129,23 @@ public class PharmacyServiceImpl implements PharmacyService {
         pharmacyRepository.save(fromRepository);
 
         return fromRepository;
+
+    }
+
+    @Override
+    public Pharmacy addMedicine(Long pharmacy_id, Long medicine_id) {
+        Pharmacy u = getById(pharmacy_id);
+        Medicine m = medicineService.getById(medicine_id);
+        Set<Medicine> myMedicine = u.getMedicine();
+
+        if(!myMedicine.contains(m)) {
+            myMedicine.add(m);
+            pharmacyRepository.save(u);
+            return u;
+        }
+        else {
+            return null;
+        }
 
     }
 

@@ -27,16 +27,19 @@ export class PharmacyMedicineComponent implements OnInit {
   myMedicine : Medicine[] = [];
   searchParameters: SearchPharmacist;
   searchParameters2  : SearchMedicine;
-
+  newAllergy: number;
+  allMedications: Medicine[] = [];
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
     this.myPharmacy = new Pharmacy();
     this.myDermas = [];
     this.myPharmas=[];
+    this.allMedications = [];
     this.myMedicine = [];
     this.searchParameters = new SearchPharmacist();
     this.searchParameters2 = new SearchMedicine();
+    this.newAllergy = 0;
   }
   searchMedicine(){
     let sm = new SearchMedicine();
@@ -176,6 +179,7 @@ export class PharmacyMedicineComponent implements OnInit {
 
         console.log(this.user);
         this.getPharmacyById();
+        this.getAllMedicines();
         
       }
 
@@ -200,5 +204,25 @@ export class PharmacyMedicineComponent implements OnInit {
     });
 
   }
+  addMedicine(){
+    
+    console.log(this.newAllergy);
+    
+    this.pharmacyService.addMedicine(this.myPharmacy, this.newAllergy).subscribe({
+      next: myPharmacy => {
+        this.myPharmacy = myPharmacy;
 
+        console.log(this.myPharmacy);
+        this.refresh();
+      }
+    });
+  }
+
+  getAllMedicines() {
+    this.medicineService.getAllMedicines().subscribe({
+           next: medicines => {
+             this.allMedications = medicines;
+           }
+       });
+  }
 }

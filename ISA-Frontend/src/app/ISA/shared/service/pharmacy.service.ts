@@ -37,5 +37,9 @@ export class PharmacyService {
   public getMedicine(pharmacyId:number):Observable<Medicine[]>{
     return this.http.get<Medicine[]>("/api/pharmacy/mymedicine/"+pharmacyId);
   }
+  public addMedicine(updatedUser:Pharmacy, medicine_id:number){
+    return this.http.put<Pharmacy>("/api/pharmacy/addmedicine/" + medicine_id, updatedUser);
+  }
+
   
 }
