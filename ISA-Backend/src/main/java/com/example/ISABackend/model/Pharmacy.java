@@ -27,6 +27,7 @@ public class Pharmacy {
     @Column(name = "rate", nullable = false)
     private double rate;
 
+
     @JsonIgnore
     @OneToMany(mappedBy = "pharmacy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacy_Admin> pharmacistAdmin = new HashSet<Pharmacy_Admin>();
@@ -39,6 +40,10 @@ public class Pharmacy {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Dermatologist> dermatologist = new HashSet<Dermatologist>();
 
+//    @JsonIgnore
+//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<Medicine> medicineId = new HashSet<Medicine>();
+
     public Pharmacy(String name, String description, String address, String city, double rate, Set<Pharmacy_Admin> pharmacistAdmin, Set<Pharmacist> pharmacist, Set<Dermatologist> dermatologist) {
         this.name = name;
         this.description = description;
@@ -48,7 +53,16 @@ public class Pharmacy {
         this.pharmacistAdmin = pharmacistAdmin;
         this.pharmacist = pharmacist;
         this.dermatologist = dermatologist;
+        //this.medicineId=medicineId;
     }
+//
+//    public Set<Medicine> getMedicineId() {
+//        return medicineId;
+//    }
+//
+//    public void setMedicineId(Set<Medicine> medicineId) {
+//        this.medicineId = medicineId;
+//    }
 
     public Pharmacy() {
     }
