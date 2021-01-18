@@ -94,6 +94,7 @@ public class PharmacyController {
         return  pharmacyService.getById(pharmacyId).getPharmacist();
     }
 
+
     @PutMapping(value = "/addmedicine/{medicine_id}")
     public ResponseEntity<?> addNewMedicine(@RequestBody Pharmacy updatedUser, @PathVariable("medicine_id") Long medicine_id, @Context HttpServletRequest request) {
         if(authorize(request) == null ) {
@@ -106,5 +107,14 @@ public class PharmacyController {
         }
         return new ResponseEntity<Pharmacy>(u, HttpStatus.CREATED);
     }
+
+
+//    @GetMapping(value = "/myMedicine/{pharmacyId}")
+//    public Object getMyMedicine(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
+//        if(authorize(request) == null ) {
+//            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+//        }
+//        return  pharmacyService.getById(pharmacyId).getMedicineId();
+//    }
 
 }

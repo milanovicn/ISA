@@ -4,7 +4,7 @@
 
 
     <div style="margin-left:300px; margin-top:-50px; padding:60px;">
-        <h1>Pharmacist</h1>
+        <h1>Pharmacists</h1>
 
         <form (ngSubmit)="searchPharmas()" #allergyForm="ngForm">
             <div class="row">
@@ -84,6 +84,7 @@
                                 <th>Email</th>
                                 <th>City</th>
                                 <th>Rate</th>
+                                <th>Pharmacy</th>
                             </thead>
                             <tbody>
                                 <tr *ngFor='let k of myPharmas'>
@@ -93,8 +94,13 @@
                                     <td>{{k.email}}</td>
                                     <td>{{k.city}}</td>
                                     <td>{{k.rate}}</td>
+                                    <td><input 
+                                       #address="ngModel" [(ngModel)]="myPharmacy.name" disabled /></td>
+                                    
                                 </tr>
+                                
                             </tbody>
+                           
                         </table>
                     </div>
                 </div>
@@ -103,5 +109,6 @@
 
     </div>
 
-    
+   
+
 </div>

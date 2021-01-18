@@ -24,6 +24,7 @@ export class PharmasComponent implements OnInit {
   myDermas: Dermatologist[] = [];
   myPharmas: Pharmacist[] = [];
   searchParameters: SearchPharmacist;
+  myMedicine:Medicine[];
 
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
@@ -32,6 +33,7 @@ export class PharmasComponent implements OnInit {
     this.myDermas = [];
     this.myPharmas=[];
     this.searchParameters = new SearchPharmacist();
+  //  this.myMedicine=[];
   }
 
   ngOnInit(): void {
@@ -111,7 +113,13 @@ export class PharmasComponent implements OnInit {
       }
     });
   }
-
+  // getAllMedicine() {
+  //   this.pharmacyService.getMedicine(this.myPharmacy.id).subscribe({
+  //     next:  medicine => {
+  //       this.myMedicine = medicine;
+  //     }
+  //   });
+  // }
   getAllPharmas() {
     this.pharmacyService.getPharmacist(this.myPharmacy.id).subscribe({
       next: pharmacist => {
@@ -145,6 +153,7 @@ export class PharmasComponent implements OnInit {
         this.myPharmacy = pharmacy;
         this.getAllPharmas();
         this.getAllDermas();
+        //this.getAllMedicine();
         
         
       }

@@ -42,4 +42,7 @@ export class PharmacyService {
   }
 
   
+  // public getMedicine(pharmacyId:number):Observable<Medicine[]>{
+  //   return this.http.get<Medicine[]>("/api/pharmacy/myMedicine/"+pharmacyId);
+  // }
 }

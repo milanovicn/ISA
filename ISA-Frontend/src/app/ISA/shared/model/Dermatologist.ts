@@ -13,4 +13,5 @@ export class Dermatologist{
     phoneNumber:string;
     userRole:string;
     rate:number;
+   
 }
