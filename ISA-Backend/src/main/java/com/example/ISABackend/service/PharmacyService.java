@@ -13,5 +13,6 @@ public interface PharmacyService {
     public ArrayList<Pharmacy> search(SearchPharmacy searchParameters);
     public ArrayList<Pharmacy>  sort(ArrayList<Pharmacy> sortPharmacies, String sortType);
     public Pharmacy updatePharmacy(Pharmacy updatedPharmacy);
+    public Pharmacy addMedicine(Long pharmacy_id, Long medicine_id);
 
 }
