@@ -36,15 +36,13 @@ insert into  pharmacy.medicine_replacement(medicine_id,replacement_id) values (2
 
 
 insert into pharmacy.medicine(id, code, contraindications, name, type, form, prescription, manufacturer, ingredients) values (3, 0210, 'Preosetljivost na paracetamol ili na bilo koju od pomoćnih supstanci ', 'Febricet 500mg tableta', 6, 0, 1, 'Galenika Beograd', 'Sastojci 3')
-insert into pharmacy.medicine(id, code, contraindications, name, type, form, prescription, manufacturer, ingredients) values (4, 0220, 'Preosetljivost na acetilsalicilnu kiselinu ili druge saliciliate ili bilo koju od pomoćnih supstanci ovog
-leka', 'Aspirin 500 500mg tableta', 6, 0,0 , 'Galenika Beograd', 'Sastojci 3')
+insert into pharmacy.medicine(id, code, contraindications, name, type, form, prescription, manufacturer, ingredients) values (4, 0220, 'Preosetljivost na acetilsalicilnu kiselinu ili druge saliciliate ili bilo koju od pomoćnih supstanci ovog leka', 'Aspirin 500 500mg tableta', 6, 0,0 , 'Galenika Beograd', 'Sastojci 3')
 insert into  pharmacy.medicine_replacement(medicine_id,replacement_id) values (3,3)
 insert into  pharmacy.medicine_replacement(medicine_id,replacement_id) values (3,4)
 
 
 
-insert into pharmacy.medicine(id, code, contraindications, name, type, form, prescription, manufacturer, ingredients) values (5, 0310, 'Preosetljivost na aktivnu supstancu, na bilo koju od pomoćnih supstanci koje ulaze u sastav leka, na
-hidroksizin ili bilo koji derivat piperazina.', 'Xyzal 5mg film tableta', 1, 1, 0, 'Galenika Beograd', 'Sastojci 4')
+insert into pharmacy.medicine(id, code, contraindications, name, type, form, prescription, manufacturer, ingredients) values (5, 0310, 'Preosetljivost na aktivnu supstancu, na bilo koju od pomoćnih supstanci koje ulaze u sastav leka, na hidroksizin ili bilo koji derivat piperazina.', 'Xyzal 5mg film tableta', 1, 1, 0, 'Galenika Beograd', 'Sastojci 4')
 insert into pharmacy.medicine(id, code, contraindications, name, type, form, prescription, manufacturer, ingredients) values (6, 0320, 'Alergijski rinitis, hronična idiopatska urtikarija', 'Cetirizin 10mg film tableta', 1, 0, 1, 'Galenika Beograd', 'Sastojci 5')
 insert into pharmacy.medicine(id, code, contraindications, name, type, form, prescription, manufacturer, ingredients) values (7, 0330, 'Alergijski rinitis, hronična idiopatska urtikarija', 'ALERGOSAN 10mg film tableta', 1, 0, 0, 'Galenika Beograd', 'Sastojci 6')
 insert into  pharmacy.medicine_replacement(medicine_id,replacement_id) values (5,6)
@@ -70,6 +68,7 @@ insert into pharmacy.user_allergies(user_id, allergies_id) values (2,5)
 insert into pharmacy.user_allergies(user_id, allergies_id) values (2,3)
 
 
+
 insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,1)
 insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,2)
 insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,3)
@@ -84,3 +83,4 @@ insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,10)
 insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,11)
 insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,12)
 insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,13)
+
