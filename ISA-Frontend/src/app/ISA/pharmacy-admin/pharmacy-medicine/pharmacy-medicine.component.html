@@ -1,0 +1,87 @@
+<pharmacy-admin-navbar></pharmacy-admin-navbar>
+<div>
+
+
+
+    <div style="margin-left:300px; margin-top:-50px; padding:60px;">
+        <h1>Medicines</h1>
+
+        <form (ngSubmit)="searchMedicine()" #allergyForm="ngForm">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Name" class="form-control" name="name" #name="ngModel"
+                            [(ngModel)]="searchParameters2.name" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Type" class="form-control" name="name" #name="ngModel"
+                            [(ngModel)]="searchParameters2.type" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Contraindications" class="form-control" name="city" #city="ngModel"
+                            [(ngModel)]="searchParameters2.contraindications" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Code" class="form-control" name="address"
+                            #address="ngModel" [(ngModel)]="searchParameters2.code" />
+                    </div>
+                </div>
+
+               
+                <div class="col-sm-3">
+                    <input type="submit" value="Search" mat-raised-button class="btn btn-success">
+                </div>
+                <form (ngSubmit)="refresh()" #allergyForm="ngForm">
+                    <div class="col-sm-3">
+                        <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
+                    </div>
+            </form>
+            </div>
+        </form>
+
+
+
+            <div class="row">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title">Medicine</h4>
+                    </div>
+                    <div class="card-content table-responsive table-full-width">
+                        <table class="table">
+                            <thead class="text-success">
+
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Contraindications</th>
+                                <th>Code</th>
+                               
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let k of myMedicine'>
+
+                                    <td>{{k.name}}</td>
+                                    <td>{{k.type}}</td>
+                                    <td>{{k.contraindications}}</td>
+                                    <td>{{k.code}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+       
+
+    </div>
+
+    
+</div>

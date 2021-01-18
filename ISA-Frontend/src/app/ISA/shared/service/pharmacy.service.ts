@@ -34,6 +34,9 @@ export class PharmacyService {
   public getPharmacist(pharmacyId:number):Observable<Pharmacist[]>{
     return this.http.get<Pharmacist[]>("/api/pharmacy/mypharmas/"+pharmacyId);
   }
+  public getMedicine(pharmacyId:number):Observable<Medicine[]>{
+    return this.http.get<Medicine[]>("/api/pharmacy/mymedicine/"+pharmacyId);
+  }
   
   // public getMedicine(pharmacyId:number):Observable<Medicine[]>{
   //   return this.http.get<Medicine[]>("/api/pharmacy/myMedicine/"+pharmacyId);
