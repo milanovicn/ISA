@@ -43,6 +43,12 @@ import { PharmacyService1 } from './ISA/shared/service/pharmacy-service';
 import { RegistrationComponent } from './ISA/homepage/registration/registration.component';
 import { RegistrationNoticeComponent } from './ISA/homepage/registration-notice/registration-notice.component';
 import { DermasComponent } from './ISA/pharmacy-admin/dermas-pharmacy/dermas-pharmacy.component';
+import { SystemAdminModule } from './ISA/system-admin/system-admin.module';
+import { ChangePasswordComponent } from './ISA/homepage/change-password/change-password.component';
+import { SupplierModule } from './ISA/supplier/supplier.module';
+import { SupplierService } from './ISA/shared/service/supplier.service';
+import { SystemAdminHomepageComponent } from './ISA/system-admin/system-admin-homepage/system-admin-homepage.component';
+import { SupplierHomepageComponent } from './ISA/supplier/supplier-homepage/supplier-homepage.component';
 
 
 @NgModule({
@@ -61,12 +67,17 @@ import { DermasComponent } from './ISA/pharmacy-admin/dermas-pharmacy/dermas-pha
 
       { path: 'homepage', component: HomePageComponent },
       { path: 'login', component: LoginComponent },
+     
       //{path: 'user-homepage', component: UserHomepageComponent },
       { path: '', redirectTo: 'homepage', pathMatch: 'full', },
+
+      //{ path: 'system-admin', loadChildren: () => import('./ISA/system-admin/system-admin.module').then(m => m.SystemAdminModule) },
       { path: '**', redirectTo: 'homepage', pathMatch: 'full' },
     ]),
     UserModule,
-    PharmacyAdminModule
+    PharmacyAdminModule,
+    SystemAdminModule,
+    SupplierModule,
   ],
   declarations: [
     AppComponent,
@@ -74,17 +85,16 @@ import { DermasComponent } from './ISA/pharmacy-admin/dermas-pharmacy/dermas-pha
     HomePageComponent,
     LoginComponent,
     UserHomepageComponent,
-   
-
     PharmacyAdminHomepageComponent,
     AllPharmaciesComponent,
     AllMedicinesComponent,
     RegistrationComponent,
-    RegistrationNoticeComponent
-    
-
+    RegistrationNoticeComponent,
+    ChangePasswordComponent,
+    SystemAdminHomepageComponent,
+    SupplierHomepageComponent,   
   ],
-  providers: [LoginService, UserService, MedicineService, PharmacyAdminService, PharmacyService],
+  providers: [LoginService, UserService, MedicineService, PharmacyAdminService, PharmacyService, SupplierService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

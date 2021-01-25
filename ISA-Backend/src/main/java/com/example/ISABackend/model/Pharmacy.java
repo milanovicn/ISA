@@ -46,10 +46,7 @@ public class Pharmacy {
     private Set<Medicine> medicine = new HashSet<Medicine>();
 
     public Pharmacy(String name, String description, String address, String city, double rate, Set<Pharmacy_Admin> pharmacistAdmin, Set<Pharmacist> pharmacist, Set<Dermatologist> dermatologist, Set<Medicine> medicine) {
-
-//    @JsonIgnore
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<Medicine> medicineId = new HashSet<Medicine>();
+    }
 
     public Pharmacy(String name, String description, String address, String city, double rate, Set<Pharmacy_Admin> pharmacistAdmin, Set<Pharmacist> pharmacist, Set<Dermatologist> dermatologist) {
 

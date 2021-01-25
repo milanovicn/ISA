@@ -7,7 +7,7 @@ import { Medicine } from "../model/Medicine";
 
 @Injectable()
 export class UserService {
-    private pacijetUrl: string;
+    
     adapter: any;
 
 
