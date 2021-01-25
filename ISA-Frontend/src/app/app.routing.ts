@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HomePageComponent } from './ISA/homepage/homepage.component';
 import { LoginComponent } from './ISA/homepage/login/login.component';
 import { UserHomepageComponent } from './ISA/user/user-homepage/user-homepage.component';
