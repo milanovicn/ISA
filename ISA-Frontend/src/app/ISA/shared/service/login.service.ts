@@ -6,7 +6,6 @@ import { User } from "../model/User";
 
 @Injectable()
 export class LoginService {
-    private pacijetUrl: string;
     adapter: any;
 
 
