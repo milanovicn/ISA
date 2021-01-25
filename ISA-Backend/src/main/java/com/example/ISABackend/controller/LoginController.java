@@ -1,11 +1,11 @@
 package com.example.ISABackend.controller;
 
 import com.example.ISABackend.dto.LoginRequest;
-import com.example.ISABackend.model.Pharmacist;
-import com.example.ISABackend.model.Pharmacy_Admin;
-import com.example.ISABackend.model.User;
+import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.UserRepository;
 import com.example.ISABackend.service.PharmacyAdminService;
+import com.example.ISABackend.service.SupplierService;
+import com.example.ISABackend.service.SystemAdminService;
 import com.example.ISABackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,12 +29,21 @@ public class LoginController {
     @Autowired
     private PharmacyAdminService pharmacyAdminService;
 
+    @Autowired
+    private SystemAdminService systemAdminService;
+
+    @Autowired
+    private SupplierService supplierService;
+
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, @Context HttpServletRequest request) {
 
         User user = userService.getByEmail(loginRequest.getEmail());
         //Pharmacist pharmacist = pharmacistService.getByEmail(loginRequest.getEmail());
         Pharmacy_Admin pharmacy_admin = pharmacyAdminService.getByEmail(loginRequest.getEmail());
+        SystemAdmin systemAdmin = systemAdminService.getByEmail(loginRequest.getEmail());
+        Supplier supplier = supplierService.getByEmail(loginRequest.getEmail());
+
         if (user != null) {
             if (loginRequest.getPassword().equals(user.getPassword())) {
                 HttpSession session = request.getSession();
@@ -50,12 +59,30 @@ public class LoginController {
 
                 return new ResponseEntity<Pharmacy_Admin>(pharmacy_admin, HttpStatus.CREATED);
             }
+        } else if (systemAdmin != null) {
+            if (loginRequest.getPassword().equals(systemAdmin.getPassword())) {
+
+                HttpSession session = request.getSession();
+                session.setAttribute("system_admin", systemAdmin);
+
+                return new ResponseEntity<SystemAdmin>(systemAdmin, HttpStatus.CREATED);
+            }
+        } else if (supplier != null) {
+            if (loginRequest.getPassword().equals(supplier.getPassword())) {
+
+                HttpSession session = request.getSession();
+                session.setAttribute("supplier", supplier);
+
+                return new ResponseEntity<Supplier>(supplier, HttpStatus.CREATED);
+            }
         }
+
+
         /*} else (pharmacist != null) {
             HttpSession session = request.getSession();
             //moguce je da ce ti se atribut zvati po roli zbog fronta, not sure yet
             session.setAttribute("pharmacist", pharmacist);
-*/
+        */
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 }
@@ -75,13 +102,40 @@ public class LoginController {
         User user = (User) session.getAttribute("user");
         Pharmacy_Admin pharmacy_admin = (Pharmacy_Admin) session.getAttribute("pharmacy_admin");
         //Pharmacist pharmacist = (Pharmacist)  session.getAttribute("pharmacist");
+        SystemAdmin sa = (SystemAdmin) session.getAttribute("system_admin");
+        Supplier supplier = (Supplier) session.getAttribute("supplier");
         if (user != null) {
             return user;
         } else if (pharmacy_admin != null) {
             return pharmacy_admin;
-        } else {
+        }else if (sa != null) {
+            return sa;
+        } else if (supplier != null) {
+            return supplier;
+        }else {
             return null;
         }
+    }
+
+    @PutMapping(value = "/changePassword/{userRole}/{newPassword}")
+    public ResponseEntity<?> changePassword(@RequestBody Long id, @Context HttpServletRequest request, @PathVariable("newPassword") String newPassword, @PathVariable("userRole") String userRole) {
+
+        if(userRole.equals("SYSTEM_ADMIN")) {
+            HttpSession session = request.getSession();
+            SystemAdmin sa = systemAdminService.changePassword(id, newPassword);
+
+            session.setAttribute("system_admin", sa);
+            return new ResponseEntity<SystemAdmin>(sa, HttpStatus.CREATED);
+        } else  if(userRole.equals("SUPPLIER")) {
+            HttpSession session = request.getSession();
+            Supplier s = supplierService.changePassword(id, newPassword);
+
+            session.setAttribute("supplier", s);
+            return new ResponseEntity<Supplier>(s, HttpStatus.CREATED);
+        }
+
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
 }

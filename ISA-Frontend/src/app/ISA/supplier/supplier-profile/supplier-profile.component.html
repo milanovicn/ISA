@@ -1,4 +1,5 @@
-<user-navbar></user-navbar>
+<supplier-navbar></supplier-navbar>
+
 <div>
 
     <div style="margin-left:300px; margin-top:50px; padding:60px;">
@@ -69,47 +70,5 @@
         </form>
     </div>
 
-    <div style="margin-left:300px; margin-top:-50px; padding:60px;">
-        <h1>My Allergies</h1>
-        <div class="row">
-            <div class="card">
-                <div class="card-header card-header-success">
-                    <h4 class="card-title">Allergies</h4>
-                    <p class="card-category">This is the list of your allergies. You can add more medications below.</p>
-                </div>
-                <div class="card-content table-responsive table-full-width">
-                    <table class="table">
-                        <thead class="text-success">
-                            <th>Code</th>
-                            <th>Name</th>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor='let k of myAllergies'>
-                                <td>{{k.code}}</td>
-                                <td>{{k.name}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
 
-            <form (ngSubmit)="addAllergy()" #allergyForm="ngForm">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <select name="nemamPojma" #nemamPojma="ngModel" [(ngModel)]='newAllergy'>
-                                <option *ngFor='let med of allMedications' [ngValue]="med.id">{{med.name}}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <input type="submit" value="Add" mat-raised-button class="btn btn-success">
-                </div>
-
-            </form>
-
-        </div>
-
-    </div>
 </div>

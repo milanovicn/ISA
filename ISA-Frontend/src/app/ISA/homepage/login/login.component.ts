@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
 
     );
     
-
   }
 
   alertError() {
@@ -55,10 +54,18 @@ export class LoginComponent implements OnInit {
 
         } else if (this.user.userRole == "PHARMACY_ADMIN") {
 
-
           this.router.navigate(["/pharmacy-admin-homepage"]);
 
+        } else if (this.user.userRole == "SYSTEM_ADMIN") {
+
+          this.router.navigate(["/system-admin-homepage"]);
+
+        }else if (this.user.userRole == "SUPPLIER") {
+
+          this.router.navigate(["/supplier-homepage"]);
+
         }
+
 
       }
 

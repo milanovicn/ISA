@@ -14,10 +14,14 @@ import { AllPharmaciesComponent } from './ISA/homepage/all-pharmacies/all-pharma
 import { AllMedicinesComponent } from './ISA/homepage/all-medicines/all-medicines.component';
 import { RegistrationComponent } from './ISA/homepage/registration/registration.component';
 import { RegistrationNoticeComponent } from './ISA/homepage/registration-notice/registration-notice.component';
+import { ChangePasswordComponent } from './ISA/homepage/change-password/change-password.component';
+import { SystemAdminModule } from './ISA/system-admin/system-admin.module';
+import { SupplierModule } from './ISA/supplier/supplier.module';
 
 const routes: Routes =[
   { path: 'homepage', component: HomePageComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'homepage/change-password', component: ChangePasswordComponent },
   { path: 'homepage/registration', component: RegistrationComponent },
   { path: 'homepage/registration-notice', component: RegistrationNoticeComponent },
   { path: 'homepage/pharmacies', component: AllPharmaciesComponent },
@@ -35,7 +39,9 @@ const routes: Routes =[
        useHash: true
     }),
     UserModule,
-    PharmacyAdminModule
+    PharmacyAdminModule,
+    SystemAdminModule,
+    SupplierModule,
   ],
   exports: [
   ],

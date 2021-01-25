@@ -84,3 +84,11 @@ insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,11)
 insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,12)
 insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,13)
 
+-- SYSTEM ADMIN
+
+insert into pharmacy.system_admin(id,address,city,country,email,first_name,last_name,password,phone_number,user_role,prvi_put_logovan) values (1,'Ulica Sys Admina 1','Novi Sad','Srbija','sysadmin1@pharmacy.com','Mika','Mikic','123',061123123,0,1)
+
+
+-- SUPPLIER
+
+insert into pharmacy.supplier(id,address,city,country,email,first_name,last_name,password,phone_number,user_role,prvi_put_logovan) values (1,'Ulica Dobavljaca 1','Novi Sad','Srbija','supplier1@pharmacy.com','Pika','Pikic','123',061123123,5,1)

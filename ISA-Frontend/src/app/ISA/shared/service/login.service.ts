@@ -24,4 +24,9 @@ export class LoginService {
         return this.http.post("/api/pharmacy/logout", request);
     }
 
+
+    public changePassword(id:number, newPassword:string, userRole:string){
+        return this.http.put<User>("/api/pharmacy/changePassword/" + userRole +"/"+ newPassword, id);
+    }
+
 }

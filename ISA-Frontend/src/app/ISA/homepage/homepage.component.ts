@@ -31,7 +31,12 @@ export class HomePageComponent implements OnInit {
           console.log(this.user);
           this.router.navigate(["/user-homepage"]);
 
-        } else{
+        } else if (this.user.userRole == "SUPPLIER") {
+
+          console.log(this.user);
+          this.router.navigate(["/supplier-homepage"]);
+
+        }else {
           this.router.navigate(["/login"]);
        }
       }
