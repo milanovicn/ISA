@@ -34,6 +34,11 @@ import { SupplierService } from './ISA/shared/service/supplier.service';
 import { SystemAdminHomepageComponent } from './ISA/system-admin/system-admin-homepage/system-admin-homepage.component';
 import { SupplierHomepageComponent } from './ISA/supplier/supplier-homepage/supplier-homepage.component';
 import { PharmacistModule } from './ISA/pharmacist/pharmacist.module';
+import { DermatologistService } from './ISA/shared/service/dermatologist.service';
+import { DermatologistHomepageComponent } from './ISA/dermatologist/dermatologist-homepage/dermatologist-homepage.component';
+import { PharmacistService } from './ISA/shared/service/pharmacist.service';
+import { DermatologistModule } from './ISA/dermatologist/dermatologist.module';
+import { PharmacistHomepageComponent } from './ISA/pharmacist/pharmacist-homepage/pharmacist-homepage.component';
 
 
 @NgModule({
@@ -52,6 +57,7 @@ import { PharmacistModule } from './ISA/pharmacist/pharmacist.module';
     SystemAdminModule,
     SupplierModule,
     PharmacistModule,
+    DermatologistModule,
   ],
   declarations: [
     AppComponent,
@@ -65,9 +71,14 @@ import { PharmacistModule } from './ISA/pharmacist/pharmacist.module';
     RegistrationNoticeComponent,
     ChangePasswordComponent,
     SystemAdminHomepageComponent,
-    SupplierHomepageComponent,   
+    SupplierHomepageComponent,
+    DermatologistHomepageComponent,
+    PharmacistHomepageComponent,
+  
+       
   ],
-  providers: [LoginService, UserService, MedicineService, PharmacyAdminService, PharmacyService, SupplierService],
+  providers: [LoginService, UserService, MedicineService, PharmacyAdminService, PharmacyService,
+               SupplierService, PharmacistService, DermatologistService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
