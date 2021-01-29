@@ -33,6 +33,7 @@ import { SupplierModule } from './ISA/supplier/supplier.module';
 import { SupplierService } from './ISA/shared/service/supplier.service';
 import { SystemAdminHomepageComponent } from './ISA/system-admin/system-admin-homepage/system-admin-homepage.component';
 import { SupplierHomepageComponent } from './ISA/supplier/supplier-homepage/supplier-homepage.component';
+import { PharmacistModule } from './ISA/pharmacist/pharmacist.module';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { SupplierHomepageComponent } from './ISA/supplier/supplier-homepage/supp
     PharmacyAdminModule,
     SystemAdminModule,
     SupplierModule,
+    PharmacistModule,
   ],
   declarations: [
     AppComponent,

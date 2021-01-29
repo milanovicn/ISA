@@ -15,6 +15,7 @@ import { RegistrationNoticeComponent } from './ISA/homepage/registration-notice/
 import { ChangePasswordComponent } from './ISA/homepage/change-password/change-password.component';
 import { SystemAdminModule } from './ISA/system-admin/system-admin.module';
 import { SupplierModule } from './ISA/supplier/supplier.module';
+import { PharmacistModule } from './ISA/pharmacist/pharmacist.module';
 
 const routes: Routes =[
   { path: 'homepage', component: HomePageComponent },
@@ -40,6 +41,7 @@ const routes: Routes =[
     PharmacyAdminModule,
     SystemAdminModule,
     SupplierModule,
+    PharmacistModule
   ],
   exports: [
   ],
