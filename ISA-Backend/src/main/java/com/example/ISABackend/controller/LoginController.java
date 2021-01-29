@@ -3,10 +3,7 @@ package com.example.ISABackend.controller;
 import com.example.ISABackend.dto.LoginRequest;
 import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.UserRepository;
-import com.example.ISABackend.service.PharmacyAdminService;
-import com.example.ISABackend.service.SupplierService;
-import com.example.ISABackend.service.SystemAdminService;
-import com.example.ISABackend.service.UserService;
+import com.example.ISABackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,11 +32,18 @@ public class LoginController {
     @Autowired
     private SupplierService supplierService;
 
+    @Autowired
+    private DermatologistService dermatologistService;
+
+    @Autowired
+    private PharmacistService pharmacistService;
+
     @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, @Context HttpServletRequest request) {
 
         User user = userService.getByEmail(loginRequest.getEmail());
-        //Pharmacist pharmacist = pharmacistService.getByEmail(loginRequest.getEmail());
+        Pharmacist pharmacist = pharmacistService.getByEmail(loginRequest.getEmail());
+        Dermatologist dermatologist = dermatologistService.getByEmail(loginRequest.getEmail());
         Pharmacy_Admin pharmacy_admin = pharmacyAdminService.getByEmail(loginRequest.getEmail());
         SystemAdmin systemAdmin = systemAdminService.getByEmail(loginRequest.getEmail());
         Supplier supplier = supplierService.getByEmail(loginRequest.getEmail());
@@ -77,12 +81,26 @@ public class LoginController {
             }
         }
 
+        else if (dermatologist != null) {
+            if (loginRequest.getPassword().equals(supplier.getPassword())) {
 
-        /*} else (pharmacist != null) {
-            HttpSession session = request.getSession();
-            //moguce je da ce ti se atribut zvati po roli zbog fronta, not sure yet
-            session.setAttribute("pharmacist", pharmacist);
-        */
+                HttpSession session = request.getSession();
+                session.setAttribute("dermatologist", dermatologist);
+
+                return new ResponseEntity<Dermatologist>(dermatologist, HttpStatus.CREATED);
+            }
+        }
+
+        else if (pharmacist != null) {
+            if (loginRequest.getPassword().equals(pharmacist.getPassword())) {
+
+                HttpSession session = request.getSession();
+                session.setAttribute("pharmacist", pharmacist);
+
+                return new ResponseEntity<Pharmacist>(pharmacist, HttpStatus.CREATED);
+            }
+        }
+
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 }
@@ -101,9 +119,11 @@ public class LoginController {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
         Pharmacy_Admin pharmacy_admin = (Pharmacy_Admin) session.getAttribute("pharmacy_admin");
-        //Pharmacist pharmacist = (Pharmacist)  session.getAttribute("pharmacist");
+        Pharmacist pharmacist = (Pharmacist)  session.getAttribute("pharmacist");
+        Dermatologist dermatologist = (Dermatologist) session.getAttribute("dermatologist");
         SystemAdmin sa = (SystemAdmin) session.getAttribute("system_admin");
         Supplier supplier = (Supplier) session.getAttribute("supplier");
+
         if (user != null) {
             return user;
         } else if (pharmacy_admin != null) {
@@ -112,7 +132,11 @@ public class LoginController {
             return sa;
         } else if (supplier != null) {
             return supplier;
-        }else {
+        }else if (pharmacist != null) {
+            return pharmacist;
+        }else if (dermatologist != null) {
+            return dermatologist;
+        } else {
             return null;
         }
     }
@@ -126,14 +150,28 @@ public class LoginController {
 
             session.setAttribute("system_admin", sa);
             return new ResponseEntity<SystemAdmin>(sa, HttpStatus.CREATED);
+
         } else  if(userRole.equals("SUPPLIER")) {
             HttpSession session = request.getSession();
             Supplier s = supplierService.changePassword(id, newPassword);
 
             session.setAttribute("supplier", s);
             return new ResponseEntity<Supplier>(s, HttpStatus.CREATED);
-        }
 
+        } else if (userRole.equals("PHARMACIST")) {
+            HttpSession session = request.getSession();
+            Pharmacist p = pharmacistService.changePassword(id, newPassword);
+
+            session.setAttribute("pharmacist", p);
+            return new ResponseEntity<Pharmacist>(p, HttpStatus.CREATED);
+
+        }else if (userRole.equals("DERMATOLOGIST")) {
+            HttpSession session = request.getSession();
+            Dermatologist d = dermatologistService.changePassword(id, newPassword);
+
+            session.setAttribute("dermatologist", d);
+            return new ResponseEntity<Dermatologist>(d, HttpStatus.CREATED);
+        }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

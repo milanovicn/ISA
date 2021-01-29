@@ -64,6 +64,14 @@ export class LoginComponent implements OnInit {
 
           this.router.navigate(["/supplier-homepage"]);
 
+        }else if (this.user.userRole == "PHARMACIST") {
+
+          this.router.navigate(["/pharmacist-homepage"]);
+
+        }else if (this.user.userRole == "DERMATOLOGIST") {
+
+          this.router.navigate(["/dermatologist-homepage"]);
+
         }
 
 

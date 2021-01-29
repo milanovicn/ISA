@@ -45,7 +45,13 @@ public class Pharmacist {
     @Column(name = "rate", nullable = false)
     private double rate;
 
-    public Pharmacist(Pharmacy pharmacy, String firstName, String lastName, String email, String phoneNumber, String password, String address, String city, String country, UserRole userRole, double rate) {
+    @Column(name = "prviPutLogovan", nullable = false)
+    private boolean prviPutLogovan;
+
+    public Pharmacist(Pharmacy pharmacy, String firstName, String lastName, String email,
+                      String phoneNumber, String password, String address, String city,
+                      String country, UserRole userRole, double rate, boolean prviPutLogovan) {
+
         this.pharmacy = pharmacy;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -57,6 +63,7 @@ public class Pharmacist {
         this.country = country;
         this.userRole = UserRole.PHARMACIST;
         this.rate = rate;
+        this.prviPutLogovan = prviPutLogovan;
     }
 
     public double getRate() {
@@ -156,5 +163,14 @@ public class Pharmacist {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public boolean isPrviPutLogovan() {
+        return prviPutLogovan;
+    }
+
+    public void setPrviPutLogovan(boolean prviPutLogovan) {
+
+        this.prviPutLogovan = prviPutLogovan;
     }
 }

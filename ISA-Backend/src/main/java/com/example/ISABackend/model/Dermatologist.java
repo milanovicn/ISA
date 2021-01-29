@@ -40,8 +40,13 @@ public class Dermatologist {
 
     @Column(name = "rate", nullable = false)
     private double rate;
+    @Column(name = "prviPutLogovan", nullable = false)
+    private boolean prviPutLogovan;
 
-    public Dermatologist(String firstName, String lastName, String email, String phoneNumber, String password, String address, String city, String country, UserRole userRole, double rate) {
+    public Dermatologist(String firstName, String lastName, String email, String phoneNumber,
+                         String password, String address, String city, String country,
+                         UserRole userRole, double rate, boolean prviPutLogovan) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -52,6 +57,7 @@ public class Dermatologist {
         this.country = country;
         this.userRole = UserRole.DERMATOLOGIST;
         this.rate = rate;
+        this.prviPutLogovan = prviPutLogovan;
     }
 
     public double getRate() {
@@ -143,5 +149,14 @@ public class Dermatologist {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public boolean isPrviPutLogovan() {
+        return prviPutLogovan;
+    }
+
+    public void setPrviPutLogovan(boolean prviPutLogovan) {
+
+        this.prviPutLogovan = prviPutLogovan;
     }
 }
