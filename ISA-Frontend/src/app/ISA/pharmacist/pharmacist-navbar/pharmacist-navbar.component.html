@@ -1,0 +1,30 @@
+<div class="sidebar" data-color="danger" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+    <div class="sidebar-background" style="background-image: url(./assets/img/background.jpg)"></div>
+    <div class="logo">
+        <a href="#" class="simple-text">
+            <div class="logo-img">
+                <img src="/assets/img/logo.png" />
+            </div>
+            My Pharmacy
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+
+            <li routerLinkActive="active" class="nav-item">
+                <a class="nav-link sidebar-1" [routerLink]="['./pharmacist-profile']"> <i class="material-icons">person</i>
+                    <p style="color: green; font-weight: 500;">My Profile</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a (click)="logOut()"  class="nav-link sidebar-1" > <i class="material-icons">power_settings_new</i>
+                    <p style="color: green; font-weight: 500;">Log Out</p>
+                </a>
+            </li>
+            
+
+            
+        </ul>
+    </div>
+</div>
