@@ -30,4 +30,8 @@ export class UserService {
       return this.http.put<User>("/api/user/allergy/" + medicine_id, updatedUser);
     }
 
+    public makeDermatologistAppointment(patient:User, appointmentId:number){
+      return this.http.put<number>("/api/user/makeDermatologistAppointment/" + appointmentId, patient);
+    }
+
 }

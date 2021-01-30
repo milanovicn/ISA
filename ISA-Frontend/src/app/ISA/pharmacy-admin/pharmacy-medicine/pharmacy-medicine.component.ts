@@ -14,6 +14,7 @@ import { Dermatologist } from 'app/ISA/shared/model/Dermatologist';
 import { Pharmacist } from 'app/ISA/shared/model/Pharmacist';
 import { SearchPharmacist } from 'app/ISA/shared/model/SearchPharmacist';
 import { SearchMedicine } from 'app/ISA/shared/model/SearchMedicine';
+import { PharmacyStock } from 'app/ISA/shared/model/PharmacyStock';
 
 @Component({
   selector: 'pharmacy-medicine',
@@ -24,47 +25,49 @@ export class PharmacyMedicineComponent implements OnInit {
   myPharmacy: Pharmacy;
   myDermas: Dermatologist[] = [];
   myPharmas: Pharmacist[] = [];
-  myMedicine : Medicine[] = [];
+  myMedicine: Medicine[] = [];
   searchParameters: SearchPharmacist;
-  searchParameters2  : SearchMedicine;
-  newAllergy: number;
+  searchParameters2: SearchMedicine;
+  newQuantity: number = 0;
+  newMedicineId: number = 0;
   allMedications: Medicine[] = [];
+  myStock: PharmacyStock[] = [];
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
     this.myPharmacy = new Pharmacy();
     this.myDermas = [];
-    this.myPharmas=[];
+    this.myPharmas = [];
     this.allMedications = [];
     this.myMedicine = [];
     this.searchParameters = new SearchPharmacist();
     this.searchParameters2 = new SearchMedicine();
-    this.newAllergy = 0;
+
   }
-  searchMedicine(){
+  searchMedicine() {
     let sm = new SearchMedicine();
-    if(this.searchParameters2.name == undefined){
-        sm.name = "all";
+    if (this.searchParameters2.name == undefined) {
+      sm.name = "all";
     } else {
-        sm.name = this.searchParameters2.name;
+      sm.name = this.searchParameters2.name;
     }
 
-    if(this.searchParameters2.code == undefined){
-        sm.code = 0;
+    if (this.searchParameters2.code == undefined) {
+      sm.code = 0;
     } else {
-        sm.code = this.searchParameters2.code;
+      sm.code = this.searchParameters2.code;
     }
 
-    if(this.searchParameters2.contraindications == undefined){
-        sm.contraindications = "all";
+    if (this.searchParameters2.contraindications == undefined) {
+      sm.contraindications = "all";
     } else {
-        sm.contraindications = this.searchParameters2.contraindications;
+      sm.contraindications = this.searchParameters2.contraindications;
     }
 
-    if(this.searchParameters2.type == undefined){
-        sm.type = "all";
+    if (this.searchParameters2.type == undefined) {
+      sm.type = "all";
     } else {
-        sm.type = this.searchParameters2.type;
+      sm.type = this.searchParameters2.type;
     }
 
 
@@ -72,13 +75,13 @@ export class PharmacyMedicineComponent implements OnInit {
     console.log(sm);
 
     this.medicineService.searchMedicine(sm).subscribe({
-        next: meds => {
-            this.myMedicine = meds;
-        }
+      next: meds => {
+        this.myMedicine = meds;
+      }
 
     });
   }
-  
+
   ngOnInit(): void {
     this.getUser();
 
@@ -92,7 +95,7 @@ export class PharmacyMedicineComponent implements OnInit {
     this.pharmacyService.updatePharmacy(this.myPharmacy).subscribe();
     this.refresh();
   }
-  
+
   searchPharmas() {
     let sp = new SearchPharmacist();
     if (this.searchParameters.email == undefined) {
@@ -150,7 +153,7 @@ export class PharmacyMedicineComponent implements OnInit {
 
 
   getAllDermas() {
-    this.pharmacyService.getDermatologist(this.myPharmacy.id).subscribe({
+    this.pharmacyService.getDermatologists(this.myPharmacy.id).subscribe({
       next: dermatologist => {
         this.myDermas = dermatologist;
       }
@@ -158,7 +161,7 @@ export class PharmacyMedicineComponent implements OnInit {
   }
 
   getAllPharmas() {
-    this.pharmacyService.getPharmacist(this.myPharmacy.id).subscribe({
+    this.pharmacyService.getPharmacists(this.myPharmacy.id).subscribe({
       next: pharmacist => {
         this.myPharmas = pharmacist;
       }
@@ -180,7 +183,7 @@ export class PharmacyMedicineComponent implements OnInit {
         console.log(this.user);
         this.getPharmacyById();
         this.getAllMedicines();
-        
+
       }
 
     });
@@ -197,22 +200,20 @@ export class PharmacyMedicineComponent implements OnInit {
         this.myPharmacy = pharmacy;
         this.getAllPharmas();
         this.getAllDermas();
-        this.getAllMedicine();
-        
-        
+        this.getAllMedicine(); 
+        this.getAllMedicinesInStock();
+
+
       }
     });
 
   }
-  addMedicine(){
-    
-    console.log(this.newAllergy);
-    
-    this.pharmacyService.addMedicine(this.myPharmacy, this.newAllergy).subscribe({
-      next: myPharmacy => {
-        this.myPharmacy = myPharmacy;
+  addMedicine() {
 
-        console.log(this.myPharmacy);
+    this.pharmacyService.addMedicineToStock(this.myPharmacy.id, this.newMedicineId, this.newQuantity).subscribe({
+      next: medId => {
+        this.newMedicineId = medId;
+
         this.refresh();
       }
     });
@@ -220,9 +221,17 @@ export class PharmacyMedicineComponent implements OnInit {
 
   getAllMedicines() {
     this.medicineService.getAllMedicines().subscribe({
-           next: medicines => {
-             this.allMedications = medicines;
-           }
-       });
+      next: medicines => {
+        this.allMedications = medicines;
+      }
+    });
+  }
+  getAllMedicinesInStock() {
+    this.pharmacyService.getAllMedicinesInStock(this.myPharmacy.id).subscribe({
+      next: meds => {
+        this.myStock = meds;
+      }
+
+    });
   }
 }

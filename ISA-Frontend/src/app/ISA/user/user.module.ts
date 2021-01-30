@@ -7,10 +7,15 @@ import { RouterModule } from '@angular/router';
 import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 import { FormsModule } from '@angular/forms';
 import { UserPharmaciesComponent } from './user-pharmacies/user-pharmacies.component';
+import { UserPharmacyComponent } from './user-pharmacy/user-pharmacy.component';
 
 
 @NgModule({
-  declarations: [UserProfileComponent, UserNavbarComponent, UserPharmaciesComponent ],
+  declarations: [
+    UserProfileComponent, 
+    UserNavbarComponent, 
+    UserPharmaciesComponent,
+    UserPharmacyComponent ],
   imports: [
     CommonModule,
     UserRoutingModule, 

@@ -22,17 +22,22 @@ export class DermasComponent implements OnInit {
   user: User;
   myPharmacy: Pharmacy;
   myDermas: Dermatologist[] = [];
-  myPharmas: Pharmacist[] = [];
   searchParameters: SearchDermatologist;
-
-
+  availableDermatologists: Dermatologist[] = [];
+  workDays: string[] = [];
+  dermatologistId:number = 0;
+  appointmentDermId:number=0;
+  appointmentTime:string = "";
+  appointmentDate:Date=new Date(); 
+  appointmentPrice:number=0;
+  ret: Object;
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
     this.myPharmacy = new Pharmacy();
     this.myDermas = [];
-    this.myPharmas = [];
     this.searchParameters = new SearchDermatologist();
+    this.availableDermatologists = [];
   }
  
     searchDermas() {
@@ -106,18 +111,29 @@ export class DermasComponent implements OnInit {
   }
 
 
-  getAllDermas() {
-    this.pharmacyService.getDermatologist(this.myPharmacy.id).subscribe({
+  getMyDermas() {
+    this.pharmacyService.getDermatologists(this.myPharmacy.id).subscribe({
       next: dermatologist => {
         this.myDermas = dermatologist;
       }
     });
   }
 
-  getAllPharmas() {
-    this.pharmacyService.getPharmacist(this.myPharmacy.id).subscribe({
-      next: pharmacist => {
-        this.myPharmas = pharmacist;
+  getAvailableDermatologists() {
+    this.pharmacyService.getAvailableDermatologists(this.myPharmacy.id).subscribe({
+      next: dermatologist => {
+        this.availableDermatologists = dermatologist;
+      }
+    });
+  }
+
+ addDermatologist() {
+    this.pharmacyService.addDermatologist(this.myPharmacy.id, this.dermatologistId, this.workDays).subscribe({
+      next: dermatologist => {
+        this.dermatologistId = dermatologist;
+        if(this.dermatologistId == null){
+          alert("This dermatologist is not available on chosen days!");
+        }
       }
     });
   }
@@ -145,10 +161,22 @@ export class DermasComponent implements OnInit {
     this.pharmacyAdminService.getPharmacyByAdminId(this.user.id).subscribe({
       next: pharmacy => {
         this.myPharmacy = pharmacy;
-        this.getAllPharmas();
-        this.getAllDermas();
+        this.getMyDermas();
+        this.getAvailableDermatologists();
+      }
+    });
 
+  }
 
+  createAppointment(){
+    console.log(this.appointmentDate);
+    console.log(this.appointmentTime);
+    console.log(this.appointmentDermId);
+    console.log(this.appointmentPrice);
+
+    this.pharmacyAdminService.createDermatologistAppointment(this.myPharmacy.id, this.appointmentDermId, this.appointmentTime, this.appointmentPrice, this.appointmentDate).subscribe({
+      next: ret => {
+        this.ret = ret;
       }
     });
 

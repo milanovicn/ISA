@@ -94,8 +94,8 @@
                                     <td>{{k.email}}</td>
                                     <td>{{k.city}}</td>
                                     <td>{{k.rate}}</td>
-                                    <td><input 
-                                       #address="ngModel" [(ngModel)]="myPharmacy.name" disabled /></td>
+                                    
+                                    <td [(ngModel)]="myPharmacy"> {{myPharmacy.name}}</td>
                                     
                                 </tr>
                                 

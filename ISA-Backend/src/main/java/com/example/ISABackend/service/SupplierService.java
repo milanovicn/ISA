@@ -9,4 +9,5 @@ public interface SupplierService {
     public Supplier getById(Long id);
     public Supplier changePassword(Long id, String newPassword);
     public Supplier updateSupplier(Supplier updatedSupplier);
+    public Supplier addNew(Supplier newSupplier);
 }

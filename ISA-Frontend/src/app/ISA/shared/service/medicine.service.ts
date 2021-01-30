@@ -8,6 +8,7 @@ import { SearchMedicine } from "../model/SearchMedicine";
 
 @Injectable()
 export class MedicineService {
+
     constructor(private http: HttpClient) {
     }
 

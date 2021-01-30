@@ -7,10 +7,7 @@ import com.example.ISABackend.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,6 +22,8 @@ public class SupplierController {
 
     @Autowired
     SupplierRepository supplierRepository;
+
+
 
     @PutMapping(value = "/edit")
     public ResponseEntity updateUser(@RequestBody Supplier updatedSupplier, @Context HttpServletRequest request) {
@@ -41,4 +40,6 @@ public class SupplierController {
         Supplier s = (Supplier) session.getAttribute("supplier");
         return s;
     }
+
+
 }

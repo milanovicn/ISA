@@ -2,9 +2,12 @@ package com.example.ISABackend.controller;
 
 import com.example.ISABackend.dto.SearchDermatologist;
 import com.example.ISABackend.dto.SearchPharmacist;
+import com.example.ISABackend.model.DermatologistAppointment;
 import com.example.ISABackend.model.Pharmacist;
 import com.example.ISABackend.model.Pharmacy_Admin;
+import com.example.ISABackend.model.User;
 import com.example.ISABackend.repository.PharmacyAdminRepository;
+import com.example.ISABackend.service.DermatologistAppointmentService;
 import com.example.ISABackend.service.PharmacyAdminService;
 import com.example.ISABackend.service.PharmacyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @RestController
@@ -30,6 +34,9 @@ public class PharmacyAdminController {
 
     @Autowired
     private PharmacyService pharmacyService;
+
+    @Autowired
+    private DermatologistAppointmentService dermatologistAppointmentService;
 
     private Pharmacy_Admin authorize(HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -54,6 +61,7 @@ public class PharmacyAdminController {
         }
         return pharmacyService.getById(pharmacyId);
     }
+
     @PutMapping(value = "/edit")
     public ResponseEntity update(@RequestBody Pharmacy_Admin updatedUser, @Context HttpServletRequest request) {
         if(authorize(request) == null ) {
@@ -63,6 +71,7 @@ public class PharmacyAdminController {
         request.getSession().setAttribute("pharmacy_admin", user);
         return new ResponseEntity<Pharmacy_Admin>(user, HttpStatus.CREATED);
     }
+
     @GetMapping(value = "/pharmacy/getByAdminId/{pharmacyAdminId}")
     public Object getPharmacyByAdminId(@PathVariable("pharmacyAdminId") Long pharmacyAdminId, @Context HttpServletRequest request) {
         if (authorize(request) == null) {
@@ -70,18 +79,43 @@ public class PharmacyAdminController {
         }
         return pharmacyAdminService.getPharmacyByAdminId(pharmacyAdminId);
     }
-    @PostMapping(value = "/search")
-    public Object searchDerma(@RequestBody SearchDermatologist searchParameters) {
 
+    @PostMapping(value = "/search")
+    public Object searchDerma(@RequestBody SearchDermatologist searchParameters, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         return pharmacyAdminService.searchD(searchParameters);
     }
-    @PostMapping(value = "/searchP")
-    public ArrayList<Pharmacist> searchPharma(@RequestBody SearchPharmacist searchParameters) {
 
+    @PostMapping(value = "/searchP")
+    public Object searchPharma(@RequestBody SearchPharmacist searchParameters, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
         return pharmacyAdminService.searchP(searchParameters);
     }
 
+    @PostMapping(value = "/dermatologistAppointment/{pharmacyId}/{dermatologistId}/{appointmentTime}/{price}")
+    public ResponseEntity<?> addDermatologistAppointment(@PathVariable("pharmacyId") Long pharmacyId,
+                                                          @PathVariable("dermatologistId") Long dermatologistId,
+                                                          @PathVariable("appointmentTime") String appointmentTime,
+                                                          @PathVariable("price") Long price,
+                                                          @RequestBody LocalDate appointmentDate,
+                                                          @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        DermatologistAppointment da = dermatologistAppointmentService.addDermatologistAppointment(pharmacyId, dermatologistId, appointmentTime, price, appointmentDate);
+        if (da != null) {
+            return new ResponseEntity<DermatologistAppointment>(da, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>( HttpStatus.METHOD_NOT_ALLOWED);
+        }
     }
+
+}
 
 
 

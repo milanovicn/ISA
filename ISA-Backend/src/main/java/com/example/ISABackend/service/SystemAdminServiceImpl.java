@@ -1,6 +1,8 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.enums.UserRole;
 import com.example.ISABackend.model.Pharmacy_Admin;
+import com.example.ISABackend.model.Supplier;
 import com.example.ISABackend.model.SystemAdmin;
 import com.example.ISABackend.repository.SystemAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +34,27 @@ public class SystemAdminServiceImpl implements SystemAdminService {
         sa.setPrviPutLogovan(false);
         sa = systemAdminRepository.save(sa);
         return sa;
+    }
+
+    @Override
+    public SystemAdmin addNew(SystemAdmin newSystemAdmin) {
+        if (getByEmail(newSystemAdmin.getEmail()) == null) {
+            SystemAdmin s = new SystemAdmin();
+            s.setPassword(newSystemAdmin.getPassword());
+            s.setFirstName(newSystemAdmin.getFirstName());
+            s.setLastName(newSystemAdmin.getLastName());
+            s.setAddress(newSystemAdmin.getAddress());
+            s.setCity(newSystemAdmin.getCity());
+            s.setCountry(newSystemAdmin.getCountry());
+            s.setPhoneNumber(newSystemAdmin.getPhoneNumber());
+            s.setEmail(newSystemAdmin.getEmail());
+            s.setPrviPutLogovan(true);
+            s.setUserRole(UserRole.SYSTEM_ADMIN);
+
+            systemAdminRepository.save(s);
+            return s;
+        } else {
+            return null;
+        }
     }
 }

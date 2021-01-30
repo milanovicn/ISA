@@ -1,13 +1,12 @@
 package com.example.ISABackend.controller;
 
 import com.example.ISABackend.dto.SearchPharmacy;
-import com.example.ISABackend.model.Pharmacy;
-import com.example.ISABackend.model.Pharmacy_Admin;
-import com.example.ISABackend.model.User;
+import com.example.ISABackend.enums.WorkDays;
+import com.example.ISABackend.model.*;
+import com.example.ISABackend.repository.MedicineRepository;
 import com.example.ISABackend.repository.PharmacyRepository;
 import com.example.ISABackend.repository.UserRepository;
-import com.example.ISABackend.service.PharmacyService;
-import com.example.ISABackend.service.UserService;
+import com.example.ISABackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -34,6 +33,12 @@ public class PharmacyController {
 
     @Autowired
     private PharmacyService pharmacyService;
+
+    @Autowired
+    private PharmacyStockService pharmacyStockService;
+
+    @Autowired
+    private DermatologistAppointmentService dermatologistAppointmentService;
 
 
     @PutMapping(value = "/editPharmacy")
@@ -76,14 +81,23 @@ public class PharmacyController {
         if(authorize(request) == null ) {
             return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
         }
-        return  pharmacyService.getById(pharmacyId).getDermatologist();
+        return pharmacyService.getDermatologists(pharmacyId);
     }
+
+    @GetMapping(value = "/medicinesInStock/{pharmacyId}")
+    public Object medicinesInStock(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        return pharmacyStockService.getPharmacyStock(pharmacyId);
+    }
+
     @GetMapping(value = "/mymedicine/{pharmacyId}")
     public Object getMyMedicine(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
         if(authorize(request) == null ) {
             return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
         }
-        return  pharmacyService.getById(pharmacyId).getMedicine();
+        return pharmacyStockService.getMedicineInStock(pharmacyId);
     }
 
     @GetMapping(value = "/mypharmas/{pharmacyId}")
@@ -108,13 +122,43 @@ public class PharmacyController {
         return new ResponseEntity<Pharmacy>(u, HttpStatus.CREATED);
     }
 
+    //vraca dermatologe koji nisu zaposleni u ovoj apoteci
+    @GetMapping(value = "/availableDermatologists/{pharmacyId}")
+    public Object getAvailableDermatologists(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        return pharmacyService.getAvailableDermatologists(pharmacyId);
+    }
 
-//    @GetMapping(value = "/myMedicine/{pharmacyId}")
-//    public Object getMyMedicine(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
-//        if(authorize(request) == null ) {
-//            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
-//        }
-//        return  pharmacyService.getById(pharmacyId).getMedicineId();
-//    }
+    //zaposljava dermatologa u apoteku ako je slobodan na sve odabrane dane
+    @PutMapping(value = "/addDermatologist/{pharmacyId}/{dermatologistId}")
+    public Object addDermatologist(@PathVariable("pharmacyId") Long pharmacyId, @PathVariable("dermatologistId") Long  dermatologistId, @RequestBody ArrayList<WorkDays> workDays, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        return pharmacyService.scheduleDermatologist(pharmacyId, dermatologistId, workDays);
+    }
 
+    @GetMapping(value = "/{pharmacyId}")
+    public Object getMyMedicine(@PathVariable("pharmacyId") Long pharmacyId) {
+
+        return  pharmacyService.getById(pharmacyId);
+    }
+
+    @PostMapping(value = "/addMedicineToStock/{pharmacyId}/{medicineId}")
+    public Object addMedicineToStock(@PathVariable("pharmacyId") Long pharmacyId, @PathVariable("medicineId") Long  medicineId,  @RequestBody  int  quantity, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        Long id = pharmacyStockService.addNewMedicineInStock(pharmacyId, medicineId, quantity);
+        return new ResponseEntity<Long>(id, HttpStatus.CREATED);
+    }
+
+
+    @GetMapping(value = "/availableDermatologistAppointments/{pharmacyId}")
+    public Object availableDermatologistAppointments(@PathVariable("pharmacyId") Long pharmacyId) {
+
+        return  dermatologistAppointmentService.getAvailableInPharmacy(pharmacyId);
+    }
 }

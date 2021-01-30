@@ -36,4 +36,8 @@ export class PharmacyAdminService {
     return this.http.put("/api/pharmacy-admin/edit", updatedUser);
   }
 
+  public createDermatologistAppointment(appointmentPharmacyId:number, appointmentDermId:number, appointmentTime: string, appointmentPrice:number, appointmentDate:Date) {
+    return this.http.post("/api/pharmacy-admin/dermatologistAppointment/" + appointmentPharmacyId + "/" + appointmentDermId + "/" + appointmentTime + "/" + appointmentPrice, appointmentDate);
+  }
+
 }

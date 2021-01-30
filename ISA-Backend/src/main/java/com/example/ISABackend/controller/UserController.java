@@ -1,10 +1,9 @@
 package com.example.ISABackend.controller;
 
-import com.example.ISABackend.model.ConfirmationToken;
-import com.example.ISABackend.model.Medicine;
-import com.example.ISABackend.model.User;
+import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.ConfirmationTokenRepository;
 import com.example.ISABackend.repository.UserRepository;
+import com.example.ISABackend.service.DermatologistAppointmentService;
 import com.example.ISABackend.service.EmailService;
 import com.example.ISABackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,8 @@ public class UserController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private DermatologistAppointmentService dermatologistAppointmentService;
 
     @PostMapping(value = "/register")
     public ResponseEntity registerUser(@RequestBody User newUser, @Context HttpServletRequest request) {
@@ -119,6 +120,37 @@ public class UserController {
         }
         return new ResponseEntity<User>(u, HttpStatus.CREATED);
     }
+
+    @PutMapping(value = "/makeDermatologistAppointment/{appointmentId}")
+    public ResponseEntity<?> makeDermatologistAppointment(@RequestBody User user, @PathVariable("appointmentId") Long appointmentId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        DermatologistAppointment app = dermatologistAppointmentService.makeReservation(user.getId(), appointmentId);
+        if (app == null) {
+            return new ResponseEntity<String>("Unsuccessful! You are not allowed to make this reservation!", HttpStatus.METHOD_NOT_ALLOWED);
+        } else  {
+
+            Properties props = new Properties();
+            props.put("mail.mime.address.strict", "false");
+            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+            Session session = Session.getDefaultInstance(props);
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(user.getEmail());
+            mailMessage.setSubject("Dermatologist's appointment is reserved!");
+            mailMessage.setFrom("ISA.tim66@gmail.com");
+            mailMessage.setText("You have successfully made the reservation at  " + app.getTime() +", " +app.getDate());
+
+            emailService.sendEmail(mailMessage);
+
+
+            return new ResponseEntity<Long>(app.getId(), HttpStatus.CREATED);
+        }
+        
+    }
+
 
     private User authorize(HttpServletRequest request){
         HttpSession session = request.getSession();
