@@ -1,6 +1,6 @@
 import { books_v1 } from "googleapis";
 
-  
+
 export class Pharmacist{
     id: number;
     firstName:string;

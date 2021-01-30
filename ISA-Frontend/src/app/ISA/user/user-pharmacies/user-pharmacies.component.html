@@ -64,6 +64,7 @@
             <div class="card-content table-responsive table-full-width">
                 <table class="table">
                     <thead class="text-success">
+                        <th>Id <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
                         <th>Name <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
                         <th>Rate <i  (click)="sort('RATE')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
                         <th>City <i  (click)="sort('CITY')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
@@ -72,6 +73,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor='let k of allPharmacies'>
+                            <td><a [routerLink]="[k.id]">{{k.id}}</a></td>
                             <td>{{k.name}}</td>
                             <td>{{k.rate}}</td>
                             <td>{{k.city}}</td>

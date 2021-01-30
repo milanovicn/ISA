@@ -25,8 +25,8 @@
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <input type="text" value="" placeholder="Contraindications" class="form-control" name="city" #city="ngModel"
-                            [(ngModel)]="searchParameters2.contraindications" />
+                        <input type="text" value="" placeholder="Contraindications" class="form-control" name="city"
+                            #city="ngModel" [(ngModel)]="searchParameters2.contraindications" />
                     </div>
                 </div>
 
@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-               
+
                 <div class="col-sm-3">
                     <input type="submit" value="Search" mat-raised-button class="btn btn-success">
                 </div>
@@ -45,61 +45,104 @@
                     <div class="col-sm-3">
                         <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
                     </div>
-            </form>
+                </form>
             </div>
         </form>
 
 
 
-            <div class="row">
-                <div class="card">
-                    <div class="card-header card-header-success">
-                        <h4 class="card-title">Medicine</h4>
-                    </div>
-                    <div class="card-content table-responsive table-full-width">
-                        <table class="table">
-                            <thead class="text-success">
+        <div class="row">
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Medicines available</h4>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+                        <thead class="text-success">
 
-                                <th>Name</th>
-                                <th>Type</th>
-                                <th>Contraindications</th>
-                                <th>Code</th>
-                               
-                            </thead>
-                            <tbody>
-                                <tr *ngFor='let k of myMedicine'>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Contraindications</th>
+                            <th>Code</th>
 
-                                    <td>{{k.name}}</td>
-                                    <td>{{k.type}}</td>
-                                    <td>{{k.contraindications}}</td>
-                                    <td>{{k.code}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let k of myMedicine'>
+
+                                <td>{{k.name}}</td>
+                                <td>{{k.type}}</td>
+                                <td>{{k.contraindications}}</td>
+                                <td>{{k.code}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            
-            <div>
-                <h1>Add more medicines</h1>
-            <form (ngSubmit)="addMedicine()" #allergyForm="ngForm">
-    
-                <div class="row">
-                    <div  class="col-sm-6">
-                        <div  class="form-group">
-                            <select name="nemamPojma" #nemamPojma="ngModel" [(ngModel)]='newAllergy'>
-                                <option *ngFor='let med of allMedications' [ngValue]="med.id">{{med.name}}</option>
-                            </select>
-                        </div>
+        </div>
+
+
+        <div>
+            <h2>Add more medicines</h2>
+            <form (ngSubmit)="addMedicine()" #medicineForm="ngForm">
+
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Medicine</mat-label>
+                        <mat-select name="nemamPojma1" #nemamPojma1="ngModel" [(ngModel)]='newMedicineId'>
+                            <mat-option *ngFor="let med of allMedications" [value]="med.id">{{med.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <input type="number" value="" placeholder="Quantity" class="form-control"
+                            name="nemamPojma33" #nemamPojma33="ngModel" [(ngModel)]="newQuantity"/>
                     </div>
                 </div>
+
                 <div>
                     <input type="submit" value="Add" mat-raised-button class="btn btn-success">
                 </div>
 
             </form>
         </div>
+    
+    
+    
+    
+    
+
+        <div class="row">
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Medicine stocks</h4>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+                        <thead class="text-success">
+    
+                            <th>Name</th>
+                            <th>Left in stocks</th>
+                            <th>Reserved</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let k of myStock'>
+    
+                                <td>{{k.medicineName}}</td>
+                                <td>{{k.inStock}}</td>
+                                <td>{{k.reserved}}</td>
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+    
+    
     </div>
 
-    
+
 </div>

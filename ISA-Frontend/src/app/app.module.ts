@@ -33,6 +33,7 @@ import { SupplierModule } from './ISA/supplier/supplier.module';
 import { SupplierService } from './ISA/shared/service/supplier.service';
 import { SystemAdminHomepageComponent } from './ISA/system-admin/system-admin-homepage/system-admin-homepage.component';
 import { SupplierHomepageComponent } from './ISA/supplier/supplier-homepage/supplier-homepage.component';
+import { SystemAdminService } from './ISA/shared/service/system-admin.service';
 
 
 @NgModule({
@@ -65,7 +66,7 @@ import { SupplierHomepageComponent } from './ISA/supplier/supplier-homepage/supp
     SystemAdminHomepageComponent,
     SupplierHomepageComponent,   
   ],
-  providers: [LoginService, UserService, MedicineService, PharmacyAdminService, PharmacyService, SupplierService],
+  providers: [LoginService, UserService, MedicineService, PharmacyAdminService, PharmacyService, SupplierService, SystemAdminService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,4 +7,5 @@ public interface SystemAdminService {
     public SystemAdmin getByEmail(String email);
     public SystemAdmin getById(Long id);
     public SystemAdmin changePassword(Long id, String newPassword);
+    public SystemAdmin addNew(SystemAdmin newSystemAdmin);
 }

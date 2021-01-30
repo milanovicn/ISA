@@ -47,7 +47,7 @@ export class PharmacyAdminHisPharmacyComponent implements OnInit {
 
 
   getAllDermas() {
-    this.pharmacyService.getDermatologist(this.myPharmacy.id).subscribe({
+    this.pharmacyService.getDermatologists(this.myPharmacy.id).subscribe({
       next: dermatologist => {
         this.myDermas = dermatologist;
       }
@@ -55,7 +55,7 @@ export class PharmacyAdminHisPharmacyComponent implements OnInit {
   }
 
   getAllPharmas() {
-    this.pharmacyService.getPharmacist(this.myPharmacy.id).subscribe({
+    this.pharmacyService.getPharmacists(this.myPharmacy.id).subscribe({
       next: pharmacist => {
         this.myPharmas = pharmacist;
       }

@@ -4,18 +4,16 @@ import com.example.ISABackend.dto.SearchMedicine;
 import com.example.ISABackend.enums.MedicinePrescription;
 import com.example.ISABackend.enums.MedicineType;
 import com.example.ISABackend.model.Medicine;
-import com.example.ISABackend.model.Pharmacy;
 import com.example.ISABackend.repository.MedicineRepository;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.lang.model.type.ArrayType;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 import java.util.List;
 
 @Service
@@ -191,6 +189,60 @@ public class MedicineServiceImpl implements MedicineService {
         }
         document.close();
         return null;
+    }
+
+    @Override
+    public Medicine getByCode(int code) {
+        return medicineRepository.findByCode(code);
+    }
+
+    @Override
+    public Medicine getByName(String name) {
+        return medicineRepository.findByName(name);
+    }
+
+    @Override
+    public ArrayList<Long> addReplacements(ArrayList<Long> replacementsId, Long medicineId) {
+       ArrayList<Long> ret = new ArrayList<Long>();
+       Medicine medicine = getById(medicineId);
+       if(medicine!=null){
+           for(Long repId : replacementsId){
+               Medicine rep = getById(repId);
+               if(rep!=null){
+                    medicine.getReplacement().add(rep);
+                    ret.add(rep.getId());
+               }
+
+           }
+           medicineRepository.save(medicine);
+           return ret;
+       }
+
+
+
+        return null;
+    }
+
+    @Override
+    public Medicine addNew(Medicine newMedicine) {
+        if (getByCode(newMedicine.getCode()) == null) {
+            Medicine s = new Medicine();
+            s.setName(newMedicine.getName());
+            s.setCode(newMedicine.getCode());
+            s.setContraindications(newMedicine.getContraindications());
+            s.setIngredients(newMedicine.getIngredients());
+            s.setManufacturer(newMedicine.getManufacturer());
+            s.setForm(newMedicine.getForm());
+            s.setType(newMedicine.getType());
+            s.setPrescription(newMedicine.getPrescription());
+
+            //zamenski??
+
+            medicineRepository.save(s);
+            return s;
+        } else {
+            return null;
+        }
     }
 
 

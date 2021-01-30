@@ -1,9 +1,11 @@
 package com.example.ISABackend.service;
 
 import com.example.ISABackend.dto.SearchPharmacy;
-import com.example.ISABackend.model.Medicine;
-import com.example.ISABackend.model.Pharmacy;
-import com.example.ISABackend.model.User;
+import com.example.ISABackend.enums.UserRole;
+import com.example.ISABackend.enums.WorkDays;
+import com.example.ISABackend.model.*;
+import com.example.ISABackend.repository.DermatologistRepository;
+import com.example.ISABackend.repository.DermatologistScheduleRepository;
 import com.example.ISABackend.repository.PharmacyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,15 @@ import java.util.*;
 public class PharmacyServiceImpl implements PharmacyService {
     @Autowired
     private PharmacyRepository pharmacyRepository;
+
     @Autowired
     private MedicineService medicineService;
+
+    @Autowired
+    private DermatologistScheduleRepository dermatologistScheduleRepository;
+
+    @Autowired
+    private DermatologistService dermatologistService;
 
     @Override
     public Pharmacy getById(Long id) {
@@ -118,6 +127,8 @@ public class PharmacyServiceImpl implements PharmacyService {
 
         return null;
     }
+
+    @Override
     public Pharmacy updatePharmacy(Pharmacy updatedPharmacy) {
         Pharmacy fromRepository =  getById(updatedPharmacy.getId());
 
@@ -136,17 +147,98 @@ public class PharmacyServiceImpl implements PharmacyService {
     public Pharmacy addMedicine(Long pharmacy_id, Long medicine_id) {
         Pharmacy u = getById(pharmacy_id);
         Medicine m = medicineService.getById(medicine_id);
-        Set<Medicine> myMedicine = u.getMedicine();
+        ArrayList<Medicine> myMedicine = new ArrayList<Medicine>();
 
         if(!myMedicine.contains(m)) {
             myMedicine.add(m);
             pharmacyRepository.save(u);
             return u;
-        }
-        else {
+        } else {
             return null;
         }
 
+    }
+
+    @Override
+    public Pharmacy addNew(Pharmacy newPharmacy) {
+
+        Pharmacy s = new Pharmacy();
+
+        s.setName(newPharmacy.getName());
+        s.setAddress(newPharmacy.getAddress());
+        s.setCity(newPharmacy.getCity());
+        s.setDescription(newPharmacy.getDescription());
+        s.setRate(0);
+
+        pharmacyRepository.save(s);
+        return s;
+
+    }
+
+    //vraca sve dermatologe koji rade u apoteci sa id = pharmacyId
+    @Override
+    public ArrayList<Dermatologist> getDermatologists(Long pharmacyId) {
+        //lista koja se puni dermatolozima koji rade u toj apoteci
+        ArrayList<Dermatologist> ret = new ArrayList<Dermatologist>();
+
+        List<DermatologistSchedule> allSchedules = dermatologistScheduleRepository.findAll();
+        for(DermatologistSchedule ds : allSchedules){
+            //prodji kroz sve rasporede i pronadji one vezane za tu apoteku
+            if(ds.getPharmacyId() == pharmacyId){
+                //preuzmi dermatologa iz tog rasporeda
+                Dermatologist d = dermatologistService.getById(ds.getDermatologistId());
+                //ako se vec ne nalazi u ret listi dodaj ga u nju
+                if(!ret.contains(d)){
+                    ret.add(d);
+                }
+
+            }
+        }
+        return ret;
+    }
+
+    @Override
+    public ArrayList<Dermatologist> getAvailableDermatologists(Long pharmacyId) {
+        ArrayList<Dermatologist> ret = new ArrayList<Dermatologist>();
+        ArrayList<Dermatologist> existingDermatologists = this.getDermatologists(pharmacyId);
+
+        for(Dermatologist curr : dermatologistService.getAll()){
+            //ako lista dermatologa koji tu vec rade ne sadrzi ovog trenutnog
+            if(!existingDermatologists.contains(curr)){
+                //dodaj ga u ret listu
+                ret.add(curr);
+            }
+        }
+
+
+
+        return ret;
+    }
+
+    @Override
+    public Long scheduleDermatologist(Long pharmacyId, Long dermatologistId, ArrayList<WorkDays> workDays) {
+        ArrayList<DermatologistSchedule> schedules = dermatologistScheduleRepository.findByDermatologistId(dermatologistId);
+
+        //provera da li je zaposlen neki od ovih dana
+        for(DermatologistSchedule ds : schedules){
+            for(WorkDays day : workDays){
+                if(ds.getWorkDay().toString().equals(day.toString())){
+                    return null;
+                }
+            }
+        }
+
+        //ako prodje uspesno proveru kreiraj radno vreme za sve dane iz liste
+        for(WorkDays newWorkDay : workDays){
+            DermatologistSchedule newSchedule = new DermatologistSchedule();
+            newSchedule.setPharmacyId(pharmacyId);
+            newSchedule.setDermatologistId(dermatologistId);
+            newSchedule.setWorkDay(newWorkDay);
+            dermatologistScheduleRepository.save(newSchedule);
+        }
+
+
+        return dermatologistId;
     }
 
 }

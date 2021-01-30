@@ -1,0 +1,72 @@
+<system-admin-navbar></system-admin-navbar>
+
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>Register new supplier</h1>
+    <form (ngSubmit)="register()" #registrationForm="ngForm">
+        <div class="row">
+            <div class="col">
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="First Name" class="form-control" required
+                            name="firstName" #firstName="ngModel" [(ngModel)]="newSupplier.firstName"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Last Name" class="form-control" required
+                            name="lastName" #lastName="ngModel" [(ngModel)]="newSupplier.lastName"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Address" class="form-control" required
+                            name="address" #address="ngModel" [(ngModel)]="newSupplier.address"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="City" class="form-control" required
+                            name="city" #city="ngModel" [(ngModel)]="newSupplier.city"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Country" class="form-control" required
+                            name="country" #country="ngModel" [(ngModel)]="newSupplier.country"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="number" value="" placeholder="Phone Number" class="form-control" required
+                            name="phoneNumber" #phoneNumber="ngModel" [(ngModel)]="newSupplier.phoneNumber"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="E-mail" class="form-control" required name="email"
+                            #email="ngModel" [(ngModel)]="newSupplier.email"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="password" value="" placeholder="Password" class="form-control" required
+                            name="password" #password="ngModel" [(ngModel)]="newSupplier.password"/>
+                    </div>
+                </div>
+
+                <div>
+                    <input type="submit" value="Register" mat-raised-button class="btn btn-success">
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>

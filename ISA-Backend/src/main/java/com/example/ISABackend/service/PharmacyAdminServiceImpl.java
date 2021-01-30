@@ -2,17 +2,13 @@ package com.example.ISABackend.service;
 
 import com.example.ISABackend.dto.SearchDermatologist;
 import com.example.ISABackend.dto.SearchPharmacist;
-import com.example.ISABackend.model.Dermatologist;
-import com.example.ISABackend.model.Pharmacist;
-import com.example.ISABackend.model.Pharmacy;
-import com.example.ISABackend.model.Pharmacy_Admin;
-import com.example.ISABackend.repository.DermatologistRepository;
-import com.example.ISABackend.repository.PharmacistRepository;
-import com.example.ISABackend.repository.PharmacyAdminRepository;
-import com.example.ISABackend.repository.PharmacyRepository;
+import com.example.ISABackend.enums.UserRole;
+import com.example.ISABackend.model.*;
+import com.example.ISABackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -26,6 +22,10 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
     PharmacistRepository pharmacistRepository;
     @Autowired
     PharmacyRepository pharmacyRepository;
+    @Autowired
+    PharmacyService pharmacyService;
+    @Autowired
+    DermatologistAppointmentService dermatologistAppointmentService;
 
     public Pharmacy_Admin getById(Long id) {
         return pharmacyAdminRepository.findById(id).orElseGet(null);  }
@@ -69,7 +69,36 @@ public class PharmacyAdminServiceImpl implements PharmacyAdminService {
         Pharmacy_Admin pa = pharmacyAdminRepository.getOne(adminId);
         return pa.getPharmacy();
     }
-@Override
+
+    @Override
+    public Pharmacy_Admin addNew(Pharmacy_Admin newPharmacyAdmin, Long pharmacyId) {
+        Pharmacy forNewAdmin = pharmacyService.getById(pharmacyId);
+        if (getByEmail(newPharmacyAdmin.getEmail()) == null) {
+            Pharmacy_Admin s = new Pharmacy_Admin();
+            s.setPassword(newPharmacyAdmin.getPassword());
+            s.setFirstName(newPharmacyAdmin.getFirstName());
+            s.setLastName(newPharmacyAdmin.getLastName());
+            s.setAddress(newPharmacyAdmin.getAddress());
+            s.setCity(newPharmacyAdmin.getCity());
+            s.setCountry(newPharmacyAdmin.getCountry());
+            s.setPhoneNumber(newPharmacyAdmin.getPhoneNumber());
+            s.setEmail(newPharmacyAdmin.getEmail());
+            s.setPrviPutLogovan(true);
+            s.setUserRole(UserRole.PHARMACY_ADMIN);
+            s.setPharmacy(forNewAdmin);
+
+            pharmacyAdminRepository.save(s);
+            return s;
+        } else {
+            return null;
+        }
+
+ 
+    }
+
+
+
+    @Override
     public Pharmacy_Admin updateAdmin(Pharmacy_Admin updatedAdmin) {
         Pharmacy_Admin fromRepository =  getByEmail(updatedAdmin.getEmail());
 

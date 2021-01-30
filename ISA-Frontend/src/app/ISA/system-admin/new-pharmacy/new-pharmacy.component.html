@@ -1,0 +1,44 @@
+<system-admin-navbar></system-admin-navbar>
+
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>Register new pharmacy</h1>
+    <form (ngSubmit)="register()" #registrationForm="ngForm">
+        <div class="row">
+            <div class="col">
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Name" class="form-control" required
+                            name="name" #name="ngModel" [(ngModel)]="newPharmacy.name"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Description" class="form-control" required
+                            name="description" #description="ngModel" [(ngModel)]="newPharmacy.description"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Address" class="form-control" required
+                            name="address" #address="ngModel" [(ngModel)]="newPharmacy.address"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="City" class="form-control" required
+                            name="city" #city="ngModel" [(ngModel)]="newPharmacy.city"/>
+                    </div>
+                </div>
+
+                <div>
+                    <input type="submit" value="Register" mat-raised-button class="btn btn-success">
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>

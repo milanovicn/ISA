@@ -1,6 +1,8 @@
 package com.example.ISABackend.service;
 
 import com.example.ISABackend.dto.SearchPharmacy;
+import com.example.ISABackend.enums.WorkDays;
+import com.example.ISABackend.model.Dermatologist;
 import com.example.ISABackend.model.Pharmacy;
 import com.example.ISABackend.model.Pharmacy_Admin;
 
@@ -14,5 +16,9 @@ public interface PharmacyService {
     public ArrayList<Pharmacy>  sort(ArrayList<Pharmacy> sortPharmacies, String sortType);
     public Pharmacy updatePharmacy(Pharmacy updatedPharmacy);
     public Pharmacy addMedicine(Long pharmacy_id, Long medicine_id);
+    public Pharmacy addNew(Pharmacy newPharmacy);
+    public ArrayList<Dermatologist> getDermatologists(Long pharmacyId);
+    public ArrayList<Dermatologist> getAvailableDermatologists(Long pharmacyId);
+    public Long scheduleDermatologist(Long pharmacyId, Long dermatologistId, ArrayList<WorkDays> workDays);
 
 }

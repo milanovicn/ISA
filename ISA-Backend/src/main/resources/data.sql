@@ -19,11 +19,13 @@ INSERT INTO pharmacy.pharmacy_pharmacist(pharmacy_id, pharmacist_id) VALUES (2,3
 -- DERMATOLOGISTS
 insert into  pharmacy.dermatologist(id, email, first_name, last_name, password, phone_number, user_role, address, city, country, rate) values (1, 'dermatologist1@pharmacy.com', 'Pera', 'Peric', '123', 066123123, 4, 'Ulica Dermatologa 1', 'Novi Sad', 'Srbija',2)
 insert into  pharmacy.dermatologist(id, email, first_name, last_name, password, phone_number, user_role, address, city, country, rate) values (2, 'dermatologist11@pharmacy.com', 'Juan', 'Carlos', '123', 06666666, 4, 'Ulica Dermatologa 2', 'Novi Sad', 'Srbija',5)
-
 insert into pharmacy.dermatologist(id, email, first_name, last_name, password, phone_number, user_role, address, city, country, rate) values (3, 'dermatologist2@pharmacy.com', 'Tanja', 'Tanjic', '123', 066321321, 4, 'Ulica Dermatologa 3', 'Novi Sad', 'Srbija',4)
-insert into  pharmacy.pharmacy_dermatologist(pharmacy_id,dermatologist_id) values (1,1)
-insert into  pharmacy.pharmacy_dermatologist(pharmacy_id,dermatologist_id) values (1,2)
-insert into  pharmacy.pharmacy_dermatologist(pharmacy_id,dermatologist_id) values (2,3)
+
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('1', '1', '1', '0')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('2', '1', '1', '1')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('3', '1', '2', '2')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('4', '1', '2', '3')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('5', '2', '1', '2')
 
 -- PHARMACY ADMIN
 INSERT INTO pharmacy.pharmacy_admin(id,address,city,country,email,first_name,last_name,password,phone_number,user_role,pharmacy_id,prvi_put_logovan) values (1,'Alekse Santica 48','Novi Sad','Srbija','pharmacyadmin1@pharmacy.com','Pera','Peric','123',061123123,1,1,1)
@@ -69,26 +71,17 @@ insert into pharmacy.user_allergies(user_id, allergies_id) values (2,3)
 
 
 
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,1)
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,2)
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,3)
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (2,4)
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (2,5)
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (2,6)
-
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (3,7)
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (3,8)
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (3,9)
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,10)
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,11)
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,12)
-insert into  pharmacy.pharmacy_medicine(pharmacy_id,medicine_id) values (1,13)
-
 -- SYSTEM ADMIN
-
 insert into pharmacy.system_admin(id,address,city,country,email,first_name,last_name,password,phone_number,user_role,prvi_put_logovan) values (1,'Ulica Sys Admina 1','Novi Sad','Srbija','sysadmin1@pharmacy.com','Mika','Mikic','123',061123123,0,1)
 
-
 -- SUPPLIER
-
 insert into pharmacy.supplier(id,address,city,country,email,first_name,last_name,password,phone_number,user_role,prvi_put_logovan) values (1,'Ulica Dobavljaca 1','Novi Sad','Srbija','supplier1@pharmacy.com','Pika','Pikic','123',061123123,5,1)
+
+-- MEDICINE STOCKS IN PHARMACY
+INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('1', '15', '1','Analgin 500mg tableta', '1', '0')
+INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('2', '60', '2', 'Rapten-K 50mg obložena tableta', '1', '0')
+INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('3', '40', '3', 'Febricet 500mg tableta', '1', '0')
+INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('4', '2', '4', 'Aspirin 500 500mg tableta', '1', '0')
+INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('5', '20', '5', 'Xyzal 5mg film tableta', '1', '0')
+INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('6', '1', '6', 'Cetirizin 10mg film tableta', '1', '0')
+INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('7', '4', '7', 'ALERGOSAN 10mg film tableta', '1', '0')

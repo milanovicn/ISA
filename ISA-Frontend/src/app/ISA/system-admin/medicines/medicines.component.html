@@ -1,0 +1,103 @@
+<system-admin-navbar></system-admin-navbar>
+
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>Add new medicine</h1>
+    <form (ngSubmit)="register()" #registrationForm="ngForm">
+        <div class="row">
+            <div class="col">
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Name" class="form-control" required name="name"
+                            #name="ngModel" [(ngModel)]="newMedicine.name" />
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="number" value="" placeholder="Code" class="form-control" required name="code"
+                            #code="ngModel" [(ngModel)]="newMedicine.code" />
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Contraindications" class="form-control" required
+                            name="contraindications" #contraindications="ngModel"
+                            [(ngModel)]="newMedicine.contraindications" />
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Ingredients" class="form-control" required
+                            name="ingredients" #ingredients="ngModel" [(ngModel)]="newMedicine.ingredients" />
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Manufacturer" class="form-control" required
+                            name="manufacturer" #manufacturer="ngModel"
+                            [(ngModel)]="newMedicine.manufacturer" />
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Prescription</mat-label>
+                        <mat-select name="prescription" #prescription="ngModel" [(ngModel)]="newMedicine.prescription">
+                            <mat-option value="PRESCRIPTION_DRUG">Prescription drug</mat-option>
+                            <mat-option value=" OVER_THE_COUNTER">Over the counter</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Medicine Form</mat-label>
+                        <mat-select name="form" #form="ngModel" [(ngModel)]="newMedicine.form">
+                            <mat-option value="TABLET">Tablet</mat-option>
+                            <mat-option value="CAPSULES">Capsules</mat-option>
+                            <mat-option value="DROPS">Drops</mat-option>
+                            <mat-option value="SYRUP">Syrup</mat-option> 
+                            <mat-option value="INHALERS">Inhalers</mat-option>
+                            <mat-option value="TOPICAL">Topical</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Medicine Type</mat-label>
+                        <mat-select name="type" #type="ngModel" [(ngModel)]="newMedicine.type">
+                            <mat-option value="ANTIBIOTIC">Antibiotic</mat-option>
+                            <mat-option value="ANTIHISTAMINE">Antihistamine</mat-option>
+                            <mat-option value="ANESTHETIC">Anesthetic</mat-option>
+                            <mat-option value="ANALGESIC">Analgesic</mat-option> 
+                            <mat-option value="ANTISEPTICS">Antiseptic</mat-option>
+                            <mat-option value="DIETARY_SUPPLEMENT">Dietary Supplement</mat-option>
+                            <mat-option value="ANTIPYRETIC">Antipyretic</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Replacements</mat-label>
+                        <mat-select name="nemamPojma" #nemamPojma="ngModel" [(ngModel)]='replacements'  multiple>
+                            <mat-option *ngFor="let med of allMedicines" [value]="med.id">{{med.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <input type="submit" value="Register" mat-raised-button class="btn btn-success">
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>

@@ -11,8 +11,11 @@ import { PharmacyAdminHisPharmacyComponent } from './pharmacy-admin-hispharmacy/
 import { PharmasComponent } from './pharmas-pharmacy/pharmas-pharmacy.component';
 import { DermasComponent } from './dermas-pharmacy/dermas-pharmacy.component';
 import { PharmacyMedicineComponent } from './pharmacy-medicine/pharmacy-medicine.component';
-
-
+import { MatSelectModule } from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -29,8 +32,15 @@ import { PharmacyMedicineComponent } from './pharmacy-medicine/pharmacy-medicine
     CommonModule,
     PharmacyAdminRoutingModule, 
     RouterModule,
-    FormsModule
-  
-  ]
+    FormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
+    providers: [  
+    MatDatepickerModule,  
+  ],
 })
 export class PharmacyAdminModule { }

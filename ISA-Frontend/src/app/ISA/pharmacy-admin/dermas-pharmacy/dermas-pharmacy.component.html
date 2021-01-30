@@ -5,21 +5,21 @@
     <div style="margin-left:300px; margin-top:-50px; padding:60px;">
         <h1>Dermatologists</h1>
 
-        
+
         <form (ngSubmit)="searchDermas()" #allergyForm="ngForm">
             <div class="row">
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <input type="text" value="" placeholder="First Name" class="form-control" name="name" #name="ngModel"
-                            [(ngModel)]="searchParameters.firstname" />
+                        <input type="text" value="" placeholder="First Name" class="form-control" name="name"
+                            #name="ngModel" [(ngModel)]="searchParameters.firstname" />
                     </div>
                 </div>
 
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <input type="text" value="" placeholder="Last Name" class="form-control" name="name" #name="ngModel"
-                            [(ngModel)]="searchParameters.lastname" />
+                        <input type="text" value="" placeholder="Last Name" class="form-control" name="name"
+                            #name="ngModel" [(ngModel)]="searchParameters.lastname" />
                     </div>
                 </div>
 
@@ -64,45 +64,158 @@
                     <div class="col-sm-3">
                         <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
                     </div>
-            </form>
+                </form>
 
             </div>
         </form>
-        
 
-            <div class="row">
-                <div class="card">
-                    <div class="card-header card-header-success">
-                        <h4 class="card-title">Dermatologist</h4>
-                    </div>
-                    <div class="card-content table-responsive table-full-width">
-                        <table class="table">
-                            <thead class="text-success">
 
-                                <th>First Name</th>
-                                <th>Last name</th>
-                                <th>Email</th>
-                                <th>City</th>
-                                <th>Rate</th>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor='let k of myDermas'>
+        <div class="row">
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Dermatologist</h4>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+                        <thead class="text-success">
 
-                                    <td>{{k.firstName}}</td>
-                                    <td>{{k.lastName}}</td>
-                                    <td>{{k.email}}</td>
-                                    <td>{{k.city}}</td>
-                                    <td>{{k.rate}}</td>
-                                    
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            <th>First Name</th>
+                            <th>Last name</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Rate</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let k of myDermas'>
+
+                                <td>{{k.firstName}}</td>
+                                <td>{{k.lastName}}</td>
+                                <td>{{k.email}}</td>
+                                <td>{{k.city}}</td>
+                                <td>{{k.rate}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-       
+        </div>
+
+        <div>
+            <h2>Add Dermatologist to Pharmacy</h2>
+            <form (ngSubmit)="addDermatologist()" #newDermatologistForm="ngForm">
+                <div class="row">
+                    <div class="col">
+
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Dermatologist</mat-label>
+                                <mat-select name="nemamPojma1" #nemamPojma1="ngModel" [(ngModel)]='dermatologistId'>
+                                    <mat-option *ngFor="let dermatologist of availableDermatologists"
+                                        [value]="dermatologist.id">{{dermatologist.firstName}}
+                                        {{dermatologist.lastName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Working days</mat-label>
+                                <mat-select name="nemamPojma2" #nemamPojma2="ngModel" [(ngModel)]='workDays' multiple>
+                                    <mat-option value="MONDAY">Monday</mat-option>
+                                    <mat-option value="TUESDAY">Tuesday</mat-option>
+                                    <mat-option value="WEDNESDAY">Wednesday</mat-option>
+                                    <mat-option value="THURSDAY">Thursday</mat-option>
+                                    <mat-option value="FRIDAY">Friday</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div>
+                            <input type="submit" value="Add" mat-raised-button class="btn btn-success">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div>
+            <h2>Create Dermatologists Appointment</h2>
+            <form (ngSubmit)="createAppointment()" #newDermatologistForm="ngForm">
+                <div class="row">
+                    <div class="col">
+
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Dermatologist</mat-label>
+                                <mat-select name="nemamPojma3" #nemamPojma3="ngModel" [(ngModel)]='appointmentDermId'>
+                                    <mat-option *ngFor="let dermatologist of myDermas" [value]="dermatologist.id">
+                                        {{dermatologist.firstName}} {{dermatologist.lastName}} </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Date</mat-label>
+                                <input matInput [matDatepicker]="picker" name="nemamPojma4" #nemamPojma4="ngModel"
+                                    [(ngModel)]='appointmentDate'>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Time</mat-label>
+                                <mat-select name="nemamPojma5" #nemamPojma5="ngModel" [(ngModel)]='appointmentTime'>
+                                    <mat-option value="8:00">8:00</mat-option>
+                                    <mat-option value="8:30">8:30</mat-option>
+                                    <mat-option value="9:00">9:00</mat-option>
+                                    <mat-option value="9:30">9:30</mat-option>
+                                    <mat-option value="10:00">10:00</mat-option>
+                                    <mat-option value="10:30">10:30</mat-option>
+                                    <mat-option value="11:00">11:00</mat-option>
+                                    <mat-option value="11:30">11:30</mat-option>
+                                    <mat-option value="12:00">12:00</mat-option>
+                                    <mat-option value="12:30">12:30</mat-option>
+                                    <mat-option value="13:00">13:00</mat-option>
+                                    <mat-option value="13:30">13:30</mat-option>
+                                    <mat-option value="14:00">14:00</mat-option>
+                                    <mat-option value="14:30">14:30</mat-option>
+                                    <mat-option value="15:00">15:00</mat-option>
+                                    <mat-option value="15:30">15:30</mat-option>
+                                    <mat-option value="16:00">16:00</mat-option>
+                                    <mat-option value="16:30">16:30</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="number" value="" placeholder="Price" class="form-control"
+                                    name="nemamPojma33" #nemamPojma33="ngModel" [(ngModel)]="appointmentPrice" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <input type="submit" value="Add" mat-raised-button class="btn btn-success">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+
+
+        </div>
+
+
 
     </div>
 
-    
+
+
+
 </div>

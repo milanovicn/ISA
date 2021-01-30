@@ -36,19 +36,16 @@ public class Pharmacy {
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Pharmacist> pharmacist = new HashSet<Pharmacist>();
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Dermatologist> dermatologist = new HashSet<Dermatologist>();
+    //@JsonIgnore
+    //@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //private Set<Dermatologist> dermatologist = new HashSet<Dermatologist>();
 
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Medicine> medicine = new HashSet<Medicine>();
+    //@JsonIgnore
+    //@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //private Set<Medicine> medicine = new HashSet<Medicine>();
 
-    public Pharmacy(String name, String description, String address, String city, double rate, Set<Pharmacy_Admin> pharmacistAdmin, Set<Pharmacist> pharmacist, Set<Dermatologist> dermatologist, Set<Medicine> medicine) {
-    }
-
-    public Pharmacy(String name, String description, String address, String city, double rate, Set<Pharmacy_Admin> pharmacistAdmin, Set<Pharmacist> pharmacist, Set<Dermatologist> dermatologist) {
+    public Pharmacy(String name, String description, String address, String city, double rate, Set<Pharmacy_Admin> pharmacistAdmin, Set<Pharmacist> pharmacist/*, Set<Dermatologist> dermatologist*/) {
 
         this.name = name;
         this.description = description;
@@ -57,18 +54,18 @@ public class Pharmacy {
         this.rate = rate;
         this.pharmacistAdmin = pharmacistAdmin;
         this.pharmacist = pharmacist;
-        this.dermatologist = dermatologist;
+       // this.dermatologist = dermatologist;
 
-        this.medicine = medicine;
+        //this.medicine = medicine;
     }
 
-    public Set<Medicine> getMedicine() {
-        return medicine;
-    }
+    //public Set<Medicine> getMedicine() {
+    //    return medicine;
+    //}
 
-    public void setMedicine(Set<Medicine> medicine) {
-        this.medicine = medicine;
-    }
+    //public void setMedicine(Set<Medicine> medicine) {
+    //    this.medicine = medicine;
+    //}
 
 
     public Pharmacy() {
@@ -130,13 +127,13 @@ public class Pharmacy {
         this.pharmacist = pharmacist;
     }
 
-    public Set<Dermatologist> getDermatologist() {
-        return dermatologist;
-    }
+   // public Set<Dermatologist> getDermatologist() {
+   //     return dermatologist;
+   // }
 
-    public void setDermatologist(Set<Dermatologist> dermatologist) {
-        this.dermatologist = dermatologist;
-    }
+   // public void setDermatologist(Set<Dermatologist> dermatologist) {
+   //     this.dermatologist = dermatologist;
+    //}
 
     public Set<Pharmacy_Admin> getPharmacistAdmin() {
         return pharmacistAdmin;
