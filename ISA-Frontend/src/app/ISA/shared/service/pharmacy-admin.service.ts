@@ -39,6 +39,9 @@ export class PharmacyAdminService {
   public createDermatologistAppointment(appointmentPharmacyId:number, appointmentDermId:number, appointmentTime: string, appointmentPrice:number, appointmentDate:Date) {
     return this.http.post("/api/pharmacy-admin/dermatologistAppointment/" + appointmentPharmacyId + "/" + appointmentDermId + "/" + appointmentTime + "/" + appointmentPrice, appointmentDate);
   }
+  public createPharmacistAppointment(appointmentPharmacyId:number, appointmentPharmId:number, appointmentTime: string, appointmentPrice:number, appointmentDate:Date) {
+    return this.http.post("/api/pharmacy-admin/pharmacistAppointment/" + appointmentPharmacyId + "/" + appointmentPharmId + "/" + appointmentTime + "/" + appointmentPrice, appointmentDate);
+  }
 
   public registerPharma(newPharma: Pharmacist, pharmacyId:number, ) {
     return this.http.post<Pharmacist>("/api/pharmacy-admin/pharmacist/" + pharmacyId, newPharma);

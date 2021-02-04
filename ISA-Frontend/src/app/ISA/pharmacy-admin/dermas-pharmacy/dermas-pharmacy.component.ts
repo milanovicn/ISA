@@ -178,6 +178,7 @@ export class DermasComponent implements OnInit {
     this.pharmacyAdminService.createDermatologistAppointment(this.myPharmacy.id, this.appointmentDermId, this.appointmentTime, this.appointmentPrice, this.appointmentDate).subscribe({
       next: ret => {
         this.ret = ret;
+        alert("Appointment confirmed");
       }
     });
 

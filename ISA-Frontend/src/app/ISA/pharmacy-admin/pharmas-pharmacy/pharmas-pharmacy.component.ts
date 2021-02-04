@@ -13,6 +13,7 @@ import { pagespeedonline_v5 } from 'googleapis';
 import { Dermatologist } from 'app/ISA/shared/model/Dermatologist';
 import { Pharmacist } from 'app/ISA/shared/model/Pharmacist';
 import { SearchPharmacist } from 'app/ISA/shared/model/SearchPharmacist';
+import { asLiteral } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'pharmas-pharmacy',
@@ -28,6 +29,11 @@ export class PharmasComponent implements OnInit {
   newPharma : User;
   workDays: string[] = [];
   pharmacistId:number = 0;
+  appointmentPharmId:number=0;
+  appointmentTime:string = "";
+  appointmentDate:Date=new Date(); 
+  appointmentPrice:number=0;
+  ret: Object;
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
@@ -177,6 +183,8 @@ export class PharmasComponent implements OnInit {
                 if (this.newPharma == null) {
                     alert("Pharmacist with this email is already registered!");
                 }
+                else
+                alert("Pharmacist registered!");
             }
         });
    
@@ -186,11 +194,32 @@ addPharmacist() {
   this.pharmacyService.addPharmacist(this.myPharmacy.id, this.pharmacistId, this.workDays).subscribe({
     next: pharmacist => {
       this.pharmacistId = pharmacist;
+     
       this.refresh();
       if(this.pharmacistId == null){
-        alert("You have already declared working days for this pharmacist. Please chose another one!");
+        alert("You have already assigned working days for this pharmacist. Please chose another one!");
       }
+      else
+      alert("Working days assigned successfully! ");
     }
   });
 }
+
+createAppointment(){
+  console.log(this.appointmentDate);
+  console.log(this.appointmentTime);
+  console.log(this.appointmentPharmId);
+  console.log(this.appointmentPrice);
+
+  this.pharmacyAdminService.createPharmacistAppointment(this.myPharmacy.id, this.appointmentPharmId, this.appointmentTime, this.appointmentPrice, this.appointmentDate).subscribe({
+    next: ret => {
+      this.ret = ret;
+      this.refresh();
+      alert("Consultation confirmed");
+     
+    }
+  });
+
+}
+
 }
