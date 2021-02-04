@@ -12,9 +12,9 @@ public class Pharmacist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Pharmacy pharmacy;
+
+    @Column(name = "pharmacyId" , nullable = false)
+    private Long pharmacyId;
 
     @Column(name = "firstName", nullable = false)
     private String firstName;
@@ -48,11 +48,11 @@ public class Pharmacist {
     @Column(name = "prviPutLogovan", nullable = false)
     private boolean prviPutLogovan;
 
-    public Pharmacist(Pharmacy pharmacy, String firstName, String lastName, String email,
+    public Pharmacist( Long pharmacyId, String firstName, String lastName, String email,
                       String phoneNumber, String password, String address, String city,
                       String country, UserRole userRole, double rate, boolean prviPutLogovan) {
 
-        this.pharmacy = pharmacy;
+        this.pharmacyId = pharmacyId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -85,13 +85,6 @@ public class Pharmacist {
         this.id = id;
     }
 
-    public Pharmacy getPharmacy() {
-        return pharmacy;
-    }
-
-    public void setPharmacy(Pharmacy pharmacy) {
-        this.pharmacy = pharmacy;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -172,5 +165,13 @@ public class Pharmacist {
     public void setPrviPutLogovan(boolean prviPutLogovan) {
 
         this.prviPutLogovan = prviPutLogovan;
+    }
+
+    public Long getPharmacyId() {
+        return pharmacyId;
+    }
+
+    public void setPharmacyId(Long pharmacyId) {
+        this.pharmacyId = pharmacyId;
     }
 }

@@ -65,7 +65,7 @@ public class PharmacistServiceImpl implements PharmacistService {
 
     @Override
     public Pharmacist addNew(Pharmacist newPharma, Long pharmacyId) {
-        Pharmacy forNewPharma = pharmacyService.getById(pharmacyId);
+       // Pharmacy forNewPharma = pharmacyService.getById(pharmacyId);
         if (getByEmail(newPharma.getEmail()) == null) {
             Pharmacist p = new Pharmacist();
             p.setPassword(newPharma.getPassword());
@@ -78,8 +78,7 @@ public class PharmacistServiceImpl implements PharmacistService {
             p.setEmail(newPharma.getEmail());
             p.setPrviPutLogovan(true);
             p.setUserRole(UserRole.PHARMACIST);
-            p.setPharmacy(forNewPharma);
-
+            p.setPharmacyId(pharmacyId);
             pharmacistRepository.save(p);
             return p;
         } else {

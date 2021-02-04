@@ -286,7 +286,7 @@ public class PharmacyServiceImpl implements PharmacyService {
         List<Pharmacist> svifarm = pharmacistRepository.findAll();
         for(Pharmacist saovimprolazim : svifarm){
             //prodji kroz sve id farmac i pronadji one vezane za id izabrane apoteke
-            if(saovimprolazim.getPharmacy().getId() == pharmacyId){
+            if(saovimprolazim.getPharmacyId() == pharmacyId){
                 //preuzmi farmaceuta
                 Pharmacist d = pharmacistService.getById(saovimprolazim.getId());
                 //ako se vec ne nalazi u ret listi dodaj ga u nju
