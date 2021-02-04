@@ -5,10 +5,7 @@ import com.example.ISABackend.dto.SearchPharmacist;
 import com.example.ISABackend.enums.WorkDays;
 import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.PharmacyAdminRepository;
-import com.example.ISABackend.service.DermatologistAppointmentService;
-import com.example.ISABackend.service.PharmacistService;
-import com.example.ISABackend.service.PharmacyAdminService;
-import com.example.ISABackend.service.PharmacyService;
+import com.example.ISABackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +36,9 @@ public class PharmacyAdminController {
 
     @Autowired
     private DermatologistAppointmentService dermatologistAppointmentService;
+
+    @Autowired
+    private PharmacistAppointmentService pharmacistAppointmentService;
 
     private Pharmacy_Admin authorize(HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -124,6 +124,25 @@ public class PharmacyAdminController {
         Pharmacist pharmacist = pharmacistService.addNew(newPharmacist, pharmacyId);
 
         return new ResponseEntity<Pharmacist>(pharmacist, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/pharmacistAppointment/{pharmacyId}/{pharmacistId}/{appointmentTime}/{price}")
+    public ResponseEntity<?> addPharmacistAppointment(@PathVariable("pharmacyId") Long pharmacyId,
+                                                         @PathVariable("pharmacistId") Long pharmacistId,
+                                                         @PathVariable("appointmentTime") String appointmentTime,
+                                                         @PathVariable("price") Long price,
+                                                         @RequestBody LocalDate appointmentDate,
+                                                         @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        PharmacistAppointment da = pharmacistAppointmentService.addPharmacistAppointment(pharmacyId, pharmacistId, appointmentTime, price, appointmentDate);
+        if (da != null) {
+            return new ResponseEntity<PharmacistAppointment>(da, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>( HttpStatus.METHOD_NOT_ALLOWED);
+        }
     }
     }
 
