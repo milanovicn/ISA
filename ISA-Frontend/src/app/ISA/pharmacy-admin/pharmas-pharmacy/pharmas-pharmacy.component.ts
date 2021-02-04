@@ -25,7 +25,9 @@ export class PharmasComponent implements OnInit {
   myPharmas: Pharmacist[] = [];
   searchParameters: SearchPharmacist;
   myMedicine:Medicine[];
-
+  newPharma : User;
+  workDays: string[] = [];
+  pharmacistId:number = 0;
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
@@ -33,7 +35,7 @@ export class PharmasComponent implements OnInit {
     this.myDermas = [];
     this.myPharmas=[];
     this.searchParameters = new SearchPharmacist();
-  //  this.myMedicine=[];
+    this.newPharma = new User();
   }
 
   ngOnInit(): void {
@@ -120,6 +122,7 @@ export class PharmasComponent implements OnInit {
   //     }
   //   });
   // }
+  
   getAllPharmas() {
     this.pharmacyService.getPharmacists(this.myPharmacy.id).subscribe({
       next: pharmacist => {
@@ -153,6 +156,7 @@ export class PharmasComponent implements OnInit {
         this.myPharmacy = pharmacy;
         this.getAllPharmas();
         this.getAllDermas();
+        
         //this.getAllMedicine();
         
         
@@ -161,4 +165,32 @@ export class PharmasComponent implements OnInit {
 
   }
 
+  
+  registerPharma() {
+    console.log(this.newPharma);
+    this.pharmacyAdminService.registerPharma(this.newPharma, this.myPharmacy.id).subscribe(
+        {
+            next: newPh => {
+                this.newPharma = newPh;
+                console.log(this.newPharma);
+                this.refresh();
+                if (this.newPharma == null) {
+                    alert("Pharmacist with this email is already registered!");
+                }
+            }
+        });
+   
+   
+}
+addPharmacist() {
+  this.pharmacyService.addPharmacist(this.myPharmacy.id, this.pharmacistId, this.workDays).subscribe({
+    next: pharmacist => {
+      this.pharmacistId = pharmacist;
+      this.refresh();
+      if(this.pharmacistId == null){
+        alert("You have already declared working days for this pharmacist. Please chose another one!");
+      }
+    }
+  });
+}
 }

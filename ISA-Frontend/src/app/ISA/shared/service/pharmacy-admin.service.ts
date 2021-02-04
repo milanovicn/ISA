@@ -40,4 +40,10 @@ export class PharmacyAdminService {
     return this.http.post("/api/pharmacy-admin/dermatologistAppointment/" + appointmentPharmacyId + "/" + appointmentDermId + "/" + appointmentTime + "/" + appointmentPrice, appointmentDate);
   }
 
-}
+  public registerPharma(newPharma: Pharmacist, pharmacyId:number, ) {
+    return this.http.post<Pharmacist>("/api/pharmacy-admin/pharmacist/" + pharmacyId, newPharma);
+ }
+
+
+
+ }

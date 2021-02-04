@@ -10,4 +10,5 @@ export class PharmacyAdmin{
     phoneNumber:string;
     userRole:string;
     prviPutLogovan:boolean;
+    rate:number;
 }

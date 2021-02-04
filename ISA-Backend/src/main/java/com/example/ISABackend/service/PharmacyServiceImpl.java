@@ -4,9 +4,7 @@ import com.example.ISABackend.dto.SearchPharmacy;
 import com.example.ISABackend.enums.UserRole;
 import com.example.ISABackend.enums.WorkDays;
 import com.example.ISABackend.model.*;
-import com.example.ISABackend.repository.DermatologistRepository;
-import com.example.ISABackend.repository.DermatologistScheduleRepository;
-import com.example.ISABackend.repository.PharmacyRepository;
+import com.example.ISABackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +19,23 @@ public class PharmacyServiceImpl implements PharmacyService {
     private MedicineService medicineService;
 
     @Autowired
+    private PharmacyService pharmacyService;
+
+    @Autowired
+    private PharmacistService pharmacistService;
+
+
+    @Autowired
     private DermatologistScheduleRepository dermatologistScheduleRepository;
 
     @Autowired
+    private PharmacistScheduleRepository pharmacistScheduleRepository;
+
+    @Autowired
     private DermatologistService dermatologistService;
+
+    @Autowired
+    private PharmacistRepository pharmacistRepository;
 
     @Override
     public Pharmacy getById(Long id) {
@@ -241,4 +252,71 @@ public class PharmacyServiceImpl implements PharmacyService {
         return dermatologistId;
     }
 
-}
+    public Long schedulePharmacist(Long pharmacyId, Long pharmacistId, ArrayList<WorkDays> workDays){
+
+        ArrayList<PharmacistSchedule> schedules = pharmacistScheduleRepository.findByPharmacistId(pharmacistId);
+
+        //provera da li je zaposlen neki od ovih dana
+        for(PharmacistSchedule ds : schedules){
+            for(WorkDays day : workDays){
+                if(ds.getWorkDay().toString().equals(day.toString())){
+                    return null;
+                }
+            }
+        }
+
+        //ako prodje uspesno proveru kreiraj radno vreme za sve dane iz liste
+        for(WorkDays newWorkDay : workDays){
+            PharmacistSchedule newSchedule = new PharmacistSchedule();
+            newSchedule.setPharmacyId(pharmacyId);
+            newSchedule.setPharmacistId(pharmacistId);
+            newSchedule.setWorkDay(newWorkDay);
+            pharmacistScheduleRepository.save(newSchedule);
+        }
+
+
+        return pharmacistId;
+    }
+    //vraca sve farmaceute koji rade u apoteci sa id = pharmacyId
+    @Override
+    public ArrayList<Pharmacist> getPharmacists(Long pharmacyId) {
+        //lista koja se puni farmaceutima koji rade u toj apoteci
+        ArrayList<Pharmacist> ret = new ArrayList<Pharmacist>();
+
+        List<Pharmacist> svifarm = pharmacistRepository.findAll();
+        for(Pharmacist saovimprolazim : svifarm){
+            //prodji kroz sve id farmac i pronadji one vezane za id izabrane apoteke
+            if(saovimprolazim.getPharmacy().getId() == pharmacyId){
+                //preuzmi farmaceuta
+                Pharmacist d = pharmacistService.getById(saovimprolazim.getId());
+                //ako se vec ne nalazi u ret listi dodaj ga u nju
+                if(!ret.contains(d)){
+                    ret.add(d);
+                }
+
+            }
+        }
+        return ret;
+    }
+
+    @Override
+    public ArrayList<Pharmacist> getAvailablePharmacists(Long pharmacyId) {
+        ArrayList<Pharmacist> ret = new ArrayList<Pharmacist>();
+        ArrayList<Pharmacist> existingPharmacists = this.getPharmacists(pharmacyId);
+
+        for(Pharmacist curr : pharmacistService.getAll()){
+            //ako lista dermatologa koji tu vec rade ne sadrzi ovog trenutnog
+            if(!existingPharmacists.contains(curr)){
+                //dodaj ga u ret listu
+                ret.add(curr);
+            }
+        }
+
+
+
+        return ret;
+    }
+
+    }
+
+

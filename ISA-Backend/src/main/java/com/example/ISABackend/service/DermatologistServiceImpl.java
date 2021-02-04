@@ -1,8 +1,7 @@
 package com.example.ISABackend.service;
 
-import com.example.ISABackend.model.Dermatologist;
-import com.example.ISABackend.model.User;
-import com.example.ISABackend.model.Pharmacist;
+import com.example.ISABackend.enums.UserRole;
+import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.DermatologistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +13,8 @@ public class DermatologistServiceImpl implements DermatologistService{
     @Autowired
     DermatologistRepository dermatologistRepository;
 
+    @Autowired
+    PharmacyService pharmacyService;
 
     @Override
     public List<Dermatologist> getAll() {
@@ -58,4 +59,9 @@ public class DermatologistServiceImpl implements DermatologistService{
         return forChange;
 
     }
-}
+
+
+
+
+    }
+

@@ -161,4 +161,14 @@ public class PharmacyController {
 
         return  dermatologistAppointmentService.getAvailableInPharmacy(pharmacyId);
     }
+
+    //zaposljava farmaceuta u apoteku ako je slobodan na sve odabrane dane
+    @PutMapping(value = "/addPharmacist/{pharmacyId}/{pharmacistId}")
+    public Object addPharmacist(@PathVariable("pharmacyId") Long pharmacyId, @PathVariable("pharmacistId") Long  pharmacistId, @RequestBody ArrayList<WorkDays> workDays, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        return pharmacyService.schedulePharmacist(pharmacyId, pharmacistId, workDays);
+    }
+
 }

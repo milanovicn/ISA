@@ -131,6 +131,7 @@ export class DermasComponent implements OnInit {
     this.pharmacyService.addDermatologist(this.myPharmacy.id, this.dermatologistId, this.workDays).subscribe({
       next: dermatologist => {
         this.dermatologistId = dermatologist;
+        this.refresh();
         if(this.dermatologistId == null){
           alert("This dermatologist is not available on chosen days!");
         }
