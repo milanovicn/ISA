@@ -25,4 +25,5 @@ public interface PharmacyService {
     public Long scheduleDermatologist(Long pharmacyId, Long dermatologistId, ArrayList<WorkDays> workDays);
     public Long schedulePharmacist(Long pharmacyId, Long pharmacistId, ArrayList<WorkDays> workDays);
 
+
 }

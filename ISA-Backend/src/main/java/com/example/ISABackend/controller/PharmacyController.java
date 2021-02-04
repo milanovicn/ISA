@@ -105,7 +105,7 @@ public class PharmacyController {
         if(authorize(request) == null ) {
             return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
         }
-        return  pharmacyService.getById(pharmacyId).getPharmacist();
+        return  pharmacyService.getPharmacists(pharmacyId);
     }
 
 
