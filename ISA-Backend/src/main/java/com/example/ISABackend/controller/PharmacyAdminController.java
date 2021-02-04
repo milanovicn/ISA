@@ -2,12 +2,11 @@ package com.example.ISABackend.controller;
 
 import com.example.ISABackend.dto.SearchDermatologist;
 import com.example.ISABackend.dto.SearchPharmacist;
-import com.example.ISABackend.model.DermatologistAppointment;
-import com.example.ISABackend.model.Pharmacist;
-import com.example.ISABackend.model.Pharmacy_Admin;
-import com.example.ISABackend.model.User;
+import com.example.ISABackend.enums.WorkDays;
+import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.PharmacyAdminRepository;
 import com.example.ISABackend.service.DermatologistAppointmentService;
+import com.example.ISABackend.service.PharmacistService;
 import com.example.ISABackend.service.PharmacyAdminService;
 import com.example.ISABackend.service.PharmacyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +33,9 @@ public class PharmacyAdminController {
 
     @Autowired
     private PharmacyService pharmacyService;
+
+    @Autowired
+    private PharmacistService pharmacistService;
 
     @Autowired
     private DermatologistAppointmentService dermatologistAppointmentService;
@@ -114,8 +116,16 @@ public class PharmacyAdminController {
             return new ResponseEntity<>( HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
+    @PostMapping(value="/pharmacist/{pharmacyId}")
+    public ResponseEntity<Pharmacist> registerPharmacist(@RequestBody Pharmacist newPharmacist, @PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request){
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        Pharmacist pharmacist = pharmacistService.addNew(newPharmacist, pharmacyId);
 
-}
+        return new ResponseEntity<Pharmacist>(pharmacist, HttpStatus.CREATED);
+    }
+    }
 
 
 

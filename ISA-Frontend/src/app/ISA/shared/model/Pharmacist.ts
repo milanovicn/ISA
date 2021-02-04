@@ -13,4 +13,5 @@ export class Pharmacist{
     phoneNumber:string;
     userRole:string;
     rate:number;
+    prviPutLogovan:boolean;
 }

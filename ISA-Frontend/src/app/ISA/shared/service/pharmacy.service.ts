@@ -68,5 +68,13 @@ export class PharmacyService {
     return this.http.get<DermatologistAppointmentDTO[]>("/api/pharmacy/availableDermatologistAppointments/" + pharmacyId);
   }
 
+  public registerPharma(newPharma: Pharmacist, pharmacyId:number, workDays:string[] ) {
+    return this.http.post<Pharmacist>("/api/pharmacy-admin/pharmacist/" + newPharma + "/"+pharmacyId, workDays);
+  }
+
+  public addPharmacist(pharmacyId:number, pharmacistId:number, workDays:string[]){
+    return this.http.put<number>("/api/pharmacy/addPharmacist/"+pharmacyId+"/"+pharmacistId, workDays);
+  }
+
 
 }

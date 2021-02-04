@@ -13,4 +13,5 @@ export class User{
     phoneNumber:string;
     userRole:string;
     prviPutLogovan:boolean;
+    rate:number;
 }

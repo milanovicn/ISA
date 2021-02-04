@@ -3,6 +3,7 @@ package com.example.ISABackend.service;
 import com.example.ISABackend.dto.SearchPharmacy;
 import com.example.ISABackend.enums.WorkDays;
 import com.example.ISABackend.model.Dermatologist;
+import com.example.ISABackend.model.Pharmacist;
 import com.example.ISABackend.model.Pharmacy;
 import com.example.ISABackend.model.Pharmacy_Admin;
 
@@ -19,6 +20,9 @@ public interface PharmacyService {
     public Pharmacy addNew(Pharmacy newPharmacy);
     public ArrayList<Dermatologist> getDermatologists(Long pharmacyId);
     public ArrayList<Dermatologist> getAvailableDermatologists(Long pharmacyId);
+    public ArrayList<Pharmacist> getPharmacists(Long pharmacyId);
+    public ArrayList<Pharmacist> getAvailablePharmacists(Long pharmacyId);
     public Long scheduleDermatologist(Long pharmacyId, Long dermatologistId, ArrayList<WorkDays> workDays);
+    public Long schedulePharmacist(Long pharmacyId, Long pharmacistId, ArrayList<WorkDays> workDays);
 
 }

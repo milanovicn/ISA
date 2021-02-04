@@ -95,7 +95,9 @@
                                     <td>{{k.city}}</td>
                                     <td>{{k.rate}}</td>
                                     
+                                    
                                     <td [(ngModel)]="myPharmacy"> {{myPharmacy.name}}</td>
+                                    
                                     
                                 </tr>
                                 
@@ -106,6 +108,114 @@
                 </div>
             </div>
        
+            <div>
+                <h2>Set working days for pharmacist in order to add them to pharmacy</h2>
+                <form (ngSubmit)="addPharmacist()" #newDermatologistForm="ngForm">
+                    <div class="row">
+                        <div class="col">
+    
+                            <div class="col-sm-8">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>List of pharmacists who do not have declared working schedule</mat-label>
+                                    <mat-select name="nemamPojma1" #nemamPojma1="ngModel" [(ngModel)]='pharmacistId'>
+                                        <mat-option *ngFor="let newPharma of myPharmas"
+                                            [value]="newPharma.id">{{newPharma.firstName}}
+                                           
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="col-sm-8">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Working days</mat-label>
+                                    <mat-select name="nemamPojma2" #nemamPojma2="ngModel" [(ngModel)]='workDays' multiple>
+                                        <mat-option value="MONDAY">Monday</mat-option>
+                                        <mat-option value="TUESDAY">Tuesday</mat-option>
+                                        <mat-option value="WEDNESDAY">Wednesday</mat-option>
+                                        <mat-option value="THURSDAY">Thursday</mat-option>
+                                        <mat-option value="FRIDAY">Friday</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+    
+                            <div>
+                                <input type="submit" value="Add" mat-raised-button class="btn btn-success">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <h1>Register new pharmacist</h1>
+           <form (ngSubmit)="registerPharma()" #registrationForm="ngForm">
+            <div class="row">
+            <div class="col">
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="First Name" class="form-control" required
+                            name="firstName" #firstName="ngModel" [(ngModel)]="newPharma.firstName"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Last Name" class="form-control" required
+                            name="lastName" #lastName="ngModel" [(ngModel)]="newPharma.lastName"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Address" class="form-control" required
+                            name="address" #address="ngModel" [(ngModel)]="newPharma.address"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="City" class="form-control" required
+                            name="city" #city="ngModel" [(ngModel)]="newPharma.city"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Country" class="form-control" required
+                            name="country" #country="ngModel" [(ngModel)]="newPharma.country"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="number" value="" placeholder="Phone Number" class="form-control" required
+                            name="phoneNumber" #phoneNumber="ngModel" [(ngModel)]="newPharma.phoneNumber"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="E-mail" class="form-control" required name="email"
+                            #email="ngModel" [(ngModel)]="newPharma.email"/>
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="password" value="" placeholder="Password" class="form-control" required
+                            name="password" #password="ngModel" [(ngModel)]="newPharma.password"/>
+                    </div>
+                </div>
+
+
+                <div>
+                    <input type="submit" value="Register" mat-raised-button class="btn btn-success">
+                </div>
+            </div>
+
+        </div>
+    </form>
 
     </div>
 
