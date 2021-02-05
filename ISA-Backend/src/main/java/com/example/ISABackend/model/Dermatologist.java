@@ -11,6 +11,9 @@ public class Dermatologist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "pharmacyId" , nullable = false)
+    private Long pharmacyId;
+
     @Column(name = "firstName", nullable = false)
     private String firstName;
 
@@ -43,10 +46,10 @@ public class Dermatologist {
     @Column(name = "prviPutLogovan", nullable = false)
     private boolean prviPutLogovan;
 
-    public Dermatologist(String firstName, String lastName, String email, String phoneNumber,
+    public Dermatologist(Long pharmacyId,String firstName, String lastName, String email, String phoneNumber,
                          String password, String address, String city, String country,
                          UserRole userRole, double rate, boolean prviPutLogovan) {
-
+        this.pharmacyId = pharmacyId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -158,5 +161,13 @@ public class Dermatologist {
     public void setPrviPutLogovan(boolean prviPutLogovan) {
 
         this.prviPutLogovan = prviPutLogovan;
+    }
+
+    public Long getPharmacyId() {
+        return pharmacyId;
+    }
+
+    public void setPharmacyId(Long pharmacyId) {
+        this.pharmacyId = pharmacyId;
     }
 }

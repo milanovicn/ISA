@@ -18,4 +18,6 @@ public interface DermatologistAppointmentService {
     public boolean isAvailable(Long dermatologistId, LocalDate appointmentDate, String appointmentTime);
     public ArrayList<DermatologistAppointmentDTO> getAvailableInPharmacy(Long pharmacyId);
     public DermatologistAppointment makeReservation(Long userId, Long appointmentId);
+
+
 }

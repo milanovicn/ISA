@@ -76,5 +76,11 @@ export class PharmacyService {
     return this.http.put<number>("/api/pharmacy/addPharmacist/"+pharmacyId+"/"+pharmacistId, workDays);
   }
 
+  public deletePharma(pharmacistIdDelete: number) {
+    return this.http.delete("/api/pharmacist/" + pharmacistIdDelete);
+}
+public deleteDerma(dermatologistIdDelete: number) {
+  return this.http.delete("/api/dermatologist/" + dermatologistIdDelete);
+}
 
 }

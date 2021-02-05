@@ -26,6 +26,7 @@ export class DermasComponent implements OnInit {
   availableDermatologists: Dermatologist[] = [];
   workDays: string[] = [];
   dermatologistId:number = 0;
+  dermatologistIdDelete:number=0;
   appointmentDermId:number=0;
   appointmentTime:string = "";
   appointmentDate:Date=new Date(); 
@@ -82,7 +83,14 @@ export class DermasComponent implements OnInit {
     } else {
       sp.rateFrom = this.searchParameters.rateFrom;
     }
-
+    if(this.searchParameters.address == undefined && this.searchParameters.city == undefined
+      && this.searchParameters.email == undefined && this.searchParameters.firstname == undefined
+      && this.searchParameters.lastname  == undefined && this.searchParameters.rateFrom == undefined &&  this.searchParameters.rateTo== undefined)
+       {
+        alert("You did not enter any parameter!");
+        this.refresh();
+       }
+      
 
     console.log(this.searchParameters);
     console.log(sp);
@@ -95,7 +103,10 @@ export class DermasComponent implements OnInit {
     });
   }
 
-
+  deleteDerma(): void {
+    this.pharmacyService.deleteDerma(this.dermatologistIdDelete).subscribe();
+  //  this.refresh();
+}
   ngOnInit(): void {
     this.getUser();
 

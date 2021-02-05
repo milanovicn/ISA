@@ -140,12 +140,43 @@
                             </div>
     
                             <div>
-                                <input type="submit" value="Add" mat-raised-button class="btn btn-success">
+                                <input type="submit" value="Assign" mat-raised-button class="btn btn-success">
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
+
+            <div>
+                <h2>Remove Pharmacist</h2>
+                <form (ngSubmit)="deletePharma()" #deleteForm="ngForm">
+                    <div class="row">
+                        <div class="col">
+    
+                            <div class="col-sm-8">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Pharmacist</mat-label>
+                                    <mat-select name="nemamPojma12" #nemamPojma12="ngModel" [(ngModel)]='pharmacistIdDelete'>
+                                        <mat-option *ngFor="let newPharma of myPharmas"
+                                            [value]="newPharma.id">{{newPharma.firstName}}
+                                           
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+    
+                          
+    
+                            <div>
+                                <input type="submit" value="Delete" mat-raised-button class="btn btn-success">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+
             <div>
                 <h2>Create Pharmacists Consultation</h2>
                 <form (ngSubmit)="createAppointment()" #newDermatologistForm="ngForm">
@@ -206,14 +237,11 @@
                             </div>
     
                             <div>
-                                <input type="submit" value="Add" mat-raised-button class="btn btn-success">
+                                <input type="submit" value="Create" mat-raised-button class="btn btn-success">
                             </div>
                         </div>
                     </div>
                 </form>
-    
-    
-    
     
             </div>
             <h1>Register new pharmacist</h1>
