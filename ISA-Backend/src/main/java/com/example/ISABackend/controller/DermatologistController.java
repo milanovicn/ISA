@@ -2,6 +2,7 @@ package com.example.ISABackend.controller;
 
 import com.example.ISABackend.model.Dermatologist;
 import com.example.ISABackend.model.Pharmacist;
+import com.example.ISABackend.model.Pharmacy_Admin;
 import com.example.ISABackend.repository.DermatologistRepository;
 import com.example.ISABackend.service.DermatologistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,10 @@ public class DermatologistController {
         return d;
     }
     @DeleteMapping(value = "/{dermatologistId}")
-    public ResponseEntity<Dermatologist> deleteDerma(@PathVariable("dermatologistId") Long dermatologistId) {
-        dermatologistService.delete(dermatologistId);
+    public ResponseEntity<Dermatologist> deleteDerma(@PathVariable("dermatologistId") Long dermatologistId,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Pharmacy_Admin d = (Pharmacy_Admin) session.getAttribute("pharmacy_admin");
+        dermatologistService.delete(dermatologistId,d.getPharmacy().getId());
         return new ResponseEntity<Dermatologist>(HttpStatus.NO_CONTENT);
     }
 }
