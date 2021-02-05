@@ -85,3 +85,16 @@ INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, ph
 INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('5', '20', '5', 'Xyzal 5mg film tableta', '1', '0')
 INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('6', '1', '6', 'Cetirizin 10mg film tableta', '1', '0')
 INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('7', '4', '7', 'ALERGOSAN 10mg film tableta', '1', '0')
+
+-- ORDERS
+INSERT INTO pharmacy.orders(id, deadline, order_status, pharmacy_admin_id, pharmacy_id, pharmacy_name) VALUES ('1', '2021-02-25', '0', '1', '1', 'Apoteka Milanovic')
+INSERT INTO pharmacy.orders(id, deadline, order_status, pharmacy_admin_id, pharmacy_id, pharmacy_name) VALUES ('2', '2021-04-05', '0', '1', '1', 'Apoteka Milanovic')
+
+-- ORDER ITEMS
+INSERT INTO pharmacy.order_item(id, medicine_id, medicine_name, order_id, quantity) VALUES ('1', '1', 'Analgin 500mg tableta', '1', '200')
+INSERT INTO pharmacy.order_item(id, medicine_id, medicine_name, order_id, quantity) VALUES ('2', '2', 'Rapten-K 50mg obložena tableta', '1', '100')
+INSERT INTO pharmacy.order_item(id, medicine_id, medicine_name, order_id, quantity) VALUES ('3', '3', 'Febricet 500mg tableta', '1', '150')
+INSERT INTO pharmacy.order_item(id, medicine_id, medicine_name, order_id, quantity) VALUES ('4', '4', 'Aspirin 500 500mg tableta', '2', '300')
+INSERT INTO pharmacy.order_item(id, medicine_id, medicine_name, order_id, quantity) VALUES ('5', '5', 'Xyzal 5mg film tableta', '2', '50')
+
+

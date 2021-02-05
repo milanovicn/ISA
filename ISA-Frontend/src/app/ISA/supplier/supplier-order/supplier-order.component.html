@@ -1,0 +1,66 @@
+<supplier-navbar></supplier-navbar>
+
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+
+    <h2>ORDER ID: {{order.id}}</h2>
+    <h4>For {{order.pharmacyName}}</h4>
+    <h4>Available for offers until {{order.deadline}}</h4>
+
+
+
+    <div class="card" style="margin-top: 50px;">
+        <div class="card-header card-header-success">
+            <h4 class="card-title">Order items </h4>
+            <p class="card-category">List of medicines needed to place an offer</p>
+        </div>
+        <div class="card-content table-responsive table-full-width">
+            <table class="table">
+                <thead class="text-success">
+                    <th>ID</th>
+                    <th>Medicine </th>
+                    <th>Quantity </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let oi of orderItems'>
+                        <td>{{oi.medicineId}}</td>
+                        <td>{{oi.medicineName}}</td>
+                        <td>{{oi.quantity}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+       
+
+
+
+    </div>
+
+    <h3>Make an offer</h3>
+    <form (ngSubmit)="placeAnOffer()" #newDermatologistForm="ngForm">
+        <div class="row">
+            <div class="col">
+
+                <div class="col-sm-3">
+                
+                    <div class="form-group">
+                        <mat-label>Price</mat-label>
+                        <input type="number" value="" placeholder="Price" class="form-control"
+                            name="nemamPojma33" #nemamPojma33="ngModel" [(ngModel)]="myOffer.price" />
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Delivery Date</mat-label>
+                        <input matInput [matDatepicker]="picker" name="nemamPojma4" #nemamPojma4="ngModel"
+                            [(ngModel)]='myOffer.deliveryDate'>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <input type="submit" value="Add" mat-raised-button class="btn btn-success">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
