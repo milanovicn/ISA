@@ -2,6 +2,7 @@ package com.example.ISABackend.service;
 
 import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.enums.AppointmentStatus;
+import com.example.ISABackend.model.Dermatologist;
 import com.example.ISABackend.model.DermatologistAppointment;
 import com.example.ISABackend.model.DermatologistSchedule;
 import com.example.ISABackend.repository.DermatologistAppointmentRepository;
@@ -27,7 +28,8 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
     @Autowired
     private PharmacyService pharmacyService;
 
-    // UVEZI DERMATOLOGIST SERVICE DA BI UZELA IME DERMATOLOGA
+    @Autowired
+    private DermatologistService dermatologistService;
 
 
     @Override
@@ -111,10 +113,11 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
         for(DermatologistAppointment da : byPharmacy){
             //vrati cak i otkazane
             if(da.getStatus().equals(AppointmentStatus.AVAILABLE) || da.getStatus().equals(AppointmentStatus.CANCELED)){
-                // UVEZI DERMATOLOGIST SERVICE DA BI UZELA IME I OCENU DERMATOLOGA PO ID
+
+                Dermatologist derm = dermatologistService.getById(da.getDermatologistId());
                 String phName= pharmacyService.getById(pharmacyId).getName();
                 DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(da.getId(),
-                        da.getDermatologistId(), "ime", 1, da.getPharmacyId(),
+                        da.getDermatologistId(), derm.getFirstName().concat(" ") + derm.getLastName(), derm.getRate(), da.getPharmacyId(),
                         phName, da.getTime(), da.getDate(), da.getPrice());
 
                 ret.add(toAdd);
