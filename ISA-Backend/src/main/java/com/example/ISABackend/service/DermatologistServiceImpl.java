@@ -8,6 +8,8 @@ import com.example.ISABackend.repository.DermatologistRepository;
 import com.example.ISABackend.repository.DermatologistScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +32,9 @@ public class DermatologistServiceImpl implements DermatologistService{
 
     @Autowired
     DermatologistScheduleService dermatologistScheduleService;
+
+    @Autowired
+    DermatologistService dermatologistService;
     @Override
     public List<Dermatologist> getAll() {
         return dermatologistRepository.findAll();
@@ -74,25 +79,35 @@ public class DermatologistServiceImpl implements DermatologistService{
 
     }
     @Override
-    public Long delete(Long id) {
-
-        List<DermatologistAppointment> pa = dermatologistAppointmentService.getByPharmacy(id);
+    public Long delete(Long id, Long pharmacyId) {
+// uzela sam sve njegove appointmente i ukoliko je neki rezervisan - vratila null
+        List<DermatologistAppointment> pa = dermatologistAppointmentService.getByDermatologist(id);
         for( DermatologistAppointment prolazim : pa) {
             if(prolazim.getStatus().equals(AppointmentStatus.RESERVED)){
                 return null;
             }
 
         }
-        DermatologistSchedule p1 = dermatologistScheduleService.getById(id);
-        p1.setPharmacyId((long) 0);
-        dermatologistScheduleRepository.save(p1);
+
+
+        //prolazimo kroz sve njegove rasporede i uklanjamo ga iz apoteke tako sto joj id setujemo na 0
+        ArrayList<DermatologistSchedule> listaRasporeda = dermatologistScheduleService.getByDermatologistAndPharmacy(id,pharmacyId);
+        for(DermatologistSchedule x : listaRasporeda){
+            x.setPharmacyId((long) 0);
+            dermatologistScheduleRepository.save(x);
+        }
+
         for(DermatologistAppointment prolazim : pa)
         {
+
+           // prolazim.setPharmacyId((long) 0);
+            //prolazim.setDermatologistId((long) 0);
+
             prolazim.setStatus(AppointmentStatus.ENDED);
             dermatologistAppointmentRepository.save(prolazim);
         }
 
-        return p1.getId();
+        return id;
 
     }
 

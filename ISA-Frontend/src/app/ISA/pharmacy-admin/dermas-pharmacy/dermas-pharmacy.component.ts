@@ -104,8 +104,17 @@ export class DermasComponent implements OnInit {
   }
 
   deleteDerma(): void {
-    this.pharmacyService.deleteDerma(this.dermatologistIdDelete).subscribe();
-  //  this.refresh();
+    this.pharmacyService.deleteDerma(this.dermatologistIdDelete).subscribe({
+      next: X => {
+        this.ret = X;
+        this.refresh();
+    if(this.ret == null){
+      alert("Check the pharmacist list to see if you were able to delete this pharmacist");
+    }
+    else
+    alert("Check the pharmacist list to see if you were able to delete this pharmacist");
+      }
+    });
 }
   ngOnInit(): void {
     this.getUser();
@@ -189,7 +198,12 @@ export class DermasComponent implements OnInit {
     this.pharmacyAdminService.createDermatologistAppointment(this.myPharmacy.id, this.appointmentDermId, this.appointmentTime, this.appointmentPrice, this.appointmentDate).subscribe({
       next: ret => {
         this.ret = ret;
-        alert("Appointment confirmed");
+        this.refresh();
+        if(this.ret == null){
+          alert("Dermatologist is not available. Please chose another day/time!");
+        }
+        else
+        alert("Appointment booked successfully! ");
       }
     });
 
