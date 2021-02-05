@@ -29,6 +29,7 @@ export class PharmasComponent implements OnInit {
   newPharma : User;
   workDays: string[] = [];
   pharmacistId:number = 0;
+  pharmacistIdDelete:number=0;
   appointmentPharmId:number=0;
   appointmentTime:string = "";
   appointmentDate:Date=new Date(); 
@@ -100,6 +101,14 @@ export class PharmasComponent implements OnInit {
     } else {
       sp.rateFrom = this.searchParameters.rateFrom;
     }
+    if(this.searchParameters.address == undefined && this.searchParameters.city == undefined
+      && this.searchParameters.email == undefined && this.searchParameters.firstname == undefined
+      && this.searchParameters.lastname  == undefined && this.searchParameters.rateFrom == undefined &&  this.searchParameters.rateTo== undefined)
+       {
+        alert("You did not enter any parameter!");
+        this.refresh();
+       }
+      
 
 
     console.log(this.searchParameters);
@@ -128,6 +137,11 @@ export class PharmasComponent implements OnInit {
   //     }
   //   });
   // }
+
+  deletePharma(): void {
+    this.pharmacyService.deletePharma(this.pharmacistIdDelete).subscribe();
+    this.refresh();
+}
   
   getAllPharmas() {
     this.pharmacyService.getPharmacists(this.myPharmacy.id).subscribe({
@@ -214,10 +228,17 @@ createAppointment(){
   this.pharmacyAdminService.createPharmacistAppointment(this.myPharmacy.id, this.appointmentPharmId, this.appointmentTime, this.appointmentPrice, this.appointmentDate).subscribe({
     next: ret => {
       this.ret = ret;
+      console.log(ret);
       this.refresh();
-      alert("Consultation confirmed");
+      
+      if(this.ret == null){
+        alert("Pharmacist is not available. Please chose another day/time!");
+      }
+      else
+      alert("Consultation booked successfully! ");
      
     }
+    
   });
 
 }

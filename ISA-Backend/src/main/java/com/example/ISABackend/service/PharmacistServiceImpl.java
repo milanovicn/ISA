@@ -1,10 +1,14 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.enums.AppointmentStatus;
 import com.example.ISABackend.enums.UserRole;
 import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.DermatologistRepository;
+import com.example.ISABackend.repository.PharmacistAppointmentRepository;
 import com.example.ISABackend.repository.PharmacistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +19,11 @@ public class PharmacistServiceImpl implements PharmacistService {
     @Autowired
     PharmacistRepository pharmacistRepository;
 
+    @Autowired
+    PharmacistAppointmentRepository pharmacistAppointmentRepository;
 
+    @Autowired
+    PharmacistAppointmentService pharmacistAppointmentService;
 
     @Autowired
     PharmacyService pharmacyService;
@@ -84,6 +92,30 @@ public class PharmacistServiceImpl implements PharmacistService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Long delete(Long id) {
+
+        List<PharmacistAppointment> pa = pharmacistAppointmentService.getByPharmacy(id);
+        for( PharmacistAppointment prolazim : pa) {
+            if(prolazim.getStatus().equals(AppointmentStatus.RESERVED)){
+
+                return null;
+            }
+
+        }
+        Pharmacist p1 = getById(id);
+        p1.setPharmacyId((long) 0);
+        pharmacistRepository.save(p1);
+        for(PharmacistAppointment prolazim : pa)
+        {
+            prolazim.setStatus(AppointmentStatus.ENDED);
+            pharmacistAppointmentRepository.save(prolazim);
+        }
+
+        return p1.getId();
+
     }
 
 

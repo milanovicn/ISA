@@ -13,4 +13,5 @@ public interface PharmacistService {
     public Pharmacist updatePharmacist(Pharmacist updatePharmacist);
     public Pharmacist addNew(Pharmacist newPharma, Long pharmacyId);
     public List<Pharmacist> getAll();
+    public Long delete(Long id);
 }

@@ -139,6 +139,34 @@
                 </div>
             </form>
         </div>
+        <div>
+            <h2>Remove Dermatologist</h2>
+            <form (ngSubmit)="deleteDerma()" #deleteForm="ngForm">
+                <div class="row">
+                    <div class="col">
+
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Dermatologist</mat-label>
+                                <mat-select name="nemamPojma12" #nemamPojma12="ngModel" [(ngModel)]='dermatologistIdDelete'>
+                                    <mat-option *ngFor="let dermatologist of myDermas"
+                                        [value]="dermatologist.id">{{dermatologist.firstName}}
+                                       
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                      
+
+                        <div>
+                            <input type="submit" value="Delete " mat-raised-button class="btn btn-success">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
 
         <div>
             <h2>Create Dermatologists Appointment</h2>

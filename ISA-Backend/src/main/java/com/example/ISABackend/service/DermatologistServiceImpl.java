@@ -1,8 +1,11 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.enums.AppointmentStatus;
 import com.example.ISABackend.enums.UserRole;
 import com.example.ISABackend.model.*;
+import com.example.ISABackend.repository.DermatologistAppointmentRepository;
 import com.example.ISABackend.repository.DermatologistRepository;
+import com.example.ISABackend.repository.DermatologistScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -14,8 +17,19 @@ public class DermatologistServiceImpl implements DermatologistService{
     DermatologistRepository dermatologistRepository;
 
     @Autowired
+    DermatologistAppointmentService dermatologistAppointmentService;
+
+    @Autowired
+    DermatologistAppointmentRepository dermatologistAppointmentRepository;
+
+    @Autowired
     PharmacyService pharmacyService;
 
+    @Autowired
+    DermatologistScheduleRepository dermatologistScheduleRepository;
+
+    @Autowired
+    DermatologistScheduleService dermatologistScheduleService;
     @Override
     public List<Dermatologist> getAll() {
         return dermatologistRepository.findAll();
@@ -59,7 +73,28 @@ public class DermatologistServiceImpl implements DermatologistService{
         return forChange;
 
     }
+    @Override
+    public Long delete(Long id) {
 
+        List<DermatologistAppointment> pa = dermatologistAppointmentService.getByPharmacy(id);
+        for( DermatologistAppointment prolazim : pa) {
+            if(prolazim.getStatus().equals(AppointmentStatus.RESERVED)){
+                return null;
+            }
+
+        }
+        DermatologistSchedule p1 = dermatologistScheduleService.getById(id);
+        p1.setPharmacyId((long) 0);
+        dermatologistScheduleRepository.save(p1);
+        for(DermatologistAppointment prolazim : pa)
+        {
+            prolazim.setStatus(AppointmentStatus.ENDED);
+            dermatologistAppointmentRepository.save(prolazim);
+        }
+
+        return p1.getId();
+
+    }
 
 
 

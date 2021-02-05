@@ -2,6 +2,7 @@ package com.example.ISABackend.service;
 
 import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.enums.AppointmentStatus;
+import com.example.ISABackend.model.Dermatologist;
 import com.example.ISABackend.model.DermatologistAppointment;
 import com.example.ISABackend.model.DermatologistSchedule;
 import com.example.ISABackend.repository.DermatologistAppointmentRepository;
@@ -77,7 +78,7 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
         newDA.setPrice(price);
         newDA.setPharmacyId(pharmacyId);
         newDA.setTime(appointmentTime);
-        newDA.setStatus(AppointmentStatus.AVAILABLE);
+        newDA.setStatus(AppointmentStatus.RESERVED);
         newDA.setPatientId((long) 0);
         dermatologistAppointmentRepository.save(newDA);
 
@@ -144,4 +145,5 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
 
         return null;
     }
+
 }

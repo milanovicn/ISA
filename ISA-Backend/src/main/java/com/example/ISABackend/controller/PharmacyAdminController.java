@@ -141,7 +141,7 @@ public class PharmacyAdminController {
         if (da != null) {
             return new ResponseEntity<PharmacistAppointment>(da, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>( HttpStatus.METHOD_NOT_ALLOWED);
+            return new ResponseEntity<PharmacistAppointment>( da,HttpStatus.ACCEPTED);
         }
     }
     }

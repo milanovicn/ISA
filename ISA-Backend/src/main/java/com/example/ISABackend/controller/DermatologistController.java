@@ -7,10 +7,7 @@ import com.example.ISABackend.service.DermatologistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,6 +37,11 @@ public class DermatologistController {
         HttpSession session = request.getSession();
         Dermatologist d = (Dermatologist) session.getAttribute("dermatologist");
         return d;
+    }
+    @DeleteMapping(value = "/{dermatologistId}")
+    public ResponseEntity<Dermatologist> deleteDerma(@PathVariable("dermatologistId") Long dermatologistId) {
+        dermatologistService.delete(dermatologistId);
+        return new ResponseEntity<Dermatologist>(HttpStatus.NO_CONTENT);
     }
 }
 
