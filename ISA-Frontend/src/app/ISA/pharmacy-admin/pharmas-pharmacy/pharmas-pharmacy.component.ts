@@ -37,7 +37,9 @@ export class PharmasComponent implements OnInit {
   ret: Object;
   
 
-  constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
+  constructor(private _router: Router, private pharmacyService: PharmacyService, 
+    private pharmacyAdminService: PharmacyAdminService, 
+    private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
     this.myPharmacy = new Pharmacy();
     this.myDermas = [];

@@ -16,6 +16,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { OrdersComponent } from './orders/orders.component';
+import { OffersComponent } from './offers/offers.component';
 
 
 @NgModule({
@@ -27,6 +29,8 @@ import { MatInputModule } from '@angular/material/input';
     DermasComponent,
     PharmasComponent,
     PharmacyMedicineComponent,
+    OrdersComponent,
+    OffersComponent,
   ],
   imports: [
     CommonModule,

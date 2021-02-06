@@ -17,5 +17,9 @@ public interface PharmacyStockService {
 
     public ArrayList<Medicine> getMedicineInStock(Long pharmacyId);
     public ArrayList<PharmacyStock> getPharmacyStock(Long pharmacyId);
+
+    public void addMedicinesFromOrder(Long orderId);
+
     public ArrayList<PharmacyStock> getByMedicineAndPharmacy(Long medicineId, Long pharmacyId);
+
 }

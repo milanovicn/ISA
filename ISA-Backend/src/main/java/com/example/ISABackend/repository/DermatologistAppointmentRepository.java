@@ -9,5 +9,5 @@ import java.util.ArrayList;
 
 public interface DermatologistAppointmentRepository extends JpaRepository<DermatologistAppointment, Long> {
     ArrayList<DermatologistAppointment> findByDermatologistId(Long dermatologistId);
-    ArrayList<DermatologistAppointment> findByPharmacyId(Long dermatologistId);
+    ArrayList<DermatologistAppointment> findByPharmacyId(Long pharmacyId);
 }

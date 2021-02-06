@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { User } from "../model/User";
 import { Medicine } from "../model/Medicine";
 import { Pharmacy } from "../model/Pharmacy";
+import { Orders } from "../model/Orders";
 
 
 @Injectable()
@@ -17,6 +18,5 @@ export class PharmacyService1 {
         return this.http.put("/api/pharmacy/editPharmacy", updatedPharmacy);
     }
 
- 
 
 }
