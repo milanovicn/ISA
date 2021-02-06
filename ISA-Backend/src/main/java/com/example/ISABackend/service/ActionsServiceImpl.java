@@ -36,8 +36,8 @@ public class ActionsServiceImpl implements  ActionsService {
 
             Actions a = new Actions();
             a.setPharmacyId(pharmacyId);
-            a.setDateFrom(newAction.getDateFrom());
-            a.setDateTo(newAction.getDateTo());
+            a.setDateFrom(newAction.getDateFrom().plusDays(1));
+            a.setDateTo(newAction.getDateTo().plusDays(1));
             a.setDescription(newAction.getDescription());
             actionsRepository.save(a);
             return a;

@@ -118,10 +118,10 @@ public class PharmacyStockServiceImpl implements PharmacyStockService {
         Orders order = ordersService.getOrderById(orderId);
         ArrayList<OrderItem> orderItems = ordersService.getItemsByOrderId(orderId);
         ArrayList<PharmacyStock> pharmacyStocks = getPharmacyStock(order.getPharmacyId());
-        for(OrderItem oi : orderItems){
+        for (OrderItem oi : orderItems) {
             flagExisted = false;
-            for (PharmacyStock ps : pharmacyStocks ) {
-                if(oi.getMedicineId() == ps.getMedicineId()){
+            for (PharmacyStock ps : pharmacyStocks) {
+                if (oi.getMedicineId() == ps.getMedicineId()) {
                     int broj = ps.getInStock() + oi.getQuantity();
                     ps.setInStock(broj);
                     flagExisted = true;
@@ -130,7 +130,7 @@ public class PharmacyStockServiceImpl implements PharmacyStockService {
             }
 
             //ako nije postojao kreiraj novi stock
-            if(!flagExisted){
+            if (!flagExisted) {
                 PharmacyStock newPS = new PharmacyStock();
                 newPS.setInStock(oi.getQuantity());
                 newPS.setMedicineId(oi.getMedicineId());
@@ -141,7 +141,7 @@ public class PharmacyStockServiceImpl implements PharmacyStockService {
             }
 
         }
-
+    }
 
     @Override
     public ArrayList<PharmacyStock> getByMedicineAndPharmacy(Long medicineId, Long pharmacyId) {

@@ -183,7 +183,7 @@ public class PharmacyController {
         return actionsService.getPharmacyActions(pharmacyId);
     }
 
-    @GetMapping(value = "/newAction/{pharmacyI}")
+    @PostMapping(value = "/newAction/{pharmacyId}")
     public Object addNewAction(@RequestBody Actions newAction, @PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
         if(authorize(request) == null ) {
             return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
