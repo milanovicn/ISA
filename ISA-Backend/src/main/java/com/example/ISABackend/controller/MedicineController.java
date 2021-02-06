@@ -2,9 +2,7 @@ package com.example.ISABackend.controller;
 
 import com.example.ISABackend.dto.SearchMedicine;
 import com.example.ISABackend.dto.SearchPharmacy;
-import com.example.ISABackend.model.Medicine;
-import com.example.ISABackend.model.Pharmacist;
-import com.example.ISABackend.model.Pharmacy;
+import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.MedicineRepository;
 import com.example.ISABackend.repository.UserRepository;
 import com.example.ISABackend.service.MedicineService;
@@ -14,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 @RestController

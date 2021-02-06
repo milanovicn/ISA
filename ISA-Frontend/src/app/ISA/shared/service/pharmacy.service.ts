@@ -88,7 +88,9 @@ export class PharmacyService {
 public deleteDerma(dermatologistIdDelete: number) {
   return this.http.delete("/api/dermatologist/" + dermatologistIdDelete);
 }
-
+public deleteMedicine(medicineIdDelete: number) {
+  return this.http.delete("/api/pharmacy/" + medicineIdDelete);
+}
 public addAction(newAction: Actions, pharmacyId:number, ) {
   return this.http.post<Actions>("/api/pharmacy/newAction/" + pharmacyId, newAction);
 }
