@@ -32,6 +32,8 @@ export class PharmacyMedicineComponent implements OnInit {
   newMedicineId: number = 0;
   allMedications: Medicine[] = [];
   myStock: PharmacyStock[] = [];
+  ret1 :Object;
+  medicineIdDelete:number=0;
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
@@ -234,4 +236,19 @@ export class PharmacyMedicineComponent implements OnInit {
 
     });
   }
+
+  deleteMedicine(): void {
+    this.pharmacyService.deleteMedicine(this.medicineIdDelete).subscribe({
+      next: X => {
+          this.ret1=X;
+        this.refresh();
+    if(this.ret1 == null){
+      alert("Check the medicine list to see if you were able to delete this medicine");
+    }
+    else
+    alert("Check the pharmacist list to see if you were able to delete this medicine");
+      }
+    });
+}
+
 }

@@ -192,6 +192,12 @@ public class PharmacyController {
 
         return new ResponseEntity<Actions>(a, HttpStatus.CREATED);
     }
-
+    @DeleteMapping(value = "/{medicineId}")
+    public ResponseEntity<Medicine> deleteMedicine(@PathVariable("medicineId") Long medicineId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Pharmacy_Admin d = (Pharmacy_Admin) session.getAttribute("pharmacy_admin");
+        pharmacyService.deleteMedicine(d.getPharmacy().getId(),medicineId);
+        return new ResponseEntity<Medicine>(HttpStatus.NO_CONTENT);
+    }
 
 }

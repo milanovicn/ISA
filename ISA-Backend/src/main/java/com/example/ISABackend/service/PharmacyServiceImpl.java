@@ -1,7 +1,6 @@
 package com.example.ISABackend.service;
 
 import com.example.ISABackend.dto.SearchPharmacy;
-import com.example.ISABackend.enums.UserRole;
 import com.example.ISABackend.enums.WorkDays;
 import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.*;
@@ -24,6 +23,11 @@ public class PharmacyServiceImpl implements PharmacyService {
     @Autowired
     private PharmacistService pharmacistService;
 
+    @Autowired
+    private PharmacyStockRepository pharmacyStockRepository;
+
+    @Autowired
+    private PharmacyStockService pharmacyStockService;
 
     @Autowired
     private DermatologistScheduleRepository dermatologistScheduleRepository;
@@ -169,6 +173,30 @@ public class PharmacyServiceImpl implements PharmacyService {
         }
 
     }
+
+
+    @Override
+    public Long deleteMedicine(Long pharmacy_id, Long medicine_id){
+        Pharmacy u = getById(pharmacy_id);
+        Medicine m = medicineService.getById(medicine_id);
+        //uzela sam sve lekove i ako je neki rezerv ne brisem ga
+        ArrayList<PharmacyStock> ps = pharmacyStockService.getByMedicineId(medicine_id);
+        for(PharmacyStock prolazim : ps)
+        {
+            if(prolazim.getReserved() != 0){
+                return null;
+            }
+        }
+        ArrayList<PharmacyStock> listaLekova = pharmacyStockService.getByMedicineAndPharmacy(medicine_id,pharmacy_id);
+        for(PharmacyStock x : listaLekova){
+            x.setPharmacyId((long) 0);
+            pharmacyStockRepository.save(x);
+        }
+        m.setId((long) 0);
+        //pharmacyRepository.save(u);
+        return medicine_id;
+    }
+
 
     @Override
     public Pharmacy addNew(Pharmacy newPharmacy) {
@@ -316,6 +344,8 @@ public class PharmacyServiceImpl implements PharmacyService {
 
         return ret;
     }
+
+
 
     }
 
