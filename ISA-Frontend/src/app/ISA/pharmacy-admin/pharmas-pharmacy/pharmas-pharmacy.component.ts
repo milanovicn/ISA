@@ -35,6 +35,7 @@ export class PharmasComponent implements OnInit {
   appointmentDate:Date=new Date(); 
   appointmentPrice:number=0;
   ret: Object;
+  
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, 
     private pharmacyAdminService: PharmacyAdminService, 
@@ -141,8 +142,18 @@ export class PharmasComponent implements OnInit {
   // }
 
   deletePharma(): void {
-    this.pharmacyService.deletePharma(this.pharmacistIdDelete).subscribe();
-    this.refresh();
+    this.pharmacyService.deletePharma(this.pharmacistIdDelete).subscribe({
+      next: X => {
+        this.ret = X;
+        this.refresh();
+    if(this.ret == null){
+      alert("Check the pharmacist list to see if you were able to delete this pharmacist");
+    }
+    else
+    alert("Check the pharmacist list to see if you were able to delete this pharmacist");
+      }
+    });
+    
 }
   
   getAllPharmas() {

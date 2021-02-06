@@ -1,5 +1,6 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.model.DermatologistSchedule;
 import com.example.ISABackend.model.Medicine;
 import com.example.ISABackend.model.OrderItem;
 import com.example.ISABackend.model.Orders;
@@ -109,6 +110,7 @@ public class PharmacyStockServiceImpl implements PharmacyStockService {
         return this.getByPharmacyId(pharmacyId);
     }
 
+
     // azurira stanje u apoteci na osnovu narudzbenice
     @Override
     public void addMedicinesFromOrder(Long orderId) {
@@ -139,6 +141,19 @@ public class PharmacyStockServiceImpl implements PharmacyStockService {
             }
 
         }
+
+
+    @Override
+    public ArrayList<PharmacyStock> getByMedicineAndPharmacy(Long medicineId, Long pharmacyId) {
+        List<PharmacyStock> all = this.getAll();
+        ArrayList<PharmacyStock> ret = new ArrayList<PharmacyStock>();
+        for (PharmacyStock ds : all ) {
+            if(ds.getPharmacyId()==pharmacyId && ds.getMedicineId()==medicineId){
+                ret.add(ds);
+            }
+        }
+
+        return ret;
 
     }
 

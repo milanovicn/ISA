@@ -97,7 +97,7 @@ public class PharmacistServiceImpl implements PharmacistService {
     @Override
     public Long delete(Long id) {
 
-        List<PharmacistAppointment> pa = pharmacistAppointmentService.getByPharmacy(id);
+        List<PharmacistAppointment> pa = pharmacistAppointmentService.getByPharmacist(id);
         for( PharmacistAppointment prolazim : pa) {
             if(prolazim.getStatus().equals(AppointmentStatus.RESERVED)){
 

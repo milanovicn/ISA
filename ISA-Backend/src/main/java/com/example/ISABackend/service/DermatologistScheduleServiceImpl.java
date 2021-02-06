@@ -25,10 +25,10 @@ public class DermatologistScheduleServiceImpl implements DermatologistScheduleSe
     public ArrayList<DermatologistSchedule> getFindByDermatologist(Long dermatologistId) {
         return dermatologistScheduleRepository.findByDermatologistId(dermatologistId);
     }
-    @Override
-    public DermatologistSchedule getById(Long id) {
-        return dermatologistScheduleRepository.findById(id).orElseGet(null);
-    }
+//    @Override
+//    public DermatologistSchedule getById(Long id) {
+//        return dermatologistScheduleRepository.findById(id).orElseGet(null);
+//    }
     //vraca raspored odredjenog dermatologa u odredjenoj apoteci
     @Override
     public ArrayList<DermatologistSchedule> getByDermatologistAndPharmacy(Long dermatologistId, Long pharmacyId) {

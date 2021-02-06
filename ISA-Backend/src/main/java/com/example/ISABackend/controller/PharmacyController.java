@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @RestController
@@ -40,6 +41,8 @@ public class PharmacyController {
     @Autowired
     private DermatologistAppointmentService dermatologistAppointmentService;
 
+    @Autowired
+    private ActionsService actionsService;
 
     @PutMapping(value = "/editPharmacy")
     public ResponseEntity updateUser(@RequestBody Pharmacy updatedPharmacy, @Context HttpServletRequest request) {
@@ -99,6 +102,8 @@ public class PharmacyController {
         }
         return pharmacyStockService.getMedicineInStock(pharmacyId);
     }
+
+
 
     @GetMapping(value = "/mypharmas/{pharmacyId}")
     public Object getMyPharma(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
@@ -169,6 +174,30 @@ public class PharmacyController {
             return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
         }
         return pharmacyService.schedulePharmacist(pharmacyId, pharmacistId, workDays);
+    }
+    @GetMapping(value = "/myactions/{pharmacyId}")
+    public Object getMyActions(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        return actionsService.getPharmacyActions(pharmacyId);
+    }
+
+    @GetMapping(value = "/newAction/{pharmacyI}")
+    public Object addNewAction(@RequestBody Actions newAction, @PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        Actions a = actionsService.addNewAction(newAction, pharmacyId);
+
+        return new ResponseEntity<Actions>(a, HttpStatus.CREATED);
+    }
+    @DeleteMapping(value = "/{medicineId}")
+    public ResponseEntity<Medicine> deleteMedicine(@PathVariable("medicineId") Long medicineId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Pharmacy_Admin d = (Pharmacy_Admin) session.getAttribute("pharmacy_admin");
+        pharmacyService.deleteMedicine(d.getPharmacy().getId(),medicineId);
+        return new ResponseEntity<Medicine>(HttpStatus.NO_CONTENT);
     }
 
 }

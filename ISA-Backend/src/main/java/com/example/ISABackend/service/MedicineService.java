@@ -18,4 +18,5 @@ public interface MedicineService {
     public Medicine getByCode(int code);
     public Medicine getByName(String name);
     public ArrayList<Long> addReplacements(ArrayList<Long> replacementsId, Long medicineId);
+
 }

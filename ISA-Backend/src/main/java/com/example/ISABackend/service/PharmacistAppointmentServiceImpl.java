@@ -74,7 +74,7 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
         newDA.setPrice(price);
         newDA.setPharmacyId(pharmacyId);
         newDA.setTime(appointmentTime);
-        newDA.setStatus(AppointmentStatus.RESERVED);
+        newDA.setStatus(AppointmentStatus.AVAILABLE);
         newDA.setPatientId((long) 0);
         pharmacistAppointmentRepository.save(newDA);
 

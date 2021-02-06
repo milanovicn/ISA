@@ -79,7 +79,7 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
         newDA.setPrice(price);
         newDA.setPharmacyId(pharmacyId);
         newDA.setTime(appointmentTime);
-        newDA.setStatus(AppointmentStatus.RESERVED);
+        newDA.setStatus(AppointmentStatus.AVAILABLE);
         newDA.setPatientId((long) 0);
         dermatologistAppointmentRepository.save(newDA);
 

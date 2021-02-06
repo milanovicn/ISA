@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Actions } from "../model/Actions";
 import { Dermatologist } from "../model/Dermatologist";
 import { DermatologistAppointmentDTO } from "../model/DermatologistAppointmentDTO";
 import { Medicine } from "../model/Medicine";
@@ -44,7 +45,12 @@ export class PharmacyService {
   public getMedicine(pharmacyId: number): Observable<Medicine[]> {
     return this.http.get<Medicine[]>("/api/pharmacy/mymedicine/" + pharmacyId);
   }
-  public addMedicine(updatedUser: Pharmacy, medicine_id: number) {
+
+  public getActions(pharmacyId:number):Observable<Actions[]>{
+    return this.http.get<Actions[]>("/api/pharmacy/myactions/"+pharmacyId);
+  }
+
+  public addMedicine(updatedUser:Pharmacy, medicine_id:number){
     return this.http.put<Pharmacy>("/api/pharmacy/addMedicine/" + medicine_id, updatedUser);
   }
 
@@ -79,10 +85,19 @@ export class PharmacyService {
 
   public deletePharma(pharmacistIdDelete: number) {
     return this.http.delete("/api/pharmacist/" + pharmacistIdDelete);
-  }
-  public deleteDerma(dermatologistIdDelete: number) {
-    return this.http.delete("/api/dermatologist/" + dermatologistIdDelete);
-  }
+}
+  
+public deleteDerma(dermatologistIdDelete: number) {
+  return this.http.delete("/api/dermatologist/" + dermatologistIdDelete);
+}
+  
+public deleteMedicine(medicineIdDelete: number) {
+  return this.http.delete("/api/pharmacy/" + medicineIdDelete);
+}
+  
+public addAction(newAction: Actions, pharmacyId:number, ) {
+  return this.http.post<Actions>("/api/pharmacy/newAction/" + pharmacyId, newAction);
+}
 
 
 }
