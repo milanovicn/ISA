@@ -108,7 +108,32 @@
             </form>
         </div>
     
-    
+        <div>
+            <h2>Delete medicine from Medicine stock</h2>
+            <form (ngSubmit)="addMedicine()" #medicineForm="ngForm">
+
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Medicine</mat-label>
+                        <mat-select name="nemamPojma1" #nemamPojma1="ngModel" [(ngModel)]='newMedicineId'>
+                            <mat-option *ngFor="let med of allMedications" [value]="med.id">{{med.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <input type="number" value="" placeholder="Quantity" class="form-control"
+                            name="nemamPojma33" #nemamPojma33="ngModel" [(ngModel)]="newQuantity"/>
+                    </div>
+                </div>
+
+                <div>
+                    <input type="submit" value="Delete" mat-raised-button class="btn btn-success">
+                </div>
+
+            </form>
+        </div>
     
     
     
