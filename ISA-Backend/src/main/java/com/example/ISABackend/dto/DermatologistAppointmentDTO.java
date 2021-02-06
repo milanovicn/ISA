@@ -1,5 +1,7 @@
 package com.example.ISABackend.dto;
 
+import com.example.ISABackend.enums.AppointmentStatus;
+
 import javax.persistence.Column;
 import java.time.LocalDate;
 
@@ -13,11 +15,13 @@ public class DermatologistAppointmentDTO {
     private String time;
     private LocalDate date;
     private double price;
+    private AppointmentStatus appointmentStatus;
 
     public DermatologistAppointmentDTO() {
     }
 
-    public DermatologistAppointmentDTO(Long appointmentId, Long dermatologistId, String dermatologistName, double dermatologistRate, Long pharmacyId, String pharmacyName, String time, LocalDate date, double price) {
+    public DermatologistAppointmentDTO(Long appointmentId, Long dermatologistId, String dermatologistName, double dermatologistRate, Long pharmacyId,
+                                       String pharmacyName, String time, LocalDate date, double price, AppointmentStatus appointmentStatus) {
         this.appointmentId = appointmentId;
         this.dermatologistId = dermatologistId;
         this.dermatologistName = dermatologistName;
@@ -27,6 +31,7 @@ public class DermatologistAppointmentDTO {
         this.time = time;
         this.date = date;
         this.price = price;
+        this.appointmentStatus=appointmentStatus;
     }
 
     public Long getAppointmentId() {
@@ -99,5 +104,13 @@ public class DermatologistAppointmentDTO {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public AppointmentStatus getAppointmentStatus() {
+        return appointmentStatus;
+    }
+
+    public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
+        this.appointmentStatus = appointmentStatus;
     }
 }

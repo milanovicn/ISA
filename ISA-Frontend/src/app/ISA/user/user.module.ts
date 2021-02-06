@@ -8,19 +8,36 @@ import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 import { FormsModule } from '@angular/forms';
 import { UserPharmaciesComponent } from './user-pharmacies/user-pharmacies.component';
 import { UserPharmacyComponent } from './user-pharmacy/user-pharmacy.component';
-
+import { MatSelectModule } from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { DermatologistAppointmentsComponent } from './dermatologist-appointments/dermatologist-appointments.component';
+import { PharmacistAppointmentsComponent } from './pharmacist-appointment/pharmacist-appointment.component';
 
 @NgModule({
   declarations: [
     UserProfileComponent, 
     UserNavbarComponent, 
     UserPharmaciesComponent,
-    UserPharmacyComponent ],
+    UserPharmacyComponent,
+    DermatologistAppointmentsComponent,
+    PharmacistAppointmentsComponent,
+   ],
   imports: [
     CommonModule,
     UserRoutingModule, 
     RouterModule,
-    FormsModule
-  ]
+    FormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
+  providers: [  
+  MatDatepickerModule,  
+],
 })
 export class UserModule { }

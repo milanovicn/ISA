@@ -16,8 +16,8 @@ public interface DermatologistAppointmentService {
     public ArrayList<DermatologistAppointment> getByPharmacy(Long pharmacyId);
     public DermatologistAppointment addDermatologistAppointment(Long pharmacyId, Long dermatologistId, String appointmentTime, Long price, LocalDate appointmentDate);
     public boolean isAvailable(Long dermatologistId, LocalDate appointmentDate, String appointmentTime);
-    public ArrayList<DermatologistAppointmentDTO> getAvailableInPharmacy(Long pharmacyId);
+    public ArrayList<DermatologistAppointmentDTO> getAvailableDermatologistAppointments(Long pharmacyId);
     public DermatologistAppointment makeReservation(Long userId, Long appointmentId);
-
-
+    public ArrayList<DermatologistAppointmentDTO> getByPatientId(Long patientId);
+    public DermatologistAppointment cancelReservation(Long appointmentId);
 }

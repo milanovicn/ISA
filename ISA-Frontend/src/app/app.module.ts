@@ -23,7 +23,6 @@ import { PharmacyService } from './ISA/shared/service/pharmacy.service';
 import { AllPharmaciesComponent } from './ISA/homepage/all-pharmacies/all-pharmacies.component';
 import { AllMedicinesComponent } from './ISA/homepage/all-medicines/all-medicines.component';
 import { PharmacyAdminHisPharmacyComponent } from './ISA/pharmacy-admin/pharmacy-admin-hispharmacy/pharmacy-admin-hispharmacy.component';
-import { PharmacyService1 } from './ISA/shared/service/pharmacy-service';
 import { RegistrationComponent } from './ISA/homepage/registration/registration.component';
 import { RegistrationNoticeComponent } from './ISA/homepage/registration-notice/registration-notice.component';
 import { DermasComponent } from './ISA/pharmacy-admin/dermas-pharmacy/dermas-pharmacy.component';

@@ -9,5 +9,5 @@ import java.util.ArrayList;
 public interface PharmacistAppointmentRepository extends JpaRepository<PharmacistAppointment, Long> {
     ArrayList<PharmacistAppointment> findByPharmacistId(Long pharmacistId);
     ArrayList<PharmacistAppointment> findByPharmacyId(Long pharmacistId);
-
+    ArrayList<PharmacistAppointment> findByPatientId(Long patientId);
 }

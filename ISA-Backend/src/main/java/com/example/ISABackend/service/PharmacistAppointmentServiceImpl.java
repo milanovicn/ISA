@@ -24,7 +24,8 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
     @Autowired
     private PharmacyService pharmacyService;
 
-    // UVEZI DERMATOLOGIST SERVICE DA BI UZELA IME DERMATOLOGA
+    @Autowired
+    private PharmacistService pharmacistService;
 
 
     @Override
@@ -55,15 +56,15 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
         String appointmentWorkDay = appointmentDate.getDayOfWeek().toString();
 
         //proveravamo da li je u ovoj apoteci zaposlen ovaj dermatolog na ovaj dan
-        ArrayList<PharmacistSchedule> schedule = pharmacistScheduleService.getByPharmacistAndPharmacyAndDay(pharmacistId,pharmacyId, appointmentWorkDay);
+        ArrayList<PharmacistSchedule> schedule = pharmacistScheduleService.getByPharmacistAndPharmacyAndDay(pharmacistId, pharmacyId, appointmentWorkDay);
 
         //ako ne radi u toj apoteci na taj dan vrati null
-        if(schedule.isEmpty()){
+        if (schedule.isEmpty()) {
             return null;
         }
 
         //ako radi u toj apoteci na taj dan proveri da li je slobodan za ovaj datum u ovom terminu
-        if(!isAvailable(pharmacistId, appointmentDate, appointmentTime)){
+        if (!isAvailable(pharmacistId, appointmentDate, appointmentTime)) {
             return null;
         }
 
@@ -83,13 +84,13 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
 
     //vraca true ako ne postoji za tog dermatologa na taj datum i u to vreme vec kreiran termin
     @Override
-    public boolean isAvailable(Long pharmacistId, LocalDate appointmentDate, String appointmentTime){
+    public boolean isAvailable(Long pharmacistId, LocalDate appointmentDate, String appointmentTime) {
         //uzmi mi preglede ovog dermatologa
         List<PharmacistAppointment> all = this.getByPharmacist(pharmacistId);
 
         //prodji kroz sve i vidi da li postoji neki kome se poklapaju datum i vreme
-        for(PharmacistAppointment da : all){
-            if(da.getDate().equals(appointmentDate) && da.getTime().toUpperCase().equals(appointmentTime.toUpperCase())){
+        for (PharmacistAppointment da : all) {
+            if (da.getDate().equals(appointmentDate) && da.getTime().toUpperCase().equals(appointmentTime.toUpperCase())) {
                 //ako postoji vrati false
                 return false;
             }
@@ -105,11 +106,11 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
         ArrayList<PharmacistAppointmentDTO> ret = new ArrayList<PharmacistAppointmentDTO>();
         ArrayList<PharmacistAppointment> byPharmacy = this.getByPharmacy(pharmacyId);
 
-        for(PharmacistAppointment da : byPharmacy){
+        for (PharmacistAppointment da : byPharmacy) {
             //vrati cak i otkazane
-            if(da.getStatus().equals(AppointmentStatus.AVAILABLE) || da.getStatus().equals(AppointmentStatus.CANCELED)){
+            if (da.getStatus().equals(AppointmentStatus.AVAILABLE) || da.getStatus().equals(AppointmentStatus.CANCELED)) {
                 // UVEZI DERMATOLOGIST SERVICE DA BI UZELA IME I OCENU DERMATOLOGA PO ID
-                String phName= pharmacyService.getById(pharmacyId).getName();
+                String phName = pharmacyService.getById(pharmacyId).getName();
                 PharmacistAppointmentDTO toAdd = new PharmacistAppointmentDTO(da.getId(),
                         da.getPharmacistId(), "ime", 1, da.getPharmacyId(),
                         phName, da.getTime(), da.getDate(), da.getPrice());
@@ -130,7 +131,7 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
 
         //ako ga je on poslednji otkazao njegov id ce biti na mestu pacijenta
         //u tom slucaju mu ne dozvoljavamo da ga rezervise
-        if(userId != appointment.getPatientId()){
+        if (userId != appointment.getPatientId()) {
             //ako ga nije on otkzao menjamo user id i status u reserved
             appointment.setPatientId(userId);
             appointment.setStatus(AppointmentStatus.RESERVED);
@@ -141,5 +142,76 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
 
         return null;
     }
+
+    @Override
+    public ArrayList<DermatologistAppointmentDTO> getAvailablePharmacistAppointments(Long pharmacyId) {
+        ArrayList<DermatologistAppointmentDTO> ret = new ArrayList<DermatologistAppointmentDTO>();
+        ArrayList<PharmacistAppointment> byPharmacy = this.getByPharmacy(pharmacyId);
+
+        for (PharmacistAppointment pa : byPharmacy) {
+            //vrati cak i otkazane
+            if (pa.getStatus().equals(AppointmentStatus.AVAILABLE) || pa.getStatus().equals(AppointmentStatus.CANCELED)) {
+
+                Pharmacist pharmacist = pharmacistService.getById(pa.getPharmacistId());
+                String phName = pharmacyService.getById(pharmacyId).getName();
+                DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(pa.getId(),
+                        pa.getPharmacistId(), pharmacist.getFirstName().concat(" ") + pharmacist.getLastName(), pharmacist.getRate(), pa.getPharmacyId(),
+                        phName, pa.getTime(), pa.getDate(), pa.getPrice(), pa.getStatus());
+
+                ret.add(toAdd);
+
+            }
+
+        }
+        return ret;
+    }
+
+    // vraca listu svih apoteka koje imaju slobone termine kod farmaceuta u odabrano vreme
+    @Override
+    public ArrayList<Pharmacy> getPharmaciesByAppointmentDate(String appointmentTime, LocalDate appointmentDate) {
+       ArrayList<Pharmacy> ret = new ArrayList<Pharmacy>();
+
+       for(PharmacistAppointment pharmacistAppointment : pharmacistAppointmentRepository.findAll()){
+           if(pharmacistAppointment.getDate().equals(appointmentDate.plusDays(1)) && pharmacistAppointment.getTime().equals(appointmentTime) && (pharmacistAppointment.getStatus().equals(AppointmentStatus.AVAILABLE) || pharmacistAppointment.getStatus().equals(AppointmentStatus.CANCELED))){
+               ret.add(pharmacyService.getById(pharmacistAppointment.getPharmacyId()));
+           }
+       }
+
+        return ret;
+    }
+
+    @Override
+    public ArrayList<DermatologistAppointmentDTO> getByPatientId(Long patientId) {
+        ArrayList<DermatologistAppointmentDTO> ret = new ArrayList<DermatologistAppointmentDTO>();
+        ArrayList<PharmacistAppointment> byPatientIdList = pharmacistAppointmentRepository.findByPatientId(patientId);
+
+        for(PharmacistAppointment appointment : byPatientIdList){
+
+            Pharmacist pharmacist = pharmacistService.getById(appointment.getPharmacistId());
+            String phName= pharmacyService.getById(appointment.getPharmacyId()).getName();
+            DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(appointment.getId(),
+                    appointment.getPharmacistId(), pharmacist.getFirstName().concat(" ") + pharmacist.getLastName(), pharmacist.getRate(), appointment.getPharmacyId(),
+                    phName, appointment.getTime(), appointment.getDate(), appointment.getPrice(), appointment.getStatus());
+
+            ret.add(toAdd);
+        }
+
+        return ret;
+    }
+
+    @Override
+    public PharmacistAppointment cancelReservation(Long appointmentId) {
+        PharmacistAppointment appointment = getById(appointmentId);
+        LocalDate now = LocalDate.now();
+        // ako je danasnji trenutak nakon 24h pre dana rezervacije ne dozvoli da je otkaze
+        if(now.isAfter(appointment.getDate().minusDays(1))){
+            return null;
+        }
+        appointment.setStatus(AppointmentStatus.CANCELED);
+        pharmacistAppointmentRepository.save(appointment);
+
+        return appointment;
+    }
+
 
 }

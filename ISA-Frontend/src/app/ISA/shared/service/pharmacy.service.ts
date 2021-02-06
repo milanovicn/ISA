@@ -46,11 +46,11 @@ export class PharmacyService {
     return this.http.get<Medicine[]>("/api/pharmacy/mymedicine/" + pharmacyId);
   }
 
-  public getActions(pharmacyId:number):Observable<Actions[]>{
-    return this.http.get<Actions[]>("/api/pharmacy/myactions/"+pharmacyId);
+  public getActions(pharmacyId: number): Observable<Actions[]> {
+    return this.http.get<Actions[]>("/api/pharmacy/myactions/" + pharmacyId);
   }
 
-  public addMedicine(updatedUser:Pharmacy, medicine_id:number){
+  public addMedicine(updatedUser: Pharmacy, medicine_id: number) {
     return this.http.put<Pharmacy>("/api/pharmacy/addMedicine/" + medicine_id, updatedUser);
   }
 
@@ -75,6 +75,11 @@ export class PharmacyService {
     return this.http.get<DermatologistAppointmentDTO[]>("/api/pharmacy/availableDermatologistAppointments/" + pharmacyId);
   }
 
+  public availablePharmacistAppointments(pharmacyId: number): Observable<DermatologistAppointmentDTO[]> {
+    return this.http.get<DermatologistAppointmentDTO[]>("/api/pharmacy/availablePharmacistAppointments/" + pharmacyId);
+  }
+
+
   public registerPharma(newPharma: Pharmacist, pharmacyId: number, workDays: string[]) {
     return this.http.post<Pharmacist>("/api/pharmacy-admin/pharmacist/" + newPharma + "/" + pharmacyId, workDays);
   }
@@ -85,19 +90,22 @@ export class PharmacyService {
 
   public deletePharma(pharmacistIdDelete: number) {
     return this.http.delete("/api/pharmacist/" + pharmacistIdDelete);
-}
-  
-public deleteDerma(dermatologistIdDelete: number) {
-  return this.http.delete("/api/dermatologist/" + dermatologistIdDelete);
-}
-  
-public deleteMedicine(medicineIdDelete: number) {
-  return this.http.delete("/api/pharmacy/" + medicineIdDelete);
-}
-  
-public addAction(newAction: Actions, pharmacyId:number, ) {
-  return this.http.post<Actions>("/api/pharmacy/newAction/" + pharmacyId, newAction);
-}
+  }
 
+  public deleteDerma(dermatologistIdDelete: number) {
+    return this.http.delete("/api/dermatologist/" + dermatologistIdDelete);
+  }
+
+  public deleteMedicine(medicineIdDelete: number) {
+    return this.http.delete("/api/pharmacy/" + medicineIdDelete);
+  }
+
+  public addAction(newAction: Actions, pharmacyId: number,) {
+    return this.http.post<Actions>("/api/pharmacy/newAction/" + pharmacyId, newAction);
+  }
+
+  public searchPharmacyByTimeForCounseling(appointmentTime: string, appointmentDate: Date): Observable<Pharmacy[]> {
+    return this.http.post<Pharmacy[]>("/api/pharmacy/pharmacyByTime/" + appointmentTime, appointmentDate);
+  }
 
 }

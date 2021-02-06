@@ -1,10 +1,12 @@
 package com.example.ISABackend.controller;
 
+import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.ConfirmationTokenRepository;
 import com.example.ISABackend.repository.UserRepository;
 import com.example.ISABackend.service.DermatologistAppointmentService;
 import com.example.ISABackend.service.EmailService;
+import com.example.ISABackend.service.PharmacistAppointmentService;
 import com.example.ISABackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
+import java.util.ArrayList;
 import java.util.Properties;
 
 
@@ -37,6 +40,9 @@ public class UserController {
 
     @Autowired
     private DermatologistAppointmentService dermatologistAppointmentService;
+
+    @Autowired
+    private PharmacistAppointmentService pharmacistAppointmentService;
 
     @PostMapping(value = "/register")
     public ResponseEntity registerUser(@RequestBody User newUser, @Context HttpServletRequest request) {
@@ -149,6 +155,89 @@ public class UserController {
             return new ResponseEntity<Long>(app.getId(), HttpStatus.CREATED);
         }
         
+    }
+
+    @PutMapping(value = "/makePharmacistAppointment/{appointmentId}")
+    public ResponseEntity<?> makePharmacistAppointment(@RequestBody User user, @PathVariable("appointmentId") Long appointmentId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        PharmacistAppointment app = pharmacistAppointmentService.makeReservation(user.getId(), appointmentId);
+        if (app == null) {
+            return new ResponseEntity<String>("Unsuccessful! You are not allowed to make this reservation!", HttpStatus.METHOD_NOT_ALLOWED);
+        } else  {
+
+            Properties props = new Properties();
+            props.put("mail.mime.address.strict", "false");
+            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+            Session session = Session.getDefaultInstance(props);
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(user.getEmail());
+            mailMessage.setSubject("Pharmacist's counseling is reserved!");
+            mailMessage.setFrom("ISA.tim66@gmail.com");
+            mailMessage.setText("You have successfully made the reservation at  " + app.getTime() +", " +app.getDate());
+
+            emailService.sendEmail(mailMessage);
+
+
+            return new ResponseEntity<Long>(app.getId(), HttpStatus.CREATED);
+        }
+
+    }
+
+
+    @GetMapping(value = "/getMyDermatologistAppointments/{patientId}")
+    public Object getMyDermatologistAppointments(@PathVariable("patientId") Long patientId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        return  dermatologistAppointmentService.getByPatientId(patientId);
+    }
+
+    @GetMapping(value = "/getMyPharmacistAppointments/{patientId}")
+    public Object getMyPharmacistAppointments(@PathVariable("patientId") Long patientId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        return  pharmacistAppointmentService.getByPatientId(patientId);
+    }
+
+    @GetMapping(value = "/cancelDermatologistAppointment/{appointmentId}")
+    public ResponseEntity<?> cancelDermatologistAppointment(@PathVariable("appointmentId") Long appointmentId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        DermatologistAppointment app = dermatologistAppointmentService.cancelReservation(appointmentId);
+        if (app == null) {
+            return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
+        } else  {
+            return new ResponseEntity<DermatologistAppointment>(app, HttpStatus.CREATED);
+        }
+    }
+
+    @GetMapping(value = "/cancelPharmacistAppointment/{appointmentId}")
+    public ResponseEntity<?> cancelPharmacistAppointment(@PathVariable("appointmentId") Long appointmentId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        PharmacistAppointment app = pharmacistAppointmentService.cancelReservation(appointmentId);
+        if (app == null) {
+            return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
+        } else  {
+            return new ResponseEntity<PharmacistAppointment>(app, HttpStatus.CREATED);
+        }
+    }
+
+
+
+    @PostMapping(value = "/sort/{sortType}")
+    public Object sortPharmacy(@RequestBody ArrayList<DermatologistAppointmentDTO> sortAppointments, @PathVariable("sortType") String sortType) {
+
+        return userService.sort(sortAppointments, sortType);
     }
 
 
