@@ -2,9 +2,7 @@ package com.example.ISABackend.service;
 
 import com.example.ISABackend.enums.OrderOfferStatus;
 import com.example.ISABackend.enums.OrderStatus;
-import com.example.ISABackend.model.OrderItem;
-import com.example.ISABackend.model.OrderOffer;
-import com.example.ISABackend.model.Orders;
+import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.OrderItemRepository;
 import com.example.ISABackend.repository.OrderOfferRepository;
 import com.example.ISABackend.repository.OrdersRepository;
@@ -25,6 +23,9 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Autowired
     private OrdersRepository ordersRepository;
+
+    @Autowired
+    private PharmacyStockService pharmacyStockService;
 
 
     @Override
@@ -105,5 +106,95 @@ public class OrdersServiceImpl implements OrdersService {
         return myOffers;
     }
 
+    @Override
+    public OrderOffer acceptOffer(Long offerId) {
+        //prihvata ponudu
+        OrderOffer toAccept = orderOfferRepository.findById(offerId).orElseGet(null);
+        toAccept.setStatus(OrderOfferStatus.ACCEPTED);
+        orderOfferRepository.save(toAccept);
 
+        //odbija ostale
+        ArrayList<OrderOffer> byOrderId = orderOfferRepository.findByOrderId(toAccept.getOrderId());
+
+        for(OrderOffer oo : byOrderId){
+            if(oo.getId()!=offerId){
+                oo.setStatus(OrderOfferStatus.REJECTED);
+                orderOfferRepository.save(oo);
+            }
+
+        }
+
+        //dodaje lekove na stanje
+        pharmacyStockService.addMedicinesFromOrder(toAccept.getOrderId());
+
+        //menja stanje narudzbenice
+        Orders order = ordersRepository.findById(toAccept.getOrderId()).orElseGet(null);
+        order.setOrderStatus(OrderStatus.INACTIVE);
+        ordersRepository.save(order);
+
+        return toAccept;
+    }
+
+    //vraca false ako ulogovani admin nije kreirao narudzbenicu
+    @Override
+    public Boolean checkAdmin(Long offerId, Long adminId){
+        OrderOffer toAccept = orderOfferRepository.findById(offerId).orElseGet(null);
+        Orders order = ordersRepository.findById(toAccept.getOrderId()).orElseGet(null);
+        if(adminId != order.getPharmacyAdminId()){
+            return false;
+        }
+        return true;
+    }
+
+    //vraca false ako nije jos istekao rok za davanje ponuda za narudzbenicu
+    @Override
+    public Boolean checkDeadline(Long offerId) {
+        OrderOffer toAccept = orderOfferRepository.findById(offerId).orElseGet(null);
+        Orders order = ordersRepository.findById(toAccept.getOrderId()).orElseGet(null);
+        if(LocalDate.now().isBefore(order.getDeadline())){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public ArrayList<OrderOffer> getOffersByOrder(Long orderId) {
+
+
+        return orderOfferRepository.findByOrderId(orderId);
+    }
+
+    //pharmacy adminu prikazuje sve narudzbenice njegove apoteke koje niju obrisane
+    @Override
+    public ArrayList<Orders> getOrdersByPharmacy(Long pharmacyId) {
+          ArrayList<Orders>  ret =  new  ArrayList<Orders>();
+
+        for (Orders o : ordersRepository.findByPharmacyId(pharmacyId)  ) {
+            if(o.getOrderStatus() != OrderStatus.DELETED){
+                ret.add(o);
+            }
+        }
+        return ret;
+    }
+
+    @Override
+    public Orders deleteOrder(Long orderId) {
+
+        //pregleda da li postoji data ponuda koja nije ni odbijena ni prihvacena
+        ArrayList<OrderOffer> byOrderId = orderOfferRepository.findByOrderId(orderId);
+
+        for(OrderOffer oo : byOrderId){
+            if(oo.getStatus().equals(OrderOfferStatus.PENDING)){
+               return null;
+            }
+
+        }
+
+        //ako nema menja stanje narudzbenice u DELETED
+        Orders order = ordersRepository.findById(orderId).orElseGet(null);
+        order.setOrderStatus(OrderStatus.DELETED);
+        ordersRepository.save(order);
+
+        return order;
+    }
 }

@@ -19,12 +19,12 @@ public class OrderItem {
     private String medicineName;
 
     @Column(name = "quantity", nullable = false)
-    private Long quantity;
+    private int quantity;
 
     public OrderItem() {
     }
 
-    public OrderItem(Long orderId, Long medicineId, String medicineName, Long quantity) {
+    public OrderItem(Long orderId, Long medicineId, String medicineName, int quantity) {
         this.orderId = orderId;
         this.medicineId = medicineId;
         this.medicineName = medicineName;
@@ -63,11 +63,11 @@ public class OrderItem {
         this.medicineName = medicineName;
     }
 
-    public Long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }

@@ -1,0 +1,36 @@
+<pharmacy-admin-navbar></pharmacy-admin-navbar>
+
+<div>
+
+    <div style="margin-left:300px; margin-top:50px; padding:60px;">
+        <h1>Active orders</h1>
+        
+        <div class="card" style="margin-top: 50px;" >
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Active orders </h4>
+                <p class="card-category">Orders that are still available for offer</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-success">
+                        <th>ID</th>
+                        <th>Pharmacy </th>
+                        <th>Deadline </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let order of activeOrders'>
+                            <td><a [routerLink]="[order.id]">{{order.id}}</a></td>
+                            <td>{{order.pharmacyName}}</td>
+                            <td>{{order.deadline}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+
+    </div>
+
+
+</div>

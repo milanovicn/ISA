@@ -14,4 +14,10 @@ public interface OrdersService {
     public Orders getOrderById(Long orderId);
     public OrderOffer findOffer(Long orderId, Long supplierId);
     public ArrayList<OrderOffer> myOffers(Long supplierId);
+    public OrderOffer acceptOffer(Long offerId);
+    public ArrayList<Orders> getOrdersByPharmacy(Long pharmacyId);
+    public Boolean checkAdmin(Long offerId, Long adminId);
+    public Boolean checkDeadline(Long offerId);
+    public ArrayList<OrderOffer> getOffersByOrder(Long orderId);
+    public Orders deleteOrder(Long orderId);
 }

@@ -76,6 +76,8 @@ insert into pharmacy.system_admin(id,address,city,country,email,first_name,last_
 
 -- SUPPLIER
 insert into pharmacy.supplier(id,address,city,country,email,first_name,last_name,password,phone_number,user_role,prvi_put_logovan) values (1,'Ulica Dobavljaca 1','Novi Sad','Srbija','supplier1@pharmacy.com','Pika','Pikic','123',061123123,5,1)
+insert into pharmacy.supplier(id,address,city,country,email,first_name,last_name,password,phone_number,user_role,prvi_put_logovan) values (2,'Ulica Dobavljaca 2','Novi Sad','Srbija','supplier2@pharmacy.com','Kika','Kikic','123',061123123,5,1)
+insert into pharmacy.supplier(id,address,city,country,email,first_name,last_name,password,phone_number,user_role,prvi_put_logovan) values (3,'Ulica Dobavljaca 3','Novi Sad','Srbija','supplier3@pharmacy.com','Tika','Tikic','123',061123123,5,1)
 
 -- MEDICINE STOCKS IN PHARMACY
 INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('1', '15', '1','Analgin 500mg tableta', '1', '0')
@@ -87,7 +89,7 @@ INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, ph
 INSERT INTO pharmacy.pharmacy_stock(id, in_stock, medicine_id, medicine_name, pharmacy_id, reserved) VALUES ('7', '4', '7', 'ALERGOSAN 10mg film tableta', '1', '0')
 
 -- ORDERS
-INSERT INTO pharmacy.orders(id, deadline, order_status, pharmacy_admin_id, pharmacy_id, pharmacy_name) VALUES ('1', '2021-02-25', '0', '1', '1', 'Apoteka Milanovic')
+INSERT INTO pharmacy.orders(id, deadline, order_status, pharmacy_admin_id, pharmacy_id, pharmacy_name) VALUES ('1', '2021-02-02', '0', '1', '1', 'Apoteka Milanovic')
 INSERT INTO pharmacy.orders(id, deadline, order_status, pharmacy_admin_id, pharmacy_id, pharmacy_name) VALUES ('2', '2021-04-05', '0', '1', '1', 'Apoteka Milanovic')
 
 -- ORDER ITEMS
@@ -97,4 +99,9 @@ INSERT INTO pharmacy.order_item(id, medicine_id, medicine_name, order_id, quanti
 INSERT INTO pharmacy.order_item(id, medicine_id, medicine_name, order_id, quantity) VALUES ('4', '4', 'Aspirin 500 500mg tableta', '2', '300')
 INSERT INTO pharmacy.order_item(id, medicine_id, medicine_name, order_id, quantity) VALUES ('5', '5', 'Xyzal 5mg film tableta', '2', '50')
 
+-- ORDER OFFER
+
+INSERT INTO pharmacy.order_offer (id, delivery_date, order_id, price, status, supplier_id) VALUES ('1', '2021-01-05', '1', '555', '0', '1')
+INSERT INTO pharmacy.order_offer (id, delivery_date, order_id, price, status, supplier_id) VALUES ('2', '2021-02-22', '1', '222', '0', '2')
+INSERT INTO pharmacy.order_offer (id, delivery_date, order_id, price, status, supplier_id) VALUES ('3', '2021-03-02', '1', '333', '0', '3')
 

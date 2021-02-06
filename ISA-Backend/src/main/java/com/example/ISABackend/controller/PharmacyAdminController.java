@@ -40,6 +40,9 @@ public class PharmacyAdminController {
     @Autowired
     private PharmacistAppointmentService pharmacistAppointmentService;
 
+    @Autowired
+    OrdersService ordersService;
+
     private Pharmacy_Admin authorize(HttpServletRequest request){
         HttpSession session = request.getSession();
         Pharmacy_Admin pa = (Pharmacy_Admin) session.getAttribute("pharmacy_admin");
@@ -144,7 +147,66 @@ public class PharmacyAdminController {
             return new ResponseEntity<PharmacistAppointment>( da,HttpStatus.ACCEPTED);
         }
     }
+
+
+    @GetMapping(value = "/orders/{pharmacyId}")
+    public ResponseEntity getOrders(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        ArrayList<Orders> orders = ordersService.getOrdersByPharmacy(pharmacyId);
+        return new ResponseEntity<ArrayList<Orders>>(orders, HttpStatus.CREATED);
     }
+
+    @GetMapping(value = "/acceptOffer/{offerId}")
+    public ResponseEntity acceptOrder(@PathVariable("offerId") Long offerId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        HttpSession session = request.getSession();
+        Pharmacy_Admin pa = (Pharmacy_Admin) session.getAttribute("pharmacy_admin");
+        Boolean heCreated = ordersService.checkAdmin(offerId, pa.getId());
+        Boolean deadlineExpired = ordersService.checkDeadline(offerId);
+        if(!heCreated){
+            return new ResponseEntity<String>("Only admin who created this order can accept offer!", HttpStatus.ACCEPTED);
+        } else if(!deadlineExpired){
+            return new ResponseEntity<String>("You can not accept offer before the deadline is expired!", HttpStatus.ACCEPTED);
+        }
+
+        OrderOffer o = ordersService.acceptOffer(offerId);
+        return new ResponseEntity<OrderOffer>(o, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/offers/{orderId}")
+    public ResponseEntity getOffers(@PathVariable("orderId") Long orderId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        ArrayList<OrderOffer> offersByOrder = ordersService.getOffersByOrder(orderId);
+        return new ResponseEntity<ArrayList<OrderOffer>>(offersByOrder, HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/order/{orderId}")
+    public ResponseEntity getOrder(@PathVariable("orderId") Long orderId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        Orders order = ordersService.getOrderById(orderId);
+        return new ResponseEntity<Orders>(order, HttpStatus.CREATED);
+    }
+
+
+    @DeleteMapping(value = "/order/{orderId}")
+    public ResponseEntity deleteOrder(@PathVariable("orderId") Long orderId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        Orders order = ordersService.deleteOrder(orderId);
+        return new ResponseEntity<Orders>(order, HttpStatus.ACCEPTED);
+    }
+
+}
 
 
 
