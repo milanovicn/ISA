@@ -3,9 +3,7 @@ package com.example.ISABackend.controller;
 import com.example.ISABackend.dto.SearchPharmacy;
 import com.example.ISABackend.enums.WorkDays;
 import com.example.ISABackend.model.*;
-import com.example.ISABackend.repository.MedicineRepository;
 import com.example.ISABackend.repository.PharmacyRepository;
-import com.example.ISABackend.repository.UserRepository;
 import com.example.ISABackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,6 +38,9 @@ public class PharmacyController {
 
     @Autowired
     private DermatologistAppointmentService dermatologistAppointmentService;
+
+    @Autowired
+    private PharmacistAppointmentService pharmacistAppointmentService;
 
     @Autowired
     private ActionsService actionsService;
@@ -164,7 +165,13 @@ public class PharmacyController {
     @GetMapping(value = "/availableDermatologistAppointments/{pharmacyId}")
     public Object availableDermatologistAppointments(@PathVariable("pharmacyId") Long pharmacyId) {
 
-        return  dermatologistAppointmentService.getAvailableInPharmacy(pharmacyId);
+        return  dermatologistAppointmentService.getAvailableDermatologistAppointments(pharmacyId);
+    }
+
+    @GetMapping(value = "/availablePharmacistAppointments/{pharmacyId}")
+    public Object availablePharmacistAppointments(@PathVariable("pharmacyId") Long pharmacyId) {
+
+        return  pharmacistAppointmentService.getAvailablePharmacistAppointments(pharmacyId);
     }
 
     //zaposljava farmaceuta u apoteku ako je slobodan na sve odabrane dane
@@ -199,5 +206,16 @@ public class PharmacyController {
         pharmacyService.deleteMedicine(d.getPharmacy().getId(),medicineId);
         return new ResponseEntity<Medicine>(HttpStatus.NO_CONTENT);
     }
+
+
+    @PostMapping(value = "/pharmacyByTime/{appointmentTime}")
+    public Object findPharmacyByTime(@RequestBody LocalDate appointmentDate, @PathVariable("appointmentTime") String appointmentTime, @Context HttpServletRequest request) {
+
+        ArrayList<Pharmacy> pharmacies = pharmacistAppointmentService.getPharmaciesByAppointmentDate(appointmentTime, appointmentDate);
+
+        return new ResponseEntity<ArrayList<Pharmacy>>(pharmacies, HttpStatus.ACCEPTED);
+    }
+
+
 
 }

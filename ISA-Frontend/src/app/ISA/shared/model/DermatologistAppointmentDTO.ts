@@ -8,4 +8,5 @@ export class DermatologistAppointmentDTO{
     time:string;
     date: Date;
     price:number;
+    appointmentStatus:string;
 }

@@ -4,6 +4,7 @@ import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.dto.PharmacistAppointmentDTO;
 import com.example.ISABackend.model.DermatologistAppointment;
 import com.example.ISABackend.model.PharmacistAppointment;
+import com.example.ISABackend.model.Pharmacy;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,4 +19,10 @@ public interface PharmacistAppointmentService {
     public boolean isAvailable(Long dermatologistId, LocalDate appointmentDate, String appointmentTime);
     public ArrayList<PharmacistAppointmentDTO> getAvailableInPharmacy(Long pharmacyId);
     public PharmacistAppointment makeReservation(Long userId, Long appointmentId);
+    public ArrayList<DermatologistAppointmentDTO> getAvailablePharmacistAppointments(Long pharmacyId);
+    public ArrayList<Pharmacy> getPharmaciesByAppointmentDate(String appointmentTime, LocalDate appointmentDate);
+    public ArrayList<DermatologistAppointmentDTO>  getByPatientId(Long patientId);
+    public PharmacistAppointment cancelReservation(Long appointmentId);
+
+
 }

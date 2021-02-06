@@ -20,6 +20,8 @@ export class UserPharmacyComponent implements OnInit {
     pharmacy: Pharmacy;
     errorMessage = '';
     availableDermatologistAppointments: DermatologistAppointmentDTO[] = [];
+    availablePharmacistAppointments: DermatologistAppointmentDTO[] = [];
+
 
     constructor(private httpClient: HttpClient, private route: ActivatedRoute,
         private router: Router, private loginService: LoginService, private pharmacyService: PharmacyService,
@@ -45,6 +47,7 @@ export class UserPharmacyComponent implements OnInit {
             next: pharmacy => {
                 this.pharmacy = pharmacy;
                 this.getAllDermatologistAppointments();
+                this.getAllPharmacistAppointments();
             }
 
         }
@@ -70,9 +73,37 @@ export class UserPharmacyComponent implements OnInit {
 
     }
 
+    getAllPharmacistAppointments() {
+        this.pharmacyService.availablePharmacistAppointments(this.pharmacy.id).subscribe({
+            next: appointments => {
+                this.availablePharmacistAppointments = appointments;
+            }
+
+        });
+
+    }
+
     makeDermatologistAppointment(appointmentId) {
         console.log(appointmentId);
         this.userService.makeDermatologistAppointment(this.user, appointmentId).subscribe({
+            next: appointmentIdRet => {
+                this.ret = appointmentIdRet;
+                alert("Uspesno ste napravili rezervaciju!");
+
+                this.refresh();
+            }
+
+        });
+
+    }
+
+    refresh(){
+        window.location.reload();
+    }
+
+    makePharmacistCounseling(councelingId) {
+        console.log(councelingId);
+        this.userService.makePharmacistAppointment(this.user, councelingId).subscribe({
             next: appointmentIdRet => {
                 this.ret = appointmentIdRet;
                 alert("Uspesno ste napravili rezervaciju!");
@@ -81,5 +112,7 @@ export class UserPharmacyComponent implements OnInit {
         });
 
     }
+
+
 
 }

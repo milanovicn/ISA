@@ -35,4 +35,33 @@
         </div>
     </div>
 
+    <div class="card" style="margin-top: 150px;">
+        <div class="card-header card-header-success">
+            <h4 class="card-title">Reserve Pharmacist Counseling</h4>
+            <p class="card-category">This is the list of all the available counseling appointments. You can reserve them here.</p>
+        </div>
+        <div class="card-content table-responsive table-full-width">
+            <table class="table">
+                <thead class="text-success">
+                    <th>Pharmacist Name</th>
+                    <th>Pharmacist Rate<i (click)="sort('RATE')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i> </th>
+                    <th>Date </th>
+                    <th>Time </th>
+                    <th>Price <i (click)="sort('PRICE')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+                    <th>Make Reservation </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let k of availablePharmacistAppointments'>
+                        <td>{{k.dermatologistName}}</td>
+                        <td>{{k.dermatologistRate}}</td>
+                        <td>{{k.date}}</td>
+                        <td>{{k.time}}</td>
+                        <td>{{k.price}}</td>
+                        <td><button mat-raised-button class="btn btn-success btn-sm" (click)="makePharmacistCounseling([k.appointmentId])">Reserve</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>

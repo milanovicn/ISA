@@ -15,6 +15,9 @@ import { PharmacyService } from 'app/ISA/shared/service/pharmacy.service';
 export class UserPharmaciesComponent implements OnInit {
     allPharmacies : Pharmacy[] = [];
     searchParameters  : SearchPharmacy;
+    
+    appointmentTime: string = "";
+    appointmentDate: Date = new Date();
 
 
     constructor( private router: Router, private pharmacyService: PharmacyService) { 
@@ -97,5 +100,16 @@ export class UserPharmaciesComponent implements OnInit {
             }
 
         });
+    }
+
+
+    searchPharmacyByTimeForCounseling() {
+        this.pharmacyService.searchPharmacyByTimeForCounseling(this.appointmentTime, this.appointmentDate).subscribe({
+            next: pharmacies => {
+                this.allPharmacies = pharmacies;
+            }
+
+        });
+
     }
 }

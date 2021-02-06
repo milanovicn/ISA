@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { User } from "../model/User";
 import { Medicine } from "../model/Medicine";
+import { DermatologistAppointmentDTO } from "../model/DermatologistAppointmentDTO";
 
 
 @Injectable()
@@ -32,6 +33,30 @@ export class UserService {
 
     public makeDermatologistAppointment(patient:User, appointmentId:number){
       return this.http.put<number>("/api/user/makeDermatologistAppointment/" + appointmentId, patient);
+    }
+
+    public makePharmacistAppointment(patient:User, appointmentId:number){
+      return this.http.put<number>("/api/user/makePharmacistAppointment/" + appointmentId, patient);
+    }
+
+    public getMyDermatologistAppointments(patientId:number):Observable<DermatologistAppointmentDTO[]>{
+      return this.http.get<DermatologistAppointmentDTO[]>("/api/user/getMyDermatologistAppointments/" + patientId);
+    }
+
+    public getMyPharmacistAppointments(patientId:number):Observable<DermatologistAppointmentDTO[]>{
+      return this.http.get<DermatologistAppointmentDTO[]>("/api/user/getMyPharmacistAppointments/" + patientId);
+    }
+
+
+    public cancelDermatologistAppointment( appointmentId:number){
+      return this.http.get<number>("/api/user/cancelDermatologistAppointment/"+appointmentId);
+    }
+    public cancelPharmacistAppointment( appointmentId:number){
+      return this.http.get<number>("/api/user/cancelPharmacistAppointment/"+ appointmentId);
+    }
+
+    public sortAppointments(pharmacyList: DermatologistAppointmentDTO[], sortType: string): Observable<DermatologistAppointmentDTO[]> {
+      return this.http.post<DermatologistAppointmentDTO[]>("/api/user/sort/" + sortType, pharmacyList);
     }
 
 }
