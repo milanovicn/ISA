@@ -12,6 +12,7 @@ import { PharmacyService } from 'app/ISA/shared/service/pharmacy.service';
 import { pagespeedonline_v5 } from 'googleapis';
 import { Dermatologist } from 'app/ISA/shared/model/Dermatologist';
 import { Pharmacist } from 'app/ISA/shared/model/Pharmacist';
+import { Actions } from 'app/ISA/shared/model/Actions';
 
 @Component({
   selector: 'pharmacy-admin-hispharmacy',
@@ -22,13 +23,21 @@ export class PharmacyAdminHisPharmacyComponent implements OnInit {
   myPharmacy: Pharmacy;
   myDermas: Dermatologist[] = [];
   myPharmas: Pharmacist[] = [];
-
+  myActions: Actions[] = [];
+  dateFromA:Date=new Date(); 
+  dateToA:Date=new Date(); 
+  pharmacyIdA:number=0;
+  description:string = "";
+  ret: Object;
+  newActions : Actions;
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
     this.myPharmacy = new Pharmacy();
     this.myDermas = [];
     this.myPharmas=[];
+    this.myActions = [];
+    this.newActions = new Actions();
   }
 
   ngOnInit(): void {
@@ -87,11 +96,37 @@ export class PharmacyAdminHisPharmacyComponent implements OnInit {
         this.myPharmacy = pharmacy;
         this.getAllPharmas();
         this.getAllDermas();
+        this.getAllActions();
         
         
       }
     });
 
   }
+
+  getAllActions() {
+    this.pharmacyService.getActions(this.myPharmacy.id).subscribe({
+      next: actionss => {
+        this.myActions = actionss;
+      }
+    });
+  }
+
+  addActionPharmacy(){
+    console.log(this.newActions);
+    this.pharmacyService.addAction(this.newActions, this.myPharmacy.id).subscribe({
+      next: ret => {
+        this.newActions = ret;
+        console.log(this.newActions);
+        this.refresh();
+        
+      
+      }
+      
+    });
+  
+  }
+
+
 
 }

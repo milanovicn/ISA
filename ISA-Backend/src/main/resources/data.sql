@@ -97,4 +97,10 @@ INSERT INTO pharmacy.order_item(id, medicine_id, medicine_name, order_id, quanti
 INSERT INTO pharmacy.order_item(id, medicine_id, medicine_name, order_id, quantity) VALUES ('4', '4', 'Aspirin 500 500mg tableta', '2', '300')
 INSERT INTO pharmacy.order_item(id, medicine_id, medicine_name, order_id, quantity) VALUES ('5', '5', 'Xyzal 5mg film tableta', '2', '50')
 
+-- ACTIONS FOR PHARMACY AND SUBSCRIBED USERS
+insert into pharmacy.action_pharmacy_user(id,pharmacy_id, user_id) values ('1','1','1')
+insert into pharmacy.action_pharmacy_user(id,pharmacy_id, user_id) values ('2','1','2')
 
+-- ACTIONS
+insert into pharmacy.actions(id, pharmacy_id, date_from, date_to, description) values ('1', '1', '2021-02-01', '2021-02-28', 'February action- Free eye exam in our pharmacy!')
+insert into pharmacy.actions(id, pharmacy_id, date_from, date_to, description) values ('2', '1', '2021-03-01', '2021-03-31', 'March action- Free blood sugar measuring!')
