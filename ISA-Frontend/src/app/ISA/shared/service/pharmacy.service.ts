@@ -5,6 +5,7 @@ import { Actions } from "../model/Actions";
 import { Dermatologist } from "../model/Dermatologist";
 import { DermatologistAppointmentDTO } from "../model/DermatologistAppointmentDTO";
 import { Medicine } from "../model/Medicine";
+import { MedicinePrice } from "../model/MedicinePrice";
 import { Orders } from "../model/Orders";
 import { Pharmacist } from "../model/Pharmacist";
 import { Pharmacy } from "../model/Pharmacy";
@@ -107,5 +108,13 @@ export class PharmacyService {
   public searchPharmacyByTimeForCounseling(appointmentTime: string, appointmentDate: Date): Observable<Pharmacy[]> {
     return this.http.post<Pharmacy[]>("/api/pharmacy/pharmacyByTime/" + appointmentTime, appointmentDate);
   }
-
+  
+ 
+  public addPrice(pharmacyIdP: number, medicineIdP: number,  dateFrom: Date, dateTo : Date, price: number, x:number) {
+    return this.http.post<MedicinePrice[]>("/api/pharmacy/newPrice/" + pharmacyIdP + "/" + medicineIdP + "/" + dateFrom + "/" + dateTo + "/" +price,x);
+  }
+  
+  public getPrices(pharmacyId: number): Observable<MedicinePrice[]> {
+    return this.http.get<MedicinePrice[]>("/api/pharmacy/myprices/" + pharmacyId);
+  }
 }

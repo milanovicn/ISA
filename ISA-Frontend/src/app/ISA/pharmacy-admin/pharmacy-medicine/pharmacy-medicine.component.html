@@ -97,7 +97,7 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <input required type="number" value="" placeholder="Quantity" class="form-control"
-                            name="nemamPojma33" #nemamPojma33="ngModel" [(ngModel)]="newQuantity"/>
+                            name="nemamPojma33" #nemamPojma33="ngModel" [(ngModel)]="newQuantity" />
                     </div>
                 </div>
 
@@ -107,7 +107,7 @@
 
             </form>
         </div>
-    
+
         <div>
             <h2>Delete medicine from Medicine stock</h2>
             <form (ngSubmit)="deleteMedicine()" #medicine1Form="ngForm">
@@ -121,7 +121,7 @@
                     </mat-form-field>
                 </div>
 
-               
+
 
                 <div>
                     <input type="submit" value="Delete" mat-raised-button class="btn btn-success">
@@ -129,9 +129,9 @@
 
             </form>
         </div>
-    
-    
-    
+
+
+
 
         <div class="row">
             <div class="card">
@@ -141,27 +141,112 @@
                 <div class="card-content table-responsive table-full-width">
                     <table class="table">
                         <thead class="text-success">
-    
+
                             <th>Name</th>
                             <th>Left in stocks</th>
                             <th>Reserved</th>
                         </thead>
                         <tbody>
                             <tr *ngFor='let k of myStock'>
-    
+
                                 <td>{{k.medicineName}}</td>
                                 <td>{{k.inStock}}</td>
                                 <td>{{k.reserved}}</td>
-                               
+
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-    
-    
-    
+
+        <div class="row">
+
+
+            <h2>Medicine prices</h2>
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Medicine</h4>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+                        <thead class="text-success">
+
+                            <th>Name</th>
+                            <th>Date From</th>
+                            <th>Date To</th>
+                            <th>Price</th>
+
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let k of myActions'>
+
+                                <td>{{k.name}}</td>
+                                <td>{{k.dateFrom}}</td>
+                                <td>{{k.dateTo}}</td>
+                                <td>{{k.price}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h2>Add Medicine Price</h2>
+
+            <form (ngSubmit)="addPrice()" #newDermatologistForm="ngForm">
+                <div class="row">
+                    <div class="col">
+
+                           <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Medicine</mat-label>
+                        <mat-select name="nemamPojma1" #nemamPojma1="ngModel" [(ngModel)]='medicineId'>
+                            <mat-option *ngFor="let x of allMedications" [value]="x.id">{{x.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Price Start Date</mat-label>
+                                <input required matInput [matDatepicker]="picker1" name="nemamPojma4"
+                                    #nemamPojma4="ngModel" [(ngModel)]='dateFrom'>
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Price End Date</mat-label>
+                                <input required matInput [matDatepicker]="picker2" name="nemamPojma34"
+                                    #nemamPojma4="ngModel" [(ngModel)]='dateTo'>
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input required type="number" value="" placeholder="Price" class="form-control"
+                                    name="nemamPojma1233" #nemamPojma1233="ngModel" [(ngModel)]="price" />
+                            </div>
+                        </div>
+                        <div>
+                            <input type="submit" value="Add" mat-raised-button class="btn btn-success">
+                        </div>
+
+                    </div>
+
+                </div>
+            </form>
+
+
+
+        </div>
     </div>
 
 
