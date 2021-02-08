@@ -1,5 +1,6 @@
 package com.example.ISABackend.controller;
 
+import com.example.ISABackend.dto.DateInterval;
 import com.example.ISABackend.dto.SearchPharmacy;
 import com.example.ISABackend.enums.WorkDays;
 import com.example.ISABackend.model.*;
@@ -259,13 +260,11 @@ public class PharmacyController {
         return medicinePriceService.getMedicinePrice(pharmacyId);
     }
 
-    @PostMapping(value = "/newPrice/{pharmacyId}/{medicineId}/{dateFrom}/{dateTo}/{price}{x}")
+    @PostMapping(value = "/newPrice/{pharmacyId}/{medicineId}/{price}")
     public Object addNewPrice(@PathVariable("pharmacyId") Long pharmacyId,
                               @PathVariable("medicineId") Long medicineId,
-                              @PathVariable("dateFrom") LocalDate dateFrom,
-                              @PathVariable("dateTo") LocalDate dateTo,
                               @PathVariable("price") Long price,
-                              @RequestBody Long x,
+                              @RequestBody DateInterval dateInterval,
                               @Context HttpServletRequest request) {
 
 
@@ -273,13 +272,13 @@ public class PharmacyController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        MedicinePrice a = medicinePriceService.addNewPrice(pharmacyId, medicineId, dateFrom, dateTo, price);
+        MedicinePrice a = medicinePriceService.addNewPrice(pharmacyId, medicineId, dateInterval, price);
 
-//        if (a == null) {
-//            return new ResponseEntity<String>("You have already added price for this medicine", HttpStatus.METHOD_NOT_ALLOWED);
-//        }
-         return medicinePriceService.addNewPrice(pharmacyId, medicineId,dateFrom,dateTo,price);
-     //   return new ResponseEntity<ArrayList<MedicinePrice>>(a, HttpStatus.ACCEPTED);
+        if (a == null) {
+            return new ResponseEntity<String>("You have already added price for this medicine", HttpStatus.ACCEPTED);
+        }
+        // return medicinePriceService.addNewPrice(pharmacyId, medicineId,dateFrom,dateTo,price);
+        return new ResponseEntity<MedicinePrice>(a, HttpStatus.ACCEPTED);
 
     }
 

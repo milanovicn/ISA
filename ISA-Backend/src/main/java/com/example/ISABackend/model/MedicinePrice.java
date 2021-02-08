@@ -24,6 +24,7 @@ public class MedicinePrice {
     @Column(name = "medicineId", nullable = false)
     private Long medicineId;
 
+
    public MedicinePrice(Long pharmacyId,Long medicineId, LocalDate dateFrom, LocalDate dateTo, Long price){
        this.pharmacyId=pharmacyId;
        this.medicineId=medicineId;

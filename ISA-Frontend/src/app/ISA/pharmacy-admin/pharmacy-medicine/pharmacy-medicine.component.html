@@ -172,7 +172,7 @@
                     <table class="table">
                         <thead class="text-success">
 
-                            <th>Name</th>
+                            <th>Medicine ID</th>
                             <th>Date From</th>
                             <th>Date To</th>
                             <th>Price</th>
@@ -182,7 +182,7 @@
                         <tbody>
                             <tr *ngFor='let k of myActions'>
 
-                                <td>{{k.name}}</td>
+                                <td>{{k.medicineId}}</td>
                                 <td>{{k.dateFrom}}</td>
                                 <td>{{k.dateTo}}</td>
                                 <td>{{k.price}}</td>
@@ -214,7 +214,7 @@
                             <mat-form-field appearance="fill">
                                 <mat-label>Price Start Date</mat-label>
                                 <input required matInput [matDatepicker]="picker1" name="nemamPojma4"
-                                    #nemamPojma4="ngModel" [(ngModel)]='dateFrom'>
+                                    #nemamPojma4="ngModel" [(ngModel)]='priceDates.startDate'>
                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
                             </mat-form-field>
@@ -224,7 +224,7 @@
                             <mat-form-field appearance="fill">
                                 <mat-label>Price End Date</mat-label>
                                 <input required matInput [matDatepicker]="picker2" name="nemamPojma34"
-                                    #nemamPojma4="ngModel" [(ngModel)]='dateTo'>
+                                    #nemamPojma4="ngModel" [(ngModel)]='priceDates.endDate'>
                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>
                             </mat-form-field>

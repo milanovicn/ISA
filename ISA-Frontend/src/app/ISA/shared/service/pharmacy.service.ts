@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Actions } from "../model/Actions";
+import { DateInterval } from "../model/DateInterval";
 import { Dermatologist } from "../model/Dermatologist";
 import { DermatologistAppointmentDTO } from "../model/DermatologistAppointmentDTO";
 import { Medicine } from "../model/Medicine";
@@ -110,8 +111,8 @@ export class PharmacyService {
   }
   
  
-  public addPrice(pharmacyIdP: number, medicineIdP: number,  dateFrom: Date, dateTo : Date, price: number, x:number) {
-    return this.http.post<MedicinePrice[]>("/api/pharmacy/newPrice/" + pharmacyIdP + "/" + medicineIdP + "/" + dateFrom + "/" + dateTo + "/" +price,x);
+  public addPrice(pharmacyIdP: number, medicineIdP: number,  priceDates:DateInterval, price: number) {
+    return this.http.post<MedicinePrice[]>("/api/pharmacy/newPrice/" + pharmacyIdP + "/" + medicineIdP +  "/" +price, priceDates );
   }
   
   public getPrices(pharmacyId: number): Observable<MedicinePrice[]> {
