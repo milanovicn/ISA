@@ -5,6 +5,7 @@ import com.example.ISABackend.dto.PharmacistAppointmentDTO;
 import com.example.ISABackend.enums.AppointmentStatus;
 import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.DermatologistAppointmentRepository;
+import com.example.ISABackend.repository.PatientPenaltyRepository;
 import com.example.ISABackend.repository.PharmacistAppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
     @Autowired
     private PharmacistService pharmacistService;
 
+    @Autowired
+    private PatientPenaltyRepository patientPenaltyRepository;
 
     @Override
     public List<PharmacistAppointment> getAll() {
@@ -127,6 +130,12 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
 
     @Override
     public PharmacistAppointment makeReservation(Long userId, Long appointmentId) {
+        for(PatientPenalty pp : patientPenaltyRepository.findAll()){
+            //ako se pp odnosi na korisnika koji pokusava rezervaciju i ima 3 ili vise penala vrati null
+            if(userId == pp.getPatientId() && pp.getPenaltyNumber() > 2) {
+                return null;
+            }
+        }
         PharmacistAppointment appointment = this.getById(appointmentId);
 
         //ako ga je on poslednji otkazao njegov id ce biti na mestu pacijenta
@@ -201,6 +210,7 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
 
     @Override
     public PharmacistAppointment cancelReservation(Long appointmentId) {
+
         PharmacistAppointment appointment = getById(appointmentId);
         LocalDate now = LocalDate.now();
         // ako je danasnji trenutak nakon 24h pre dana rezervacije ne dozvoli da je otkaze

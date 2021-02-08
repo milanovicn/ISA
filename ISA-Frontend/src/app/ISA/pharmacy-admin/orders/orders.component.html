@@ -4,8 +4,8 @@
 
     <div style="margin-left:300px; margin-top:50px; padding:60px;">
         <h1>Active orders</h1>
-        
-        <div class="card" style="margin-top: 50px;" >
+
+        <div class="card" style="margin-top: 50px;">
             <div class="card-header card-header-success">
                 <h4 class="card-title">Active orders </h4>
                 <p class="card-category">Orders that are still available for offer</p>
@@ -28,7 +28,57 @@
             </div>
         </div>
 
-        
+        <h3>Create new order</h3>
+
+        <div class="row">
+            <div class="col">
+
+                <h5>Order items:</h5>
+                <p *ngFor="let item of newOrderItems">{{item.medicineName}}, {{item.quantity}}</p>
+
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <mat-label>New item - quantity</mat-label>
+                        <input type="number" value="" placeholder="Price" class="form-control" name="nemamPojma33"
+                            #nemamPojma33="ngModel" [(ngModel)]="newItem.quantity" />
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>New item - medicine</mat-label>
+                        <mat-select name="nemamPojma3" #nemamPojma3="ngModel" [(ngModel)]='newItem.medicineId'>
+                            <mat-option *ngFor="let medicine of allMedicines" [value]="medicine.id">
+                                {{medicine.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="col-sm-8">
+                    <button mat-raised-button class="btn btn-success btn-sm" (click)="addItemToOrder()">Add item to
+                        order</button>
+                </div>
+
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Offers placement deadline</mat-label>
+                        <input matInput [matDatepicker]="picker" name="nemamPojma4" #nemamPojma4="ngModel"
+                            [(ngModel)]='newOrder.deadline'>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-8">
+                    <button mat-raised-button class="btn btn-success btn-sm" (click)="createOrder()">Create</button>
+                </div>
+
+            </div>
+        </div>
+
+
+
 
     </div>
 

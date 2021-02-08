@@ -157,4 +157,22 @@ public class PharmacyStockServiceImpl implements PharmacyStockService {
 
     }
 
+    @Override
+    public Long updateReservedMedicineStock(Long medicineId, Long pharmacyId) {
+        PharmacyStock ps = getByMedicineAndPharmacy(medicineId, pharmacyId).get(0);
+        ps.setReserved(ps.getReserved()+1);
+        pharmacyStockRepository.save(ps);
+
+        return ps.getId();
+    }
+
+    @Override
+    public Long updateCanceledMedicineStock(Long medicineId, Long pharmacyId) {
+        PharmacyStock ps = getByMedicineAndPharmacy(medicineId, pharmacyId).get(0);
+        ps.setReserved(ps.getReserved()-1);
+        pharmacyStockRepository.save(ps);
+
+        return ps.getId();
+    }
+
 }

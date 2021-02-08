@@ -26,14 +26,8 @@ export class SystemAdminNavbarComponent implements OnInit{
   }
 
 
-logOut(){
-    this.loginService.logout(this.request).subscribe(result=>this.redirect());
+
+  homepage(){
+    this.router.navigate(["/system-admin-homepage"]);
 }
-
-
-
-  redirect(){
-    this.router.navigate(["/homepage"]);
-}
-
 }

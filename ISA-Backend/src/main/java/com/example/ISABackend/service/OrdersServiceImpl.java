@@ -6,6 +6,7 @@ import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.OrderItemRepository;
 import com.example.ISABackend.repository.OrderOfferRepository;
 import com.example.ISABackend.repository.OrdersRepository;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -196,5 +197,32 @@ public class OrdersServiceImpl implements OrdersService {
         ordersRepository.save(order);
 
         return order;
+    }
+
+    @Override
+    public Orders createOrder(Orders newOrder) {
+        Orders orders = new Orders();
+        orders.setDeadline(newOrder.getDeadline().plusDays(1));
+        orders.setPharmacyAdminId(newOrder.getPharmacyAdminId());
+        orders.setPharmacyId(newOrder.getPharmacyId());
+        orders.setPharmacyName(newOrder.getPharmacyName());
+        orders.setOrderStatus(OrderStatus.ACTIVE);
+        ordersRepository.save(orders);
+        return orders;
+    }
+
+    @Override
+    public Long createOrderItems(ArrayList<OrderItem> orderItems) {
+        for(OrderItem iter : orderItems){
+            OrderItem orderItem = new OrderItem();
+            orderItem.setMedicineId(iter.getMedicineId());
+            orderItem.setMedicineName(iter.getMedicineName());
+            orderItem.setOrderId(iter.getOrderId());
+            orderItem.setQuantity(iter.getQuantity());
+            orderItemRepository.save(orderItem);
+        }
+
+
+        return orderItems.get(0).getOrderId();
     }
 }

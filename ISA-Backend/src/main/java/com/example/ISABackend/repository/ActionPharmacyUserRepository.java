@@ -12,4 +12,5 @@ public interface ActionPharmacyUserRepository extends JpaRepository<ActionPharma
     ArrayList<ActionPharmacyUser> findByUserId(Long userId);
 
     ArrayList<ActionPharmacyUser> findByPharmacyId(Long pharmacyId);
+
 }

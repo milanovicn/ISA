@@ -10,43 +10,12 @@
     </div>
     <div class="sidebar-wrapper">
         <ul class="nav">
-            <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link sidebar-1" [routerLink]="['system-admin-homepage/medicines']" > <i class="material-icons">scatter_plot</i>
-                    <p style="color: green; font-weight: 500;">Medicines</p>
-                </a>
-            </li>
-            <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link sidebar-1" [routerLink]="['./pharmacies']"> <i
-                        class="material-icons">add_business</i>
-                    <p style="color: green; font-weight: 500;">Pharmacies</p>
-                </a>
-            </li>
-            <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link sidebar-1" [routerLink]="['./pharmacy-admins']"> <i
-                        class="material-icons">person_add</i>
-                    <p style="color: green; font-weight: 500;">Pharmacy Admins</p>
-                </a>
-            </li>
-            <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link sidebar-1" [routerLink]="['system-admin-homepage/suppliers']"> <i
-                        class="material-icons">person_add</i>
-                    <p style="color: green; font-weight: 500;">Suppliers</p>
-                </a>
-            </li>
-            <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link sidebar-1" [routerLink]="['./system-admins']"> <i
-                        class="material-icons">person_add</i>
-                    <p style="color: green; font-weight: 500;">System Admins</p>
-                </a>
-            </li>
             <li class="nav-item">
-                <a (click)="logOut()"  class="nav-link sidebar-1" > <i class="material-icons">power_settings_new</i>
-                    <p style="color: green; font-weight: 500;">Log Out</p>
+                <a (click)="homepage()"  class="nav-link sidebar-1" > <i class="material-icons">reply</i>
+                    <p style="color: green; font-weight: 500;">Homepage</p>
                 </a>
             </li>
-            
-            
-
+              
             
         </ul>
     </div>

@@ -19,6 +19,7 @@ export class UserProfileComponent implements OnInit {
   myAllergies: Medicine[] = [];
   allMedications: Medicine[] = [];
   newAllergy: number;
+  penaltiesNumber:number =0;
 
   constructor(private _router: Router, private userService: UserService, private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
@@ -60,10 +61,18 @@ export class UserProfileComponent implements OnInit {
         console.log(this.user);
         this.getMyAllergies();
         this.getAllMedicines();
+        this.getPenalties();
       }
 
     });
-
+  }
+  
+  getPenalties() {
+    this.userService.getMyPenalty(this.user.id).subscribe({
+      next: pen => {
+        this.penaltiesNumber = pen;
+      }
+  });
   }
 
   edit() {
