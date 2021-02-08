@@ -103,6 +103,7 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
     }
 
     //pravi listu dto objekata za front na osnovu slobodnih termina dermatologa u toj apoteci
+
     @Override
     public ArrayList<DermatologistAppointmentDTO> getAvailableInPharmacy(Long pharmacyId) {
         ArrayList<DermatologistAppointmentDTO> ret = new ArrayList<DermatologistAppointmentDTO>();
@@ -144,4 +145,71 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
 
         return null;
     }
+
+    @Override
+    public ArrayList<DermatologistAppointmentDTO> getApproprietAppoinment(Long dermatologistId) {
+        return null;
+    }
+
+    //prva
+    @Override
+    public ArrayList<DermatologistAppointmentDTO> getReservedAppointments(Long id) {
+
+        ArrayList<DermatologistAppointment> listAppointment = getByDermatologist(id);
+        ArrayList<DermatologistAppointmentDTO> ret = new ArrayList<>();
+
+        for (DermatologistAppointment i : listAppointment) {
+            if (i.getStatus().equals(AppointmentStatus.RESERVED)) {
+
+                String phName= pharmacyService.getById(i.getPharmacyId()).getName();
+
+                DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(i.getId(),
+                        i.getDermatologistId(), "ime", 1, i.getPharmacyId(),
+                        phName, i.getTime(), i.getDate(), i.getPrice());
+
+                ret.add(toAdd);
+            }
+        }
+        return ret;
+    }
+
+    //treca
+    @Override
+    public ArrayList<DermatologistAppointmentDTO> getAvailableAppointments(Long id) {
+
+        ArrayList<DermatologistAppointment> listAppointment = getByDermatologist(id);
+        ArrayList<DermatologistAppointmentDTO> ret = new ArrayList<>();
+
+        for (DermatologistAppointment i : listAppointment) {
+            if (i.getStatus().equals(AppointmentStatus.AVAILABLE)) {
+
+                String phName= pharmacyService.getById(i.getPharmacyId()).getName();
+
+                DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(i.getId(),
+                        i.getDermatologistId(), "ime", 1, i.getPharmacyId(),
+                        phName, i.getTime(), i.getDate(), i.getPrice());
+
+                ret.add(toAdd);
+            }
+        }
+        return ret;
+    }
+
+
+    @Override
+    public DermatologistAppointmentDTO getDTOById(Long appointmentId) {
+
+
+        DermatologistAppointment i = getById(appointmentId);
+
+        String phName= pharmacyService.getById(i.getPharmacyId()).getName();
+
+        DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(i.getId(),
+                i.getDermatologistId(), "ime", 1, i.getPharmacyId(),
+                phName, i.getTime(), i.getDate(), i.getPrice());
+
+        return toAdd;
+    }
+
+
 }

@@ -1,5 +1,5 @@
 
-<dermatologist-navbar></dermatologist-navbar>
+<pharmacist-navbar></pharmacist-navbar>
 
 <!-- ovde prikazi podatke o trenutnom pacijentu mozda-->
 <!-- <div style="margin-left:300px; margin-top:50px; padding:60px;">
@@ -8,18 +8,19 @@
     <h4>Address: {{pharmacy.address}}</h4>
     <h4>Rate: {{pharmacy.rate}}</h4>
 -->
+
 <div style="margin-left:300px; margin-top:-50px; padding:60px;">
 
     <div class="card" style="margin-top: 150px;">
         <div class="card-header card-header-success">
-            <h4 class="card-title">Reserve Dermatologist Appointment</h4>
-            <p class="card-category">This is the list of all the available appointments. You can reserve them here.</p>
+            <h4 class="card-title">Scheduling counseling</h4>
+            <p class="card-category">This is the list of all the available counseling. You can reserve them here.</p>
         </div>
         <div class="card-content table-responsive table-full-width">
             <table class="table">
                 <thead class="text-success">
-                    <th>Dermatologist Name</th>
-                    <th>Dermatologist Rate<i (click)="sort('RATE')" style="color: rgb(70, 70, 70); cursor: pointer;"
+                    <th>Pharmacist Name</th>
+                    <th>Pharmacist Rate<i (click)="sort('RATE')" style="color: rgb(70, 70, 70); cursor: pointer;"
                             class="material-icons">sort</i> </th>
                     <th>Date </th>
                     <th>Time </th>
@@ -28,14 +29,15 @@
                     <th>Make Reservation </th>
                 </thead>
                 <tbody>
-                    <tr *ngFor='let k of availableDermatologistAppointments'>
-                        <td>{{k.dermatologistName}}</td>
-                        <td>{{k.dermatologistRate}}</td>
+                    <tr *ngFor='let k of availablePharmacistCounseling'>
+                        <td>{{k.PharmacistName}}</td>
+                        <td>{{k.pharmacistRate}}</td>
                         <td>{{k.date}}</td>
                         <td>{{k.time}}</td>
-                        <td>{{k.price}}</td>
+                        <td>{{k.price}}</td> 
                         <td><button mat-raised-button class="btn btn-success btn-sm"
-                                (click)="makeDermatologistAppointment([k.appointmentId])">Reserve</button></td>
+                                (click)="makePharmacistCounseling([k.appointmentId])">Reserve</button></td>
+                                <!--//////////////////////////////////-->
                     </tr>
                 </tbody>
             </table>

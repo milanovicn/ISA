@@ -18,4 +18,8 @@ public interface DermatologistAppointmentService {
     public boolean isAvailable(Long dermatologistId, LocalDate appointmentDate, String appointmentTime);
     public ArrayList<DermatologistAppointmentDTO> getAvailableInPharmacy(Long pharmacyId);
     public DermatologistAppointment makeReservation(Long userId, Long appointmentId);
+    public ArrayList<DermatologistAppointmentDTO> getApproprietAppoinment (Long dermatologistId);
+    public ArrayList<DermatologistAppointmentDTO> getReservedAppointments(Long id);
+    public ArrayList<DermatologistAppointmentDTO> getAvailableAppointments(Long id);
+    DermatologistAppointmentDTO getDTOById(Long appointmentId);
 }

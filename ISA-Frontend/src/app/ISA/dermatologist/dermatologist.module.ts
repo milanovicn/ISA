@@ -6,12 +6,13 @@ import { DermatologistRoutingModule } from './dermatologist-routing.module';
 import { DermatologistNavbarComponent } from './dermatologist-navbar/dermatologist.navbar.component';
 import { DermatologistProfileComponent } from './dermatologist-profile/dermatologist-profile.component';
 import {DermatologistMakingAppointmentComponent } from './dermatologist-makingAppointment/dermatologist-makingAppointment.component';
+import { PatientsDermComponent } from './patients/patients.component';
 
 
 
 
 @NgModule({
-  declarations: [DermatologistNavbarComponent, DermatologistProfileComponent, DermatologistMakingAppointmentComponent],
+  declarations: [DermatologistNavbarComponent, DermatologistProfileComponent, DermatologistMakingAppointmentComponent, PatientsDermComponent],
   imports: [
     CommonModule,
     DermatologistRoutingModule, 
