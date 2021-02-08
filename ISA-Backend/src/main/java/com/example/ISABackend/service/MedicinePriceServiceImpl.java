@@ -1,5 +1,6 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.dto.DateInterval;
 import com.example.ISABackend.model.Actions;
 import com.example.ISABackend.model.MedicinePrice;
 import com.example.ISABackend.repository.ActionsRepository;
@@ -35,14 +36,22 @@ public class MedicinePriceServiceImpl implements  MedicinePriceService {
     }
 
     @Override
-    public MedicinePrice addNewPrice(Long pharmacyId, Long medicineId, LocalDate dateFrom,LocalDate dateTo, Long price){
-        dateFrom=dateFrom.plusDays(1);
-        dateTo=dateTo.plusDays(1);
+    public MedicinePrice addNewPrice(Long pharmacyId, Long medicineId, DateInterval dateInterval, Long price){
+        //ovde treba prvera da li postoji cenovnik za taj lek u tom periodu
+        ArrayList<MedicinePrice> medicinePrices = getByMedicineAndPharmacy(medicineId,pharmacyId);
+        for(MedicinePrice mp : medicinePrices){
+            //proverava da li se preklapaju novi termin vazenja cenovnika sa nekim vec postojecim za taj lek u toj apoteci
+            if(mp.getDateFrom().isBefore(dateInterval.getEndDate()) && dateInterval.getStartDate().isBefore(mp.getDateTo())){
+                return null;
+            }
+        }
+
+
         MedicinePrice a = new MedicinePrice();
         a.setPharmacyId(pharmacyId);
         a.setMedicineId(medicineId);
-        a.setDateFrom(dateFrom);
-        a.setDateTo(dateTo);
+        a.setDateFrom(dateInterval.getStartDate().plusDays(1));
+        a.setDateTo(dateInterval.getEndDate().plusDays(1));
         a.setPrice(price);
         medicinePriceRepository.save(a);
         return a;
@@ -54,6 +63,18 @@ public class MedicinePriceServiceImpl implements  MedicinePriceService {
         ArrayList<MedicinePrice> akcije = this.getByPharmacy(pharmacyId);
 
         return akcije;
+    }
+
+    @Override
+    public ArrayList<MedicinePrice> getByMedicineAndPharmacy(Long medicineId, Long pharmacyId) {
+        ArrayList<MedicinePrice> medicinePriceArrayList = getByPharmacy(pharmacyId);
+        ArrayList<MedicinePrice> ret = new ArrayList<>();
+        for(MedicinePrice medicinePrice: medicinePriceArrayList){
+            if(medicineId == medicinePrice.getMedicineId()){
+                ret.add(medicinePrice);
+            }
+        }
+        return ret;
     }
 
 

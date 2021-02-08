@@ -16,6 +16,7 @@ import { SearchPharmacist } from 'app/ISA/shared/model/SearchPharmacist';
 import { SearchMedicine } from 'app/ISA/shared/model/SearchMedicine';
 import { PharmacyStock } from 'app/ISA/shared/model/PharmacyStock';
 import { MedicinePrice } from 'app/ISA/shared/model/MedicinePrice';
+import { DateInterval } from 'app/ISA/shared/model/DateInterval';
 
 @Component({
   selector: 'pharmacy-medicine',
@@ -38,8 +39,7 @@ export class PharmacyMedicineComponent implements OnInit {
   medicineId:number=0;
 
   myActions: MedicinePrice[] = [];
-  dateFrom:Date=new Date(); 
-  dateTo:Date=new Date(); 
+ priceDates:DateInterval; 
   pharmacyIdA:number=0;
   name:string = "";
   price:number = 0;
@@ -59,7 +59,7 @@ export class PharmacyMedicineComponent implements OnInit {
     this.searchParameters2 = new SearchMedicine();
     this.myActions = [];
     this.newActions = new MedicinePrice();
-
+    this.priceDates = new DateInterval();
   }
   searchMedicine() {
     let sm = new SearchMedicine();
@@ -277,17 +277,17 @@ getAllPrices() {
 }
 
 addPrice(){
-  console.log(this.dateFrom);
-  console.log(this.dateTo);
+  console.log(this.priceDates);
+
   console.log(this.medicineId);
   console.log(this.price);
 
-  this.pharmacyService.addPrice(this.myPharmacy.id, this.medicineId, this.dateFrom, this.dateTo, this.price,this.x).subscribe({
+  this.pharmacyService.addPrice(this.myPharmacy.id, this.medicineId, this.priceDates, this.price).subscribe({
     next: ret => {
       this.ret = ret;
       this.refresh();
       if(this.ret == null){
-        alert("Check the list of prices");
+        alert("Price for this medicine in this period is already defined!");
       }
       else
       alert("Price added successfully! ");
