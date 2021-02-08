@@ -107,10 +107,14 @@ INSERT INTO pharmacy.order_offer (id, delivery_date, order_id, price, status, su
 INSERT INTO pharmacy.order_offer (id, delivery_date, order_id, price, status, supplier_id) VALUES ('3', '2021-03-02', '1', '333', '0', '3')
 
 -- ACTIONS FOR PHARMACY AND SUBSCRIBED USERS
-insert into pharmacy.action_pharmacy_user(id,pharmacy_id, user_id) values ('1','1','1')
+insert into pharmacy.action_pharmacy_user(id,pharmacy_id, user_id) values ('1','1','3')
 insert into pharmacy.action_pharmacy_user(id,pharmacy_id, user_id) values ('2','1','2')
 
 
 -- ACTIONS
 insert into pharmacy.actions(id, pharmacy_id, date_from, date_to, description) values ('1', '1', '2021-02-01', '2021-02-28', 'February action- Free eye exam in our pharmacy!')
 insert into pharmacy.actions(id, pharmacy_id, date_from, date_to, description) values ('2', '1', '2021-03-01', '2021-03-31', 'March action- Free blood sugar measuring!')
+
+-- PRICES
+
+

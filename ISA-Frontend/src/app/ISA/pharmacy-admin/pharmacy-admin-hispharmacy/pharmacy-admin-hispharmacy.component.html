@@ -48,12 +48,12 @@
                 </div>
             </form>
         </div>
-        
+
 
 
         <div class="row">
-          
-            
+
+
             <h1>Current pharmacy actions and promotions</h1>
             <div class="card">
                 <div class="card-header card-header-success">
@@ -66,7 +66,7 @@
                             <th>Description</th>
                             <th>Date From</th>
                             <th>Date To</th>
-                            
+
 
                         </thead>
                         <tbody>
@@ -75,7 +75,7 @@
                                 <td>{{k.description}}</td>
                                 <td>{{k.dateFrom}}</td>
                                 <td>{{k.dateTo}}</td>
-                                
+
                             </tr>
                         </tbody>
                     </table>
@@ -91,16 +91,17 @@
 
                         <div class="col-sm-8">
                             <div class="form-group">
-                                <input required type="text" value="" placeholder="Enter Action Description" class="form-control"
-                                    name="nemamPojma33" #nemamPojma33="ngModel" [(ngModel)]="newActions.description" />
+                                <input required type="text" value="" placeholder="Enter Action Description"
+                                    class="form-control" name="nemamPojma33" #nemamPojma33="ngModel"
+                                    [(ngModel)]="newActions.description" />
                             </div>
                         </div>
 
                         <div class="col-sm-8">
                             <mat-form-field appearance="fill">
                                 <mat-label>Action Start Date</mat-label>
-                                <input required matInput [matDatepicker]="picker1" name="nemamPojma4" #nemamPojma4="ngModel"
-                                    [(ngModel)]='newActions.dateFrom'>
+                                <input required matInput [matDatepicker]="picker1" name="nemamPojma4"
+                                    #nemamPojma4="ngModel" [(ngModel)]='newActions.dateFrom'>
                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                 <mat-datepicker #picker1></mat-datepicker>
                             </mat-form-field>
@@ -109,15 +110,15 @@
                         <div class="col-sm-8">
                             <mat-form-field appearance="fill">
                                 <mat-label>Action End Date</mat-label>
-                                <input required matInput [matDatepicker]="picker2" name="nemamPojma34" #nemamPojma4="ngModel"
-                                    [(ngModel)]='newActions.dateTo'>
+                                <input required matInput [matDatepicker]="picker2" name="nemamPojma34"
+                                    #nemamPojma4="ngModel" [(ngModel)]='newActions.dateTo'>
                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>
                             </mat-form-field>
                         </div>
 
 
-                       
+
 
                         <div>
                             <input type="submit" value="Create" mat-raised-button class="btn btn-success">
@@ -126,7 +127,7 @@
                 </div>
             </form>
 
-
+        </div>
     </div>
 
 

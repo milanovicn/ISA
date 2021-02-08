@@ -15,6 +15,7 @@ import { Pharmacist } from 'app/ISA/shared/model/Pharmacist';
 import { SearchPharmacist } from 'app/ISA/shared/model/SearchPharmacist';
 import { SearchMedicine } from 'app/ISA/shared/model/SearchMedicine';
 import { PharmacyStock } from 'app/ISA/shared/model/PharmacyStock';
+import { MedicinePrice } from 'app/ISA/shared/model/MedicinePrice';
 
 @Component({
   selector: 'pharmacy-medicine',
@@ -34,6 +35,18 @@ export class PharmacyMedicineComponent implements OnInit {
   myStock: PharmacyStock[] = [];
   ret1 :Object;
   medicineIdDelete:number=0;
+  medicineId:number=0;
+
+  myActions: MedicinePrice[] = [];
+  dateFrom:Date=new Date(); 
+  dateTo:Date=new Date(); 
+  pharmacyIdA:number=0;
+  name:string = "";
+  price:number = 0;
+  ret: Object;
+  medicineIdP : number = 0;
+  newActions : MedicinePrice;
+  x:number = 0;
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
@@ -44,6 +57,8 @@ export class PharmacyMedicineComponent implements OnInit {
     this.myMedicine = [];
     this.searchParameters = new SearchPharmacist();
     this.searchParameters2 = new SearchMedicine();
+    this.myActions = [];
+    this.newActions = new MedicinePrice();
 
   }
   searchMedicine() {
@@ -204,6 +219,7 @@ export class PharmacyMedicineComponent implements OnInit {
         this.getAllDermas();
         this.getAllMedicine(); 
         this.getAllMedicinesInStock();
+        this.getAllPrices();
 
 
       }
@@ -250,5 +266,35 @@ export class PharmacyMedicineComponent implements OnInit {
       }
     });
 }
+
+
+getAllPrices() {
+  this.pharmacyService.getPrices(this.myPharmacy.id).subscribe({
+    next: actionss => {
+      this.myActions = actionss;
+    }
+  });
+}
+
+addPrice(){
+  console.log(this.dateFrom);
+  console.log(this.dateTo);
+  console.log(this.medicineId);
+  console.log(this.price);
+
+  this.pharmacyService.addPrice(this.myPharmacy.id, this.medicineId, this.dateFrom, this.dateTo, this.price,this.x).subscribe({
+    next: ret => {
+      this.ret = ret;
+      this.refresh();
+      if(this.ret == null){
+        alert("Check the list of prices");
+      }
+      else
+      alert("Price added successfully! ");
+    }
+  });
+
+}
+
 
 }
