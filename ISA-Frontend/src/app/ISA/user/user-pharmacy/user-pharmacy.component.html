@@ -5,8 +5,21 @@
     <h4>Address: {{pharmacy.address}}</h4>
     <h4>Rate: {{pharmacy.rate}}</h4>
 
+    <h3 style="margin-top: 100px;">Pharmacy Subscription: </h3>
+  
+    <div  *ngIf="isSubscribed" class="col-sm-8">
+        <p>You are currently subscribed</p>
+        <button mat-raised-button class="btn btn-success btn-sm"
+                    (click)="subscribeToActions()">Unsubscribe</button>
+    </div>
+
+    <div *ngIf="!isSubscribed" class="col-sm-8">
+        <p>You are not subscribed</p>
+        <button mat-raised-button class="btn btn-success btn-sm"
+                    (click)="subscribeToActions()">Subscribe</button>
+    </div>
    
-    <div class="card" style="margin-top: 150px;">
+    <div class="card" style="margin-top: 100px;">
         <div class="card-header card-header-success">
             <h4 class="card-title">Reserve Dermatologist Appointment</h4>
             <p class="card-category">This is the list of all the available appointments. You can reserve them here.</p>
@@ -35,7 +48,7 @@
         </div>
     </div>
 
-    <div class="card" style="margin-top: 150px;">
+    <div class="card" style="margin-top: 100px;">
         <div class="card-header card-header-success">
             <h4 class="card-title">Reserve Pharmacist Counseling</h4>
             <p class="card-category">This is the list of all the available counseling appointments. You can reserve them here.</p>

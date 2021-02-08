@@ -11,10 +11,12 @@ import { Pharmacist } from "../model/Pharmacist";
 import { SearchPharmacist } from "../model/SearchPharmacist";
 import { Orders } from "../model/Orders";
 import { OrderOffer } from "../model/OrderOffer";
+import { OrderItem } from "../model/OrderItem";
 
 
 @Injectable()
 export class PharmacyAdminService {
+  
 
   constructor(private http: HttpClient) {
   }
@@ -72,5 +74,12 @@ export class PharmacyAdminService {
     return this.http.delete<OrderOffer>("/api/pharmacy-admin/order/" + id);
   }
 
+  public createOrder(newOrder: Orders) {
+    return this.http.post<Orders>("/api/pharmacy-admin/order", newOrder);
+  }
+
+  public createOrderItems(items: OrderItem[]) {
+    return this.http.post<number>("/api/pharmacy-admin/orderItems", items);
+  }
 
 }

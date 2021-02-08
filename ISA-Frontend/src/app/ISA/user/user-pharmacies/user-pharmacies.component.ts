@@ -3,7 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Pharmacy } from 'app/ISA/shared/model/Pharmacy';
 import { SearchPharmacy } from 'app/ISA/shared/model/SearchPharmacy';
+import { User } from 'app/ISA/shared/model/User';
+import { LoginService } from 'app/ISA/shared/service/login.service';
 import { PharmacyService } from 'app/ISA/shared/service/pharmacy.service';
+import { UserService } from 'app/ISA/shared/service/user.service';
+import { UserModule } from '../user.module';
 
 
 @Component({
@@ -15,14 +19,15 @@ import { PharmacyService } from 'app/ISA/shared/service/pharmacy.service';
 export class UserPharmaciesComponent implements OnInit {
     allPharmacies : Pharmacy[] = [];
     searchParameters  : SearchPharmacy;
-    
+    subscriptionPharmacies: Pharmacy[] = [];
     appointmentTime: string = "";
     appointmentDate: Date = new Date();
+    user:User;
 
-
-    constructor( private router: Router, private pharmacyService: PharmacyService) { 
+    constructor( private router: Router, private pharmacyService: PharmacyService, private loginService:LoginService,
+        private userService:UserService) { 
         this.searchParameters = new SearchPharmacy();
-        
+        this.user = new User();
     } 
   
    
@@ -32,13 +37,30 @@ export class UserPharmaciesComponent implements OnInit {
         this.pharmacyService.getAllPhamracies().subscribe({
             next: pharmacies => {
                 this.allPharmacies = pharmacies;
+                this.getUser();
             }
 
         });
 
     }
 
+    getUser() {
+        this.loginService.getLoggedInUser().subscribe({
+            next: user => {
+                this.user = user;
+                this.getSubscriptions();
+              
+            }
+        });
+    }
+    getSubscriptions() {
+        this.userService.getSubscriptions(this.user.id).subscribe({
+            next: subscriptionPharmacies => {
+                this.subscriptionPharmacies = subscriptionPharmacies;
+            }
 
+        });
+    }
 
     searchPharmacy(){
         let sp = new SearchPharmacy();

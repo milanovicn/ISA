@@ -2,12 +2,10 @@ package com.example.ISABackend.service;
 
 import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.enums.AppointmentStatus;
-import com.example.ISABackend.model.Dermatologist;
-import com.example.ISABackend.model.DermatologistAppointment;
-import com.example.ISABackend.model.DermatologistSchedule;
-import com.example.ISABackend.model.PharmacistAppointment;
+import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.DermatologistAppointmentRepository;
 import com.example.ISABackend.repository.DermatologistScheduleRepository;
+import com.example.ISABackend.repository.PatientPenaltyRepository;
 import net.bytebuddy.build.BuildLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +30,8 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
     @Autowired
     private DermatologistService dermatologistService;
 
+    @Autowired
+    private PatientPenaltyRepository patientPenaltyRepository;
 
     @Override
     public List<DermatologistAppointment> getAll() {
@@ -133,6 +133,13 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
 
     @Override
     public DermatologistAppointment makeReservation(Long userId, Long appointmentId) {
+        //zabrani rezervaciju ako ima 3 penala
+        for(PatientPenalty pp : patientPenaltyRepository.findAll()){
+            //ako se pp odnosi na korisnika koji pokusava rezervaciju i ima 3 ili vise penala vrati null
+            if(userId == pp.getPatientId() && pp.getPenaltyNumber() > 2) {
+                return null;
+            }
+        }
         DermatologistAppointment appointment = this.getById(appointmentId);
 
         //ako ga je on poslednji otkazao njegov id ce biti na mestu pacijenta

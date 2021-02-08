@@ -15,4 +15,5 @@ public interface UserService {
     public User addAllergy(Long user_id, Long medicine_id);
     public User registerUser(User newUser);
     public ArrayList<DermatologistAppointmentDTO> sort(ArrayList<DermatologistAppointmentDTO> sortAppointments, String sortType);
+    public Long getMyPenalty( Long patientId);
 }

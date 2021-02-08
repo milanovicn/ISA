@@ -9,4 +9,5 @@ import java.util.ArrayList;
 @Repository
 public interface ActionsRepository extends JpaRepository<Actions, Long> {
     ArrayList<Actions> findByPharmacyId(Long pharmacyId);
+
 }

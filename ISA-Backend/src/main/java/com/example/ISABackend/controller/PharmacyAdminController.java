@@ -206,6 +206,34 @@ public class PharmacyAdminController {
         return new ResponseEntity<Orders>(order, HttpStatus.ACCEPTED);
     }
 
+    @PostMapping(value="/order")
+    public ResponseEntity<?> orderCreate(@RequestBody Orders newOrder, @Context HttpServletRequest request){
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        Orders o = ordersService.createOrder(newOrder);
+
+        if (o == null) {
+            return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
+        } else  {
+            return new ResponseEntity<Orders>(o, HttpStatus.CREATED);
+        }
+    }
+
+    @PostMapping(value="/orderItems")
+    public ResponseEntity<?> orderItemsCreate(@RequestBody ArrayList<OrderItem> orderItems, @Context HttpServletRequest request){
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+        Long o = ordersService.createOrderItems(orderItems);
+
+        if (o == null) {
+            return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
+        } else  {
+            return new ResponseEntity<Long>(o, HttpStatus.CREATED);
+        }
+    }
+
 }
 
 

@@ -20,4 +20,6 @@ public interface OrdersService {
     public Boolean checkDeadline(Long offerId);
     public ArrayList<OrderOffer> getOffersByOrder(Long orderId);
     public Orders deleteOrder(Long orderId);
+    public Orders createOrder(Orders newOrder);
+    public Long createOrderItems(ArrayList<OrderItem> orderItems);
 }

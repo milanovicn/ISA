@@ -20,6 +20,9 @@ public class ActionPharmacyUser {
         this.userId = userId;
     }
 
+    public ActionPharmacyUser() {
+    }
+
     public Long getId() {
         return id;
     }

@@ -3,8 +3,10 @@ package com.example.ISABackend.service;
 import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.enums.UserRole;
 import com.example.ISABackend.model.Medicine;
+import com.example.ISABackend.model.PatientPenalty;
 import com.example.ISABackend.model.Pharmacy;
 import com.example.ISABackend.model.User;
+import com.example.ISABackend.repository.PatientPenaltyRepository;
 import com.example.ISABackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private MedicineService medicineService;
+
+    @Autowired
+    private PatientPenaltyRepository patientPenaltyRepository;
+
 
     @Override
     public Collection<User> findAll() {
@@ -108,6 +114,17 @@ public class UserServiceImpl implements UserService {
         }
 
         return null;
+    }
+
+    @Override
+    public Long getMyPenalty(Long patientId) {
+        for (PatientPenalty pp : patientPenaltyRepository.findAll()) {
+            if(patientId == pp.getPatientId()){
+                return pp.getPenaltyNumber();
+            }
+        }
+
+        return (long) 0;
     }
 
 

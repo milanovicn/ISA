@@ -15,6 +15,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DermatologistAppointmentsComponent } from './dermatologist-appointments/dermatologist-appointments.component';
 import { PharmacistAppointmentsComponent } from './pharmacist-appointment/pharmacist-appointment.component';
+import { UserMedicinesComponent } from './medicines/medicines.component';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { PharmacistAppointmentsComponent } from './pharmacist-appointment/pharma
     UserPharmacyComponent,
     DermatologistAppointmentsComponent,
     PharmacistAppointmentsComponent,
+    UserMedicinesComponent,
    ],
   imports: [
     CommonModule,

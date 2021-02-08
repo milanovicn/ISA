@@ -21,7 +21,7 @@ export class UserPharmacyComponent implements OnInit {
     errorMessage = '';
     availableDermatologistAppointments: DermatologistAppointmentDTO[] = [];
     availablePharmacistAppointments: DermatologistAppointmentDTO[] = [];
-
+    isSubscribed:boolean=false;
 
     constructor(private httpClient: HttpClient, private route: ActivatedRoute,
         private router: Router, private loginService: LoginService, private pharmacyService: PharmacyService,
@@ -32,7 +32,7 @@ export class UserPharmacyComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getUser();
+        
         const param = this.route.snapshot.paramMap.get('id');
         if (param) {
             this.id = +param;
@@ -48,6 +48,7 @@ export class UserPharmacyComponent implements OnInit {
                 this.pharmacy = pharmacy;
                 this.getAllDermatologistAppointments();
                 this.getAllPharmacistAppointments();
+                this.getUser();
             }
 
         }
@@ -59,8 +60,28 @@ export class UserPharmacyComponent implements OnInit {
         this.loginService.getLoggedInUser().subscribe({
             next: user => {
                 this.user = user;
+                this.getSubscription();
             }
         });
+    }
+
+    getSubscription() {
+        this.userService.isSubscribed(this.user.id, this.pharmacy.id).subscribe({
+            next: isSubscribed => {
+                this.isSubscribed = isSubscribed;
+               
+            }
+        });
+    }
+
+    subscribeToActions(){
+        this.userService.subscribe(this.user.id, this.pharmacy.id).subscribe({
+            next: isSubscribed => {
+                this.isSubscribed = isSubscribed;
+            
+            }
+        });
+
     }
 
     getAllDermatologistAppointments() {
