@@ -1,14 +1,17 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.enums.UserRole;
 import com.example.ISABackend.model.Medicine;
+import com.example.ISABackend.model.PatientPenalty;
+import com.example.ISABackend.model.Pharmacy;
 import com.example.ISABackend.model.User;
+import com.example.ISABackend.repository.PatientPenaltyRepository;
 import com.example.ISABackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -18,6 +21,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private MedicineService medicineService;
+
+    @Autowired
+    private PatientPenaltyRepository patientPenaltyRepository;
+
 
     @Override
     public Collection<User> findAll() {
@@ -89,6 +96,35 @@ public class UserServiceImpl implements UserService {
         else {
             return null;
         }
+    }
+
+    @Override
+    public ArrayList<DermatologistAppointmentDTO> sort(ArrayList<DermatologistAppointmentDTO> sortAppointments, String sortType) {
+        if(sortType.equals("RATE")){
+            sortAppointments.sort(Comparator.comparingDouble(DermatologistAppointmentDTO:: getDermatologistRate));
+            return sortAppointments;
+        }else if(sortType.equals("PRICE")){
+            sortAppointments.sort(Comparator.comparingDouble(DermatologistAppointmentDTO:: getPrice));
+            return sortAppointments;
+        } else if(sortType.equals("DATE")){
+            Comparator<DermatologistAppointmentDTO> compareByDate = (DermatologistAppointmentDTO p1, DermatologistAppointmentDTO p2) ->
+                    p1.getDate().compareTo( p2.getDate() );
+            Collections.sort(sortAppointments, compareByDate);
+            return sortAppointments;
+        }
+
+        return null;
+    }
+
+    @Override
+    public Long getMyPenalty(Long patientId) {
+        for (PatientPenalty pp : patientPenaltyRepository.findAll()) {
+            if(patientId == pp.getPatientId()){
+                return pp.getPenaltyNumber();
+            }
+        }
+
+        return (long) 0;
     }
 
 

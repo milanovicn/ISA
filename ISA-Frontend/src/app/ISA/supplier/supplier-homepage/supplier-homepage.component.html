@@ -14,8 +14,20 @@
                 <ul class="nav">
 
                     <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link sidebar-1" [routerLink]="['./supplier-profile']"> <i class="material-icons">person</i>
+                        <a class="nav-link sidebar-1" [routerLink]="['./supplier-profile']"> <i class="material-icons">badge</i>
                             <p style="color: green; font-weight: 500;">My Profile</p>
+                        </a>
+                    </li>
+
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['./supplier-orders']"> <i class="material-icons">article</i>
+                            <p style="color: green; font-weight: 500;">Orders</p>
+                        </a>
+                    </li>
+
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['./supplier-offers']"> <i class="material-icons">inventory</i>
+                            <p style="color: green; font-weight: 500;">Offers</p>
                         </a>
                     </li>
 

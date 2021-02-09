@@ -26,6 +26,7 @@ export class DermasComponent implements OnInit {
   availableDermatologists: Dermatologist[] = [];
   workDays: string[] = [];
   dermatologistId:number = 0;
+  dermatologistIdDelete:number=0;
   appointmentDermId:number=0;
   appointmentTime:string = "";
   appointmentDate:Date=new Date(); 
@@ -82,7 +83,14 @@ export class DermasComponent implements OnInit {
     } else {
       sp.rateFrom = this.searchParameters.rateFrom;
     }
-
+    if(this.searchParameters.address == undefined && this.searchParameters.city == undefined
+      && this.searchParameters.email == undefined && this.searchParameters.firstname == undefined
+      && this.searchParameters.lastname  == undefined && this.searchParameters.rateFrom == undefined &&  this.searchParameters.rateTo== undefined)
+       {
+        alert("You did not enter any parameter!");
+        this.refresh();
+       }
+      
 
     console.log(this.searchParameters);
     console.log(sp);
@@ -95,7 +103,19 @@ export class DermasComponent implements OnInit {
     });
   }
 
-
+  deleteDerma(): void {
+    this.pharmacyService.deleteDerma(this.dermatologistIdDelete).subscribe({
+      next: X => {
+        this.ret = X;
+        this.refresh();
+    if(this.ret == null){
+      alert("Check the pharmacist list to see if you were able to delete this pharmacist");
+    }
+    else
+    alert("Check the pharmacist list to see if you were able to delete this pharmacist");
+      }
+    });
+}
   ngOnInit(): void {
     this.getUser();
 
@@ -131,6 +151,7 @@ export class DermasComponent implements OnInit {
     this.pharmacyService.addDermatologist(this.myPharmacy.id, this.dermatologistId, this.workDays).subscribe({
       next: dermatologist => {
         this.dermatologistId = dermatologist;
+        this.refresh();
         if(this.dermatologistId == null){
           alert("This dermatologist is not available on chosen days!");
         }
@@ -177,6 +198,12 @@ export class DermasComponent implements OnInit {
     this.pharmacyAdminService.createDermatologistAppointment(this.myPharmacy.id, this.appointmentDermId, this.appointmentTime, this.appointmentPrice, this.appointmentDate).subscribe({
       next: ret => {
         this.ret = ret;
+        this.refresh();
+        if(this.ret == null){
+          alert("Dermatologist is not available. Please chose another day/time!");
+        }
+        else
+        alert("Appointment booked successfully! ");
       }
     });
 

@@ -6,6 +6,7 @@ import com.example.ISABackend.model.Dermatologist;
 import com.example.ISABackend.model.DermatologistAppointment;
 import com.example.ISABackend.model.Pharmacist;
 import com.example.ISABackend.model.User;
+import com.example.ISABackend.model.Pharmacy_Admin;
 import com.example.ISABackend.repository.DermatologistRepository;
 import com.example.ISABackend.service.DermatologistAppointmentService;
 import com.example.ISABackend.service.DermatologistService;
@@ -48,6 +49,7 @@ public class DermatologistController {
         Dermatologist d = (Dermatologist) session.getAttribute("dermatologist");
         return d;
     }
+
 
     @GetMapping(value = "/availableDermatologistAppointments/{dermatologistId}")
     public Object availableDermatologistAppointments(@PathVariable("dermatologistId") Long dermatologistId) {
@@ -113,6 +115,15 @@ public class DermatologistController {
         DermatologistAppointment dermatologistAppointment = dermatologistAppointmentService.appointmentReserveForUser(appointmentId,patientId );
         return dermatologistAppointment;
 
+    }
+
+
+    @DeleteMapping(value = "/{dermatologistId}")
+    public ResponseEntity<Dermatologist> deleteDerma(@PathVariable("dermatologistId") Long dermatologistId,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Pharmacy_Admin d = (Pharmacy_Admin) session.getAttribute("pharmacy_admin");
+        dermatologistService.delete(dermatologistId,d.getPharmacy().getId());
+        return new ResponseEntity<Dermatologist>(HttpStatus.NO_CONTENT);
     }
 
 }

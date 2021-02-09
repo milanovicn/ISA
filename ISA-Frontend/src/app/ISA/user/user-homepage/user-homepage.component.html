@@ -13,28 +13,44 @@
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link sidebar-1" [routerLink]="['./user-profile']" > <i class="material-icons">person</i>
+                        <a class="nav-link sidebar-1" [routerLink]="['./user-profile']" > <i class="material-icons">badge</i>
                             <p style="color: green; font-weight: 500;">My Profile</p>
                         </a>
                     </li>
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['./user-pharmacies']"> <i
+                                class="material-icons">store</i>
+                            <p style="color: green; font-weight: 500;">Pharmacies</p>
+                        </a>
+                    </li>
+
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['./dermatologist-appointments']"> <i
+                                class="material-icons">event_node</i>
+                            <p style="color: green; font-weight: 500;">Dermatologist Appointments</p>
+                        </a>
+                    </li>
+
+                 <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['./pharmacist-appointments']"> <i
+                                class="material-icons">event_node</i>
+                            <p style="color: green; font-weight: 500;">Pharmacist Appointments</p>
+                        </a>
+                    </li>
+
+                    <li routerLinkActive="active" class="nav-item">
+                        <a class="nav-link sidebar-1" [routerLink]="['./user-medicines']"> <i
+                                class="material-icons">scatter_plot</i>
+                            <p style="color: green; font-weight: 500;">Medicine Reservations</p>
+                        </a>
+                    </li>
+                    
                     <li class="nav-item">
                         <a (click)="logOut()"  class="nav-link sidebar-1" > <i class="material-icons">power_settings_new</i>
                             <p style="color: green; font-weight: 500;">Log Out</p>
                         </a>
                     </li>
                     
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link sidebar-1" [routerLink]="['./user-pharmacies']"> <i
-                                class="material-icons">add_business</i>
-                            <p style="color: green; font-weight: 500;">Pharmacies</p>
-                        </a>
-                    </li>
-                    <li routerLinkActive="active" class="nav-item">
-                        <a class="nav-link sidebar-1" [routerLink]="['/login']"> <i
-                                class="material-icons">scatter_plot</i>
-                            <p style="color: green; font-weight: 500;">Medicines</p>
-                        </a>
-                    </li>
                     
                 </ul>
             </div>

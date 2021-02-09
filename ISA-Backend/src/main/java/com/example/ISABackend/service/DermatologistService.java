@@ -13,6 +13,6 @@ public interface DermatologistService  {
     public Dermatologist updateDermatologist(Dermatologist updateDermatologist);
     public List<User> getAllUsers(Long dermatologistId);
     public ArrayList<User> searchUser (String firstname, String lastname, Long dermatologistId);
-
+    public Long delete(Long id, Long pharmacyId);
 
 }

@@ -11,5 +11,5 @@ public interface DermatologistScheduleService {
     public ArrayList<DermatologistSchedule> getFindByDermatologist(Long dermatologistId);
     public ArrayList<DermatologistSchedule> getByDermatologistAndPharmacy(Long dermatologistId, Long pharmacyId);
     public ArrayList<DermatologistSchedule> getByDermatologistAndPharmacyAndDay(Long dermatologistId, Long pharmacyId, String day);
-
+   // public DermatologistSchedule getById(Long id);
 }

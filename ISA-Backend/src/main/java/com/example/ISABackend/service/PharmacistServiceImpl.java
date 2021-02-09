@@ -1,15 +1,37 @@
 package com.example.ISABackend.service;
 
-import com.example.ISABackend.model.Pharmacist;
+import com.example.ISABackend.enums.AppointmentStatus;
+import com.example.ISABackend.enums.UserRole;
+import com.example.ISABackend.model.*;
+import com.example.ISABackend.repository.DermatologistRepository;
+import com.example.ISABackend.repository.PharmacistAppointmentRepository;
 import com.example.ISABackend.repository.PharmacistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PharmacistServiceImpl implements PharmacistService {
 
     @Autowired
     PharmacistRepository pharmacistRepository;
+
+    @Autowired
+    PharmacistAppointmentRepository pharmacistAppointmentRepository;
+
+    @Autowired
+    PharmacistAppointmentService pharmacistAppointmentService;
+
+    @Autowired
+    PharmacyService pharmacyService;
+
+    @Override
+    public List<Pharmacist> getAll() {
+        return pharmacistRepository.findAll();
+    }
 
     @Override
     public Pharmacist getByEmail(String email) {
@@ -48,4 +70,55 @@ public class PharmacistServiceImpl implements PharmacistService {
 
         return forChange;
     }
+
+    @Override
+    public Pharmacist addNew(Pharmacist newPharma, Long pharmacyId) {
+       // Pharmacy forNewPharma = pharmacyService.getById(pharmacyId);
+        if (getByEmail(newPharma.getEmail()) == null) {
+            Pharmacist p = new Pharmacist();
+            p.setPassword(newPharma.getPassword());
+            p.setFirstName(newPharma.getFirstName());
+            p.setLastName(newPharma.getLastName());
+            p.setAddress(newPharma.getAddress());
+            p.setCity(newPharma.getCity());
+            p.setCountry(newPharma.getCountry());
+            p.setPhoneNumber(newPharma.getPhoneNumber());
+            p.setEmail(newPharma.getEmail());
+            p.setPrviPutLogovan(true);
+            p.setUserRole(UserRole.PHARMACIST);
+            p.setPharmacyId(pharmacyId);
+            pharmacistRepository.save(p);
+            return p;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public Long delete(Long id) {
+
+        List<PharmacistAppointment> pa = pharmacistAppointmentService.getByPharmacist(id);
+        for( PharmacistAppointment prolazim : pa) {
+            if(prolazim.getStatus().equals(AppointmentStatus.RESERVED)){
+
+                return null;
+            }
+
+        }
+        Pharmacist p1 = getById(id);
+        p1.setPharmacyId((long) 0);
+        pharmacistRepository.save(p1);
+        for(PharmacistAppointment prolazim : pa)
+        {
+            prolazim.setStatus(AppointmentStatus.ENDED);
+            pharmacistAppointmentRepository.save(prolazim);
+        }
+
+        return p1.getId();
+
+    }
+
+
 }
+
+

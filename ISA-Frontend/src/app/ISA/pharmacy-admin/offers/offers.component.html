@@ -1,0 +1,66 @@
+<pharmacy-admin-navbar></pharmacy-admin-navbar>
+
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>Offers for Order</h1>
+    <h2>ORDER ID: {{order.id}}</h2>
+    <h4>For {{order.pharmacyName}}</h4>
+    <h4>Available for offers until {{order.deadline}}</h4>
+
+
+    <div class="card" style="margin-top: 50px;">
+        <div class="card-header card-header-success">
+            <h4 class="card-title">Offers </h4>
+            <p class="card-category">List of offers placed for your order</p>
+        </div>
+        <div class="card-content table-responsive table-full-width">
+            <table class="table">
+                <thead class="text-success">
+                    <th>Supplier ID</th>
+                    <th>Price </th>
+                    <th>Delivery Date </th>
+                    <th>Status </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let offer of offers'>
+                        <td>{{offer.supplierId}}</td>
+                        <td>{{offer.price}}</td>
+                        <td>{{offer.deliveryDate}}</td>
+                        <td>{{offer.status}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div *ngIf="active">
+        <h3>Accept an offer from supplier</h3>
+        <form (ngSubmit)="acceptAnOffer()" #offerForm="ngForm">
+            <div class="row">
+                <div class="col">
+
+
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Supplier Id</mat-label>
+                            <mat-select name="nemamPojma1" #nemamPojma1="ngModel" [(ngModel)]='acceptedId'>
+                                <mat-option *ngFor="let offer of offers" [value]="offer.id">{{offer.supplierId}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <input type="submit" value="Accept" mat-raised-button class="btn btn-success">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div *ngIf="!active">
+        <div>
+            <button (click)="deleteOrder()" mat-raised-button class="btn btn-success">Delete</button>
+        </div>
+    </div>
+
+</div>

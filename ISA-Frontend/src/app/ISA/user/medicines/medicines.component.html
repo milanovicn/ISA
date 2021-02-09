@@ -1,0 +1,98 @@
+<user-navbar></user-navbar>
+
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>My Medicines Reservations </h1>
+    <div class="row " style="margin-top: 50px;">
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Medicine Reservations</h4>
+                <p class="card-category">This is the list of your medicne reservations.</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+
+                <table class="table">
+                    <thead class="text-success">
+                        <th>Medicine</th>
+                        <th>Pharmacy</th>
+                        <th>Pick up date </th>
+                        <th>Cancel reservation </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of futureReservations'>
+                            <td>{{k.medicineName}}</td>
+                            <td>{{k.pharmacyName}}</td>
+                            <td>{{k.pickUpDate}}</td>
+                            <td><button mat-raised-button class="btn btn-success btn-sm"
+                                    (click)="cancelReservation([k.id])">Cancel</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div>
+        <h2>Make new medicine reservation</h2>
+        <!-- <form (ngSubmit)="createReservation()" #newDermatologistForm="ngForm"> -->
+            <div class="row">
+                <div class="col">
+
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Medicine</mat-label>
+                            <mat-select name="nemamPojma3" #nemamPojma3="ngModel"
+                                [(ngModel)]='newReservation.medicineId'>
+                                <mat-option *ngFor="let medicine of allMedicines" [value]="medicine.id">
+                                    {{medicine.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <button mat-raised-button class="btn btn-success btn-sm"
+                                    (click)="getAvailablePharmacies()">See available pharmacies</button>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Available Pharmacies</mat-label>
+                            <mat-select name="nemamPojma3" #nemamPojma3="ngModel"
+                                [(ngModel)]='newReservation.pharmacyId'>
+                                <mat-option *ngFor="let pharmacy of availablePharmacies" [value]="pharmacy.id">
+                                    {{pharmacy.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    
+
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Date</mat-label>
+                            <input matInput [matDatepicker]="picker" name="nemamPojma4" #nemamPojma4="ngModel"
+                                [(ngModel)]='newReservation.pickUpDate'>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div>
+                        <input type="submit" value="Reserve" mat-raised-button class="btn btn-success">
+                    </div> -->
+                    <div class="col-sm-8">
+                        <button mat-raised-button class="btn btn-success btn-sm"
+                                    (click)="createReservation()">Reserve</button>
+                    </div>
+
+
+                </div>
+            </div>
+        <!-- </form> -->
+
+
+    </div>
+
+</div>

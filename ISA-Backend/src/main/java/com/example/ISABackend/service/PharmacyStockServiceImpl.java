@@ -1,6 +1,9 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.model.DermatologistSchedule;
 import com.example.ISABackend.model.Medicine;
+import com.example.ISABackend.model.OrderItem;
+import com.example.ISABackend.model.Orders;
 import com.example.ISABackend.model.PharmacyStock;
 import com.example.ISABackend.repository.PharmacyStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,9 @@ public class PharmacyStockServiceImpl implements PharmacyStockService {
 
     @Autowired
     private MedicineService medicineService;
+
+    @Autowired
+    private OrdersService ordersService;
 
 
     @Override
@@ -102,6 +108,71 @@ public class PharmacyStockServiceImpl implements PharmacyStockService {
 
        // return ret;
         return this.getByPharmacyId(pharmacyId);
+    }
+
+
+    // azurira stanje u apoteci na osnovu narudzbenice
+    @Override
+    public void addMedicinesFromOrder(Long orderId) {
+        boolean flagExisted = false;
+        Orders order = ordersService.getOrderById(orderId);
+        ArrayList<OrderItem> orderItems = ordersService.getItemsByOrderId(orderId);
+        ArrayList<PharmacyStock> pharmacyStocks = getPharmacyStock(order.getPharmacyId());
+        for (OrderItem oi : orderItems) {
+            flagExisted = false;
+            for (PharmacyStock ps : pharmacyStocks) {
+                if (oi.getMedicineId() == ps.getMedicineId()) {
+                    int broj = ps.getInStock() + oi.getQuantity();
+                    ps.setInStock(broj);
+                    flagExisted = true;
+                    pharmacyStockRepository.save(ps);
+                }
+            }
+
+            //ako nije postojao kreiraj novi stock
+            if (!flagExisted) {
+                PharmacyStock newPS = new PharmacyStock();
+                newPS.setInStock(oi.getQuantity());
+                newPS.setMedicineId(oi.getMedicineId());
+                newPS.setMedicineName(oi.getMedicineName());
+                newPS.setReserved(0);
+                newPS.setPharmacyId(order.getPharmacyId());
+                pharmacyStockRepository.save(newPS);
+            }
+
+        }
+    }
+
+    @Override
+    public ArrayList<PharmacyStock> getByMedicineAndPharmacy(Long medicineId, Long pharmacyId) {
+        List<PharmacyStock> all = this.getAll();
+        ArrayList<PharmacyStock> ret = new ArrayList<PharmacyStock>();
+        for (PharmacyStock ds : all ) {
+            if(ds.getPharmacyId()==pharmacyId && ds.getMedicineId()==medicineId){
+                ret.add(ds);
+            }
+        }
+
+        return ret;
+
+    }
+
+    @Override
+    public Long updateReservedMedicineStock(Long medicineId, Long pharmacyId) {
+        PharmacyStock ps = getByMedicineAndPharmacy(medicineId, pharmacyId).get(0);
+        ps.setReserved(ps.getReserved()+1);
+        pharmacyStockRepository.save(ps);
+
+        return ps.getId();
+    }
+
+    @Override
+    public Long updateCanceledMedicineStock(Long medicineId, Long pharmacyId) {
+        PharmacyStock ps = getByMedicineAndPharmacy(medicineId, pharmacyId).get(0);
+        ps.setReserved(ps.getReserved()-1);
+        pharmacyStockRepository.save(ps);
+
+        return ps.getId();
     }
 
 }

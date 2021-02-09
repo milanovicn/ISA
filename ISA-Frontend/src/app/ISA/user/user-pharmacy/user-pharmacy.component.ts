@@ -20,6 +20,8 @@ export class UserPharmacyComponent implements OnInit {
     pharmacy: Pharmacy;
     errorMessage = '';
     availableDermatologistAppointments: DermatologistAppointmentDTO[] = [];
+    availablePharmacistAppointments: DermatologistAppointmentDTO[] = [];
+    isSubscribed:boolean=false;
 
     constructor(private httpClient: HttpClient, private route: ActivatedRoute,
         private router: Router, private loginService: LoginService, private pharmacyService: PharmacyService,
@@ -30,7 +32,7 @@ export class UserPharmacyComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getUser();
+        
         const param = this.route.snapshot.paramMap.get('id');
         if (param) {
             this.id = +param;
@@ -45,6 +47,8 @@ export class UserPharmacyComponent implements OnInit {
             next: pharmacy => {
                 this.pharmacy = pharmacy;
                 this.getAllDermatologistAppointments();
+                this.getAllPharmacistAppointments();
+                this.getUser();
             }
 
         }
@@ -56,8 +60,28 @@ export class UserPharmacyComponent implements OnInit {
         this.loginService.getLoggedInUser().subscribe({
             next: user => {
                 this.user = user;
+                this.getSubscription();
             }
         });
+    }
+
+    getSubscription() {
+        this.userService.isSubscribed(this.user.id, this.pharmacy.id).subscribe({
+            next: isSubscribed => {
+                this.isSubscribed = isSubscribed;
+               
+            }
+        });
+    }
+
+    subscribeToActions(){
+        this.userService.subscribe(this.user.id, this.pharmacy.id).subscribe({
+            next: isSubscribed => {
+                this.isSubscribed = isSubscribed;
+            
+            }
+        });
+
     }
 
     getAllDermatologistAppointments() {
@@ -70,9 +94,37 @@ export class UserPharmacyComponent implements OnInit {
 
     }
 
+    getAllPharmacistAppointments() {
+        this.pharmacyService.availablePharmacistAppointments(this.pharmacy.id).subscribe({
+            next: appointments => {
+                this.availablePharmacistAppointments = appointments;
+            }
+
+        });
+
+    }
+
     makeDermatologistAppointment(appointmentId) {
         console.log(appointmentId);
         this.userService.makeDermatologistAppointment(this.user, appointmentId).subscribe({
+            next: appointmentIdRet => {
+                this.ret = appointmentIdRet;
+                alert("Uspesno ste napravili rezervaciju!");
+
+                this.refresh();
+            }
+
+        });
+
+    }
+
+    refresh(){
+        window.location.reload();
+    }
+
+    makePharmacistCounseling(councelingId) {
+        console.log(councelingId);
+        this.userService.makePharmacistAppointment(this.user, councelingId).subscribe({
             next: appointmentIdRet => {
                 this.ret = appointmentIdRet;
                 alert("Uspesno ste napravili rezervaciju!");
@@ -81,5 +133,7 @@ export class UserPharmacyComponent implements OnInit {
         });
 
     }
+
+
 
 }

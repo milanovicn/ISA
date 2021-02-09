@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DermasComponent } from './dermas-pharmacy/dermas-pharmacy.component';
 import { FirstLoginComponent } from './first-login/first-login.component';
+import { OffersComponent } from './offers/offers.component';
+import { OrdersComponent } from './orders/orders.component';
 import { PharmacyAdminHisPharmacyComponent } from './pharmacy-admin-hispharmacy/pharmacy-admin-hispharmacy.component';
 import { PharmacyAdminHomepageComponent } from './pharmacy-admin-homepage/pharmacy-admin-homepage.component';
 import { PharmacyAdminProfileComponent } from './pharmacy-admin-profile/pharmacy-admin-profile.component';
@@ -16,6 +18,8 @@ const routes: Routes = [
     {path: 'pharmacy-admin-homepage/dermas-pharmacy', component : DermasComponent },  
     {path: 'pharmacy-admin-homepage/pharmas-pharmacy', component : PharmasComponent },  
     {path: 'pharmacy-admin-homepage/pharmacy-medicine', component : PharmacyMedicineComponent },  
+    {path: 'pharmacy-admin-homepage/pharmacy-admin-orders', component: OrdersComponent },
+  { path: 'pharmacy-admin-homepage/pharmacy-admin-orders/:id', component: OffersComponent },
   ];
 
 

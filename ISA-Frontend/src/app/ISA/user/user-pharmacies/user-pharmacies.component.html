@@ -84,6 +84,87 @@
                 </table>
             </div>
         </div>
+
+
+        <h4>Choose time to find pharmacy with available dermatologist</h4>
+        <form (ngSubmit)="searchPharmacyByTimeForCounseling()" #counselingForm="ngForm">
+            <div class="row">
+
+               
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Date</mat-label>
+                        <input matInput [matDatepicker]="picker" name="nemamPojma4" #nemamPojma4="ngModel"
+                            [(ngModel)]='appointmentDate'>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Time</mat-label>
+                        <mat-select name="nemamPojma5" #nemamPojma5="ngModel" [(ngModel)]='appointmentTime'>
+                            <mat-option value="8:00">8:00</mat-option>
+                            <mat-option value="8:30">8:30</mat-option>
+                            <mat-option value="9:00">9:00</mat-option>
+                            <mat-option value="9:30">9:30</mat-option>
+                            <mat-option value="10:00">10:00</mat-option>
+                            <mat-option value="10:30">10:30</mat-option>
+                            <mat-option value="11:00">11:00</mat-option>
+                            <mat-option value="11:30">11:30</mat-option>
+                            <mat-option value="12:00">12:00</mat-option>
+                            <mat-option value="12:30">12:30</mat-option>
+                            <mat-option value="13:00">13:00</mat-option>
+                            <mat-option value="13:30">13:30</mat-option>
+                            <mat-option value="14:00">14:00</mat-option>
+                            <mat-option value="14:30">14:30</mat-option>
+                            <mat-option value="15:00">15:00</mat-option>
+                            <mat-option value="15:30">15:30</mat-option>
+                            <mat-option value="16:00">16:00</mat-option>
+                            <mat-option value="16:30">16:30</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-3">
+                    <input type="submit" value="Find" mat-raised-button class="btn btn-success">
+                </div>
+               
+            </div>
+           
+
+        </form>
+
+
+
+        <div class="card" style="margin-top: 150px;">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">My Subscriptions</h4>
+                <p class="card-category">This is the list of all the pharmacies you are subscribed to.</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-success">
+                       <th>Name </th>
+                        <th>City</th>
+                        <th>Address</th>
+                        <th>Description</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of subscriptionPharmacies'>
+                            <td>{{k.name}}</td>
+                            <td>{{k.city}}</td>
+                            <td>{{k.address}}</td>
+                            <td>{{k.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
     </div>
 
 </div>

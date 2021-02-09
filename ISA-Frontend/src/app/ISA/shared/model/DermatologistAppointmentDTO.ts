@@ -10,4 +10,5 @@ export class DermatologistAppointmentDTO{
     price:number;
     patientName:string;
     patientId: number;
+    appointmentStatus:string;
 }

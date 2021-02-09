@@ -1,0 +1,53 @@
+<supplier-navbar></supplier-navbar>
+
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>Offers</h1>
+
+    <form (ngSubmit)="filter()" #newDermatologistForm="ngForm">
+        <div class="row">
+            <div class="col">
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Filter by status</mat-label>
+                        <mat-select name="nemamPojma5" #nemamPojma5="ngModel" [(ngModel)]='filterValue'>
+                            <mat-option value="PENDING">Pending</mat-option>
+                            <mat-option value="ACCEPTED">Accepted</mat-option>
+                            <mat-option value="REJECTED">Rejected</mat-option>      
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <input type="submit" value="Filter" mat-raised-button class="btn btn-success">
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <div class="card" style="margin-top: 50px;">
+        <div class="card-header card-header-success">
+            <h4 class="card-title">My offers </h4>
+            <p class="card-category">Offers that you made</p>
+        </div>
+        <div class="card-content table-responsive table-full-width">
+            <table class="table">
+                <thead class="text-success">
+                    <th>Order ID</th>
+                    <th>Price </th>
+                    <th>Delivery Date </th>
+                    <th>Status </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let offerce of filteredOffers'> 
+                        <td>{{offerce.orderId}}</td>
+                        <td>{{offerce.price}}</td>
+                        <td>{{offerce.deliveryDate}}</td>
+                        <td>{{offerce.status}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</div>

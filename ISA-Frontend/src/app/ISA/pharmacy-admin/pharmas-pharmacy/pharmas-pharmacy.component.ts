@@ -13,6 +13,7 @@ import { pagespeedonline_v5 } from 'googleapis';
 import { Dermatologist } from 'app/ISA/shared/model/Dermatologist';
 import { Pharmacist } from 'app/ISA/shared/model/Pharmacist';
 import { SearchPharmacist } from 'app/ISA/shared/model/SearchPharmacist';
+import { asLiteral } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'pharmas-pharmacy',
@@ -25,15 +26,26 @@ export class PharmasComponent implements OnInit {
   myPharmas: Pharmacist[] = [];
   searchParameters: SearchPharmacist;
   myMedicine:Medicine[];
+  newPharma : User;
+  workDays: string[] = [];
+  pharmacistId:number = 0;
+  pharmacistIdDelete:number=0;
+  appointmentPharmId:number=0;
+  appointmentTime:string = "";
+  appointmentDate:Date=new Date(); 
+  appointmentPrice:number=0;
+  ret: Object;
+  
 
-
-  constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
+  constructor(private _router: Router, private pharmacyService: PharmacyService, 
+    private pharmacyAdminService: PharmacyAdminService, 
+    private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
     this.myPharmacy = new Pharmacy();
     this.myDermas = [];
     this.myPharmas=[];
     this.searchParameters = new SearchPharmacist();
-  //  this.myMedicine=[];
+    this.newPharma = new User();
   }
 
   ngOnInit(): void {
@@ -92,6 +104,14 @@ export class PharmasComponent implements OnInit {
     } else {
       sp.rateFrom = this.searchParameters.rateFrom;
     }
+    if(this.searchParameters.address == undefined && this.searchParameters.city == undefined
+      && this.searchParameters.email == undefined && this.searchParameters.firstname == undefined
+      && this.searchParameters.lastname  == undefined && this.searchParameters.rateFrom == undefined &&  this.searchParameters.rateTo== undefined)
+       {
+        alert("You did not enter any parameter!");
+        this.refresh();
+       }
+      
 
 
     console.log(this.searchParameters);
@@ -120,6 +140,22 @@ export class PharmasComponent implements OnInit {
   //     }
   //   });
   // }
+
+  deletePharma(): void {
+    this.pharmacyService.deletePharma(this.pharmacistIdDelete).subscribe({
+      next: X => {
+        this.ret = X;
+        this.refresh();
+    if(this.ret == null){
+      alert("Check the pharmacist list to see if you were able to delete this pharmacist");
+    }
+    else
+    alert("Check the pharmacist list to see if you were able to delete this pharmacist");
+      }
+    });
+    
+}
+  
   getAllPharmas() {
     this.pharmacyService.getPharmacists(this.myPharmacy.id).subscribe({
       next: pharmacist => {
@@ -153,6 +189,7 @@ export class PharmasComponent implements OnInit {
         this.myPharmacy = pharmacy;
         this.getAllPharmas();
         this.getAllDermas();
+        
         //this.getAllMedicine();
         
         
@@ -160,5 +197,63 @@ export class PharmasComponent implements OnInit {
     });
 
   }
+
+  
+  registerPharma() {
+    console.log(this.newPharma);
+    this.pharmacyAdminService.registerPharma(this.newPharma, this.myPharmacy.id).subscribe(
+        {
+            next: newPh => {
+                this.newPharma = newPh;
+                console.log(this.newPharma);
+                this.refresh();
+                if (this.newPharma == null) {
+                    alert("Pharmacist with this email is already registered!");
+                }
+                else
+                alert("Pharmacist registered!");
+            }
+        });
+   
+   
+}
+addPharmacist() {
+  this.pharmacyService.addPharmacist(this.myPharmacy.id, this.pharmacistId, this.workDays).subscribe({
+    next: pharmacist => {
+      this.pharmacistId = pharmacist;
+     
+      this.refresh();
+      if(this.pharmacistId == null){
+        alert("You have already assigned working days for this pharmacist. Please chose another one!");
+      }
+      else
+      alert("Working days assigned successfully! ");
+    }
+  });
+}
+
+createAppointment(){
+  console.log(this.appointmentDate);
+  console.log(this.appointmentTime);
+  console.log(this.appointmentPharmId);
+  console.log(this.appointmentPrice);
+
+  this.pharmacyAdminService.createPharmacistAppointment(this.myPharmacy.id, this.appointmentPharmId, this.appointmentTime, this.appointmentPrice, this.appointmentDate).subscribe({
+    next: ret => {
+      this.ret = ret;
+      console.log(ret);
+      this.refresh();
+      
+      if(this.ret == null){
+        alert("Pharmacist is not available. Please chose another day/time!");
+      }
+      else
+      alert("Consultation booked successfully! ");
+     
+    }
+    
+  });
+
+}
 
 }

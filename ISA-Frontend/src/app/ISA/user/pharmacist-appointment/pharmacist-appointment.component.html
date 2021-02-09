@@ -1,0 +1,86 @@
+<user-navbar></user-navbar>
+
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>My Appointments</h1>
+    <h3 >Future Appointments</h3>
+    <div class="row " style="margin-top: 50px;">
+
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Reserved Appointments</h4>
+                <p class="card-category">This is the list of your future appointments.</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+
+                <table class="table">
+                    <thead class="text-success">
+                        <th>Pharmacist Name</th>
+                        <th>Pharmacist Rate</th>
+                        <th>Date </th>
+                        <th>Time </th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Cancel Reservation </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of futureAppointments'>
+                            <td>{{k.dermatologistName}}</td>
+                            <td>{{k.dermatologistRate}}</td>
+                            <td>{{k.date}}</td>
+                            <td>{{k.time}}</td>
+                            <td>{{k.price}}</td>
+                            <td>{{k.appointmentStatus}}</td>
+                            <td><button mat-raised-button class="btn btn-success btn-sm"
+                                    (click)="cancelReservation([k.appointmentId])">Cancel</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+    </div>
+    <h3 >Old Appointments</h3>
+    <div class="row " style="margin-top: 50px;">
+
+        <div class="card" >
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Old Appointments</h4>
+                <p class="card-category">This is the list of your old appointments.</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+
+                <table class="table">
+                    <thead class="text-success">
+                        <th>Pharmacist Name</th>
+                        <th>Pharmacist Rate<i (click)="sort('RATE')" style="color: rgb(70, 70, 70); cursor: pointer;"
+                                class="material-icons">sort</i> </th>
+                        <th>Date <i (click)="sort('DATE')" style="color: rgb(70, 70, 70); cursor: pointer;"
+                            class="material-icons">sort</i></th>
+                        <th>Time </th>
+                        <th>Status</th>
+                        <th>Price <i (click)="sort('PRICE')" style="color: rgb(70, 70, 70); cursor: pointer;"
+                                class="material-icons">sort</i></th>
+                       
+                      
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of oldAppontments'>
+                            <td>{{k.dermatologistName}}</td>
+                            <td>{{k.dermatologistRate}}</td>
+                            <td>{{k.date}}</td>
+                            <td>{{k.time}}</td>
+                            <td>{{k.appointmentStatus}}</td>
+                            <td>{{k.price}}</td>
+                           
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

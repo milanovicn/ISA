@@ -2,12 +2,17 @@ package com.example.ISABackend.service;
 
 import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.enums.AppointmentStatus;
+
 import com.example.ISABackend.model.DermatologistAppointment;
 import com.example.ISABackend.model.DermatologistSchedule;
 import com.example.ISABackend.model.Pharmacist;
 import com.example.ISABackend.model.User;
+
+import com.example.ISABackend.model.*;
+
 import com.example.ISABackend.repository.DermatologistAppointmentRepository;
 import com.example.ISABackend.repository.DermatologistScheduleRepository;
+import com.example.ISABackend.repository.PatientPenaltyRepository;
 import net.bytebuddy.build.BuildLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,10 +35,14 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
     private PharmacyService pharmacyService;
 
     @Autowired
+
     private UserService userService;
 
-    // UVEZI DERMATOLOGIST SERVICE DA BI UZELA IME DERMATOLOGA
+    @Autowired
+    private DermatologistService dermatologistService;
 
+    @Autowired
+    private PatientPenaltyRepository patientPenaltyRepository;
 
     @Override
     public List<DermatologistAppointment> getAll() {
@@ -110,20 +119,22 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
     //pravi listu dto objekata za front na osnovu slobodnih termina dermatologa u toj apoteci
 
     @Override
-    public ArrayList<DermatologistAppointmentDTO> getAvailableInPharmacy(Long pharmacyId) {
+    public ArrayList<DermatologistAppointmentDTO> getAvailableDermatologistAppointments(Long pharmacyId) {
         ArrayList<DermatologistAppointmentDTO> ret = new ArrayList<DermatologistAppointmentDTO>();
         ArrayList<DermatologistAppointment> byPharmacy = this.getByPharmacy(pharmacyId);
 
         for(DermatologistAppointment da : byPharmacy){
             //vrati cak i otkazane
             if(da.getStatus().equals(AppointmentStatus.AVAILABLE) || da.getStatus().equals(AppointmentStatus.CANCELED)){
-                // UVEZI DERMATOLOGIST SERVICE DA BI UZELA IME I OCENU DERMATOLOGA PO ID
+
+                Dermatologist derm = dermatologistService.getById(da.getDermatologistId());
                 String phName= pharmacyService.getById(pharmacyId).getName();
                 User patient = userService.getById(da.getPatientId());
                 DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(da.getId(),
-                        da.getDermatologistId(), "ime", 1, da.getPharmacyId(),
+
+                        da.getDermatologistId(),  derm.getFirstName().concat(" ") + derm.getLastName(), derm.getRate(), da.getPharmacyId(),
                         phName, da.getTime(), da.getDate(), da.getPrice(),
-                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId());
+                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), da.getStatus());
 
                 ret.add(toAdd);
 
@@ -137,6 +148,13 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
 
     @Override
     public DermatologistAppointment makeReservation(Long userId, Long appointmentId) {
+        //zabrani rezervaciju ako ima 3 penala
+        for(PatientPenalty pp : patientPenaltyRepository.findAll()){
+            //ako se pp odnosi na korisnika koji pokusava rezervaciju i ima 3 ili vise penala vrati null
+            if(userId == pp.getPatientId() && pp.getPenaltyNumber() > 2) {
+                return null;
+            }
+        }
         DermatologistAppointment appointment = this.getById(appointmentId);
 
         //ako ga je on poslednji otkazao njegov id ce biti na mestu pacijenta
@@ -250,5 +268,36 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
     }
 
 
+    public ArrayList<DermatologistAppointmentDTO> getByPatientId(Long patientId) {
+        ArrayList<DermatologistAppointmentDTO> ret = new ArrayList<DermatologistAppointmentDTO>();
+        ArrayList<DermatologistAppointment> byPatientIdList = dermatologistAppointmentRepository.findByPatientId(patientId);
+
+        for(DermatologistAppointment appointment : byPatientIdList){
+
+            Dermatologist derm = dermatologistService.getById(appointment.getDermatologistId());
+            String phName= pharmacyService.getById(appointment.getPharmacyId()).getName();
+            DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(appointment.getId(),
+                    appointment.getDermatologistId(), derm.getFirstName().concat(" ") + derm.getLastName(), derm.getRate(), appointment.getPharmacyId(),
+                    phName, appointment.getTime(), appointment.getDate(), appointment.getPrice(), appointment.getStatus());
+            toAdd.setAppointmentStatus(appointment.getStatus());
+            ret.add(toAdd);
+        }
+
+        return ret;
+    }
+
+    @Override
+    public DermatologistAppointment cancelReservation(Long appointmentId) {
+        DermatologistAppointment appointment = getById(appointmentId);
+        LocalDate now = LocalDate.now();
+        // ako je danasnji trenutak nakon 24h pre dana rezervacije ne dozvoli da je otkaze
+        if(now.isAfter(appointment.getDate().minusDays(1))){
+            return null;
+        }
+        appointment.setStatus(AppointmentStatus.CANCELED);
+        dermatologistAppointmentRepository.save(appointment);
+
+        return appointment;
+    }
 
 }
