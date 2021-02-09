@@ -42,4 +42,6 @@ public class PharmacistController {
         Pharmacist p = (Pharmacist) session.getAttribute("pharmacist");
         return p;
     }
+
+
 }

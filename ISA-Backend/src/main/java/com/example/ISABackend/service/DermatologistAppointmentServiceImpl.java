@@ -4,6 +4,8 @@ import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.enums.AppointmentStatus;
 import com.example.ISABackend.model.DermatologistAppointment;
 import com.example.ISABackend.model.DermatologistSchedule;
+import com.example.ISABackend.model.Pharmacist;
+import com.example.ISABackend.model.User;
 import com.example.ISABackend.repository.DermatologistAppointmentRepository;
 import com.example.ISABackend.repository.DermatologistScheduleRepository;
 import net.bytebuddy.build.BuildLogger;
@@ -26,6 +28,9 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
 
     @Autowired
     private PharmacyService pharmacyService;
+
+    @Autowired
+    private UserService userService;
 
     // UVEZI DERMATOLOGIST SERVICE DA BI UZELA IME DERMATOLOGA
 
@@ -114,9 +119,11 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
             if(da.getStatus().equals(AppointmentStatus.AVAILABLE) || da.getStatus().equals(AppointmentStatus.CANCELED)){
                 // UVEZI DERMATOLOGIST SERVICE DA BI UZELA IME I OCENU DERMATOLOGA PO ID
                 String phName= pharmacyService.getById(pharmacyId).getName();
+                User patient = userService.getById(da.getPatientId());
                 DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(da.getId(),
                         da.getDermatologistId(), "ime", 1, da.getPharmacyId(),
-                        phName, da.getTime(), da.getDate(), da.getPrice());
+                        phName, da.getTime(), da.getDate(), da.getPrice(),
+                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId());
 
                 ret.add(toAdd);
 
@@ -162,10 +169,12 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
             if (i.getStatus().equals(AppointmentStatus.RESERVED)) {
 
                 String phName= pharmacyService.getById(i.getPharmacyId()).getName();
+                User patient = userService.getById(i.getPatientId());
 
                 DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(i.getId(),
                         i.getDermatologistId(), "ime", 1, i.getPharmacyId(),
-                        phName, i.getTime(), i.getDate(), i.getPrice());
+                        phName, i.getTime(), i.getDate(), i.getPrice(),
+                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId());
 
                 ret.add(toAdd);
             }
@@ -184,10 +193,12 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
             if (i.getStatus().equals(AppointmentStatus.AVAILABLE)) {
 
                 String phName= pharmacyService.getById(i.getPharmacyId()).getName();
+                User patient = userService.getById(i.getPatientId());
 
                 DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(i.getId(),
                         i.getDermatologistId(), "ime", 1, i.getPharmacyId(),
-                        phName, i.getTime(), i.getDate(), i.getPrice());
+                        phName, i.getTime(), i.getDate(), i.getPrice(),
+                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId());
 
                 ret.add(toAdd);
             }
@@ -195,7 +206,7 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
         return ret;
     }
 
-
+    //druga
     @Override
     public DermatologistAppointmentDTO getDTOById(Long appointmentId) {
 
@@ -203,13 +214,41 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
         DermatologistAppointment i = getById(appointmentId);
 
         String phName= pharmacyService.getById(i.getPharmacyId()).getName();
+        User patient = userService.getById(i.getPatientId());
 
         DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(i.getId(),
                 i.getDermatologistId(), "ime", 1, i.getPharmacyId(),
-                phName, i.getTime(), i.getDate(), i.getPrice());
+                phName, i.getTime(), i.getDate(), i.getPrice(),
+                patient.getFirstName()+ " " +patient.getLastName(),patient.getId());
 
         return toAdd;
     }
+
+
+    //cetvrta
+    @Override
+    public DermatologistAppointment appointmentReserveForUser(Long appointmentId, Long patientId) {
+
+        DermatologistAppointment toReserve = getById(appointmentId);
+        ArrayList<DermatologistAppointment> byPatient = dermatologistAppointmentRepository.findByPatientId(patientId);
+
+        for (DermatologistAppointment i: byPatient) {
+
+            if(i.getDate().equals(toReserve.getDate()) && i.getTime().equals(toReserve.getTime()) && i.getStatus().equals(AppointmentStatus.RESERVED)) {
+                return null;
+            }
+        }
+
+        //odradi isto za proveru kod farmaceuta
+
+
+        toReserve.setPatientId(patientId);
+        toReserve.setStatus(AppointmentStatus.RESERVED);
+        dermatologistAppointmentRepository.save(toReserve);
+
+        return toReserve;
+    }
+
 
 
 }

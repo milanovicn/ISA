@@ -42,4 +42,23 @@ export class DermatologistService {
      }
      
 
+     public getReservedAppointments (): Observable<DermatologistAppointmentDTO[]> {
+      return this.http.get<DermatologistAppointmentDTO[]>("/api/dermatologist/reservedAppointments");
+     }
+
+     public getAvailableAppointments (): Observable<DermatologistAppointmentDTO[]> {
+      return this.http.get<DermatologistAppointmentDTO[]>("/api/dermatologist/availableAppointments");
+     }
+
+     public getAppointmentId(appointmentId: number): Observable<DermatologistAppointmentDTO> {
+      return this.http.get<DermatologistAppointmentDTO>("/api/dermatologist/appointment/" + appointmentId);
+     }
+
+     public appointmentReserveForUser(appointmentId: number, patientId: number): Observable<Object> {
+      return this.http.get<Object>("/api/dermatologist/appointmentReserveForUser/" + appointmentId + "/" + patientId);
+     }
+
+
+     
+
 }

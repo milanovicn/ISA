@@ -1,0 +1,34 @@
+<dermatologist-navbar></dermatologist-navbar>
+
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>My reserved appointments</h1>
+    <div class="row " style="margin-top: 50px;">
+        
+
+        <div class="card" style="margin-top: 150px;">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Appointments</h4>
+                <p class="card-category">This is the list of all reserved appointments.</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-success">
+                        <th>Id <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+                        <th>Pharmacy name <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+                        <th>Time <i  (click)="sort('NAME')" style="color: rgb(70, 70, 70); cursor: pointer;" class="material-icons">sort</i></th>
+                        <th>Date</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of allAppointments'>
+                            <td><a [routerLink]="[k.appointmentId]">{{k.appointmentId}}</a></td>
+                            <td>{{k.pharmacyName}}</td>
+                            <td>{{k.time}}</td>
+                            <td>{{k.date}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

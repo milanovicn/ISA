@@ -105,5 +105,15 @@ public class DermatologistController {
         DermatologistAppointmentDTO dermatologistAppointmentDTO = dermatologistAppointmentService.getDTOById(appointmentId);
         return dermatologistAppointmentDTO;
     }
+
+    @GetMapping(value = "/appointmentReserveForUser/{appointmentId}/{patientId}")
+    public Object appointmentReserveForUser (@PathVariable("appointmentId") Long appointmentId,
+                                             @PathVariable("patientId") Long patientId) {
+
+        DermatologistAppointment dermatologistAppointment = dermatologistAppointmentService.appointmentReserveForUser(appointmentId,patientId );
+        return dermatologistAppointment;
+
+    }
+
 }
 

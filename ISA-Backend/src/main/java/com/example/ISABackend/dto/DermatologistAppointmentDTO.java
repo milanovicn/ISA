@@ -13,11 +13,16 @@ public class DermatologistAppointmentDTO {
     private String time;
     private LocalDate date;
     private double price;
+    private String patientName;
+    private Long patientId;
 
     public DermatologistAppointmentDTO() {
     }
 
-    public DermatologistAppointmentDTO(Long appointmentId, Long dermatologistId, String dermatologistName, double dermatologistRate, Long pharmacyId, String pharmacyName, String time, LocalDate date, double price) {
+    public DermatologistAppointmentDTO(Long appointmentId, Long dermatologistId, String dermatologistName,
+                                       double dermatologistRate, Long pharmacyId, String pharmacyName,
+                                       String time, LocalDate date, double price, String patientName, Long patientId) {
+
         this.appointmentId = appointmentId;
         this.dermatologistId = dermatologistId;
         this.dermatologistName = dermatologistName;
@@ -27,6 +32,8 @@ public class DermatologistAppointmentDTO {
         this.time = time;
         this.date = date;
         this.price = price;
+        this.patientId = patientId;
+        this.patientName = patientName;
     }
 
     public Long getAppointmentId() {
@@ -99,5 +106,21 @@ public class DermatologistAppointmentDTO {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 }

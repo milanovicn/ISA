@@ -5,14 +5,16 @@ import { FormsModule } from '@angular/forms';
 import { DermatologistRoutingModule } from './dermatologist-routing.module';
 import { DermatologistNavbarComponent } from './dermatologist-navbar/dermatologist.navbar.component';
 import { DermatologistProfileComponent } from './dermatologist-profile/dermatologist-profile.component';
-import {DermatologistMakingAppointmentComponent } from './dermatologist-makingAppointment/dermatologist-makingAppointment.component';
 import { PatientsDermComponent } from './patients/patients.component';
+import { DermatologistAppointmentsComponent } from './dermatologist-appointments/dermatologist-appointments.component';
+import { DermatologistAppointmentComponent } from './dermatologist-appointment/dermatologist-appointment.component';
 
 
 
 
 @NgModule({
-  declarations: [DermatologistNavbarComponent, DermatologistProfileComponent, DermatologistMakingAppointmentComponent, PatientsDermComponent],
+  declarations: [DermatologistNavbarComponent, DermatologistProfileComponent, DermatologistAppointmentsComponent,
+     PatientsDermComponent, DermatologistAppointmentComponent],
   imports: [
     CommonModule,
     DermatologistRoutingModule, 

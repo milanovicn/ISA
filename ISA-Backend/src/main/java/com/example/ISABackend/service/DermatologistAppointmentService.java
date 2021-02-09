@@ -22,4 +22,5 @@ public interface DermatologistAppointmentService {
     public ArrayList<DermatologistAppointmentDTO> getReservedAppointments(Long id);
     public ArrayList<DermatologistAppointmentDTO> getAvailableAppointments(Long id);
     DermatologistAppointmentDTO getDTOById(Long appointmentId);
+    DermatologistAppointment appointmentReserveForUser(Long appointmentId, Long patientId);
 }

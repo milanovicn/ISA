@@ -8,4 +8,6 @@ export class DermatologistAppointmentDTO{
     time:string;
     date: Date;
     price:number;
+    patientName:string;
+    patientId: number;
 }
