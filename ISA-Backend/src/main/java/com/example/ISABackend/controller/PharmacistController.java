@@ -40,11 +40,13 @@ public class PharmacistController {
         Pharmacist p = (Pharmacist) session.getAttribute("pharmacist");
         return p;
     }
+
     @DeleteMapping(value = "/{pharmacistId}")
     public ResponseEntity<Pharmacist> deletePharma(@PathVariable("pharmacistId") Long pharmacistId) {
         pharmacistService.delete(pharmacistId);
         return new ResponseEntity<Pharmacist>(HttpStatus.NO_CONTENT);
     }
+
 
 
 }

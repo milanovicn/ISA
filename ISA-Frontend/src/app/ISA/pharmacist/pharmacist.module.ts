@@ -5,10 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { PharmacistRoutingModule } from './pharmacist-routing.module';
 import { PharmacistNavbarComponent } from './pharmacist-navbar/pharmacist-navbar.component';
 import { PharmacistProfileComponent } from './pharmacist-profile/pharmacist-profile.component';
+import { PharmacistSchedulingCounseling } from './pharmacist-schedulingCounseling/pharmacist-schedulingCounseling.component';
 
 
 @NgModule({
-  declarations: [PharmacistNavbarComponent, PharmacistProfileComponent, 
+  declarations: [PharmacistNavbarComponent, PharmacistProfileComponent, PharmacistSchedulingCounseling,
   ],
   imports: [
     CommonModule,

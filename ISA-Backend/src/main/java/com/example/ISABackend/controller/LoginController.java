@@ -82,7 +82,7 @@ public class LoginController {
         }
 
         else if (dermatologist != null) {
-            if (loginRequest.getPassword().equals(supplier.getPassword())) {
+            if (loginRequest.getPassword().equals(dermatologist.getPassword())) {
 
                 HttpSession session = request.getSession();
                 session.setAttribute("dermatologist", dermatologist);
