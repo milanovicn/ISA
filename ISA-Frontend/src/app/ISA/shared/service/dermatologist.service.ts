@@ -5,6 +5,7 @@ import { User } from "../model/User";
 import { Medicine } from "../model/Medicine";
 import { DermatologistAppointmentDTO } from "../model/DermatologistAppointmentDTO";
 import { Dermatologist } from "../model/Dermatologist";
+import { DermatologistVacation } from "../model/DermatologistVacation";
 
 
 @Injectable()
@@ -31,7 +32,14 @@ export class DermatologistService {
       }
       */
 
-      
+     public getMyVacations(dermatologistId: number): Observable<DermatologistVacation[]> {
+      return this.http.get<DermatologistVacation[]>("/api/dermatologist/myvacations/" + dermatologistId);
+    }
+   
+    public addVacation(newVacation: DermatologistVacation, dermatologistId: number) {
+      return this.http.post<DermatologistVacation>("/api/dermatologist/newvacation/"+ dermatologistId , newVacation);
+    }
+    
       
      public searchPatients(firstName: String, lastName: String): Observable<User[]> {
       return this.http.post<User[]>("/api/dermatologist/search/" + firstName, lastName);
