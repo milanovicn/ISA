@@ -13,6 +13,7 @@ import { pagespeedonline_v5 } from 'googleapis';
 import { Dermatologist } from 'app/ISA/shared/model/Dermatologist';
 import { Pharmacist } from 'app/ISA/shared/model/Pharmacist';
 import { SearchDermatologist } from 'app/ISA/shared/model/SearchDermatologist';
+import { DermatologistVacation } from 'app/ISA/shared/model/DermatologistVacation';
 
 @Component({
   selector: 'dermas-pharmacy',
@@ -32,6 +33,10 @@ export class DermasComponent implements OnInit {
   appointmentDate:Date=new Date(); 
   appointmentPrice:number=0;
   ret: Object;
+  acceptedId = 0;
+  rejectedId = 0;
+  opis:string = "";
+  allVacations : DermatologistVacation[] = [];
 
   constructor(private _router: Router, private pharmacyService: PharmacyService, private pharmacyAdminService: PharmacyAdminService, private loginService: LoginService, private medicineService: MedicineService) {
     this.user = new User();
@@ -39,8 +44,17 @@ export class DermasComponent implements OnInit {
     this.myDermas = [];
     this.searchParameters = new SearchDermatologist();
     this.availableDermatologists = [];
+    this.allVacations=[];
   }
- 
+  rejectAnOffer() {
+    this.pharmacyAdminService.rejectVD(this.rejectedId, this.opis).subscribe(
+        ret => {
+            this.ret = ret;
+        }
+    );
+    this.refresh();
+  
+  }
     searchDermas() {
     let sp = new SearchDermatologist();
     if (this.searchParameters.email == undefined) {
@@ -139,6 +153,14 @@ export class DermasComponent implements OnInit {
     });
   }
 
+  getAllVacations() {
+    this.pharmacyAdminService.getAllDermaVacations(this.myPharmacy.id).subscribe({
+      next: dermatologist => {
+        this.allVacations = dermatologist;
+      }
+    });
+  }
+
   getAvailableDermatologists() {
     this.pharmacyService.getAvailableDermatologists(this.myPharmacy.id).subscribe({
       next: dermatologist => {
@@ -183,11 +205,22 @@ export class DermasComponent implements OnInit {
       next: pharmacy => {
         this.myPharmacy = pharmacy;
         this.getMyDermas();
+        this.getAllVacations();
         this.getAvailableDermatologists();
       }
     });
 
   }
+  acceptAnOffer() {
+    this.pharmacyAdminService.acceptVD(this.acceptedId).subscribe(
+        ret => {
+            this.ret = ret;
+        }
+    );
+    this.refresh();
+
+}
+
 
   createAppointment(){
     console.log(this.appointmentDate);

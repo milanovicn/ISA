@@ -234,9 +234,88 @@
                 </div>
             </form>
 
+            <div class="row">
+                <h1>All dermatologists vacation that are waiting to be approved</h1>
 
-
-
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title">Vacations</h4>
+                    </div>
+                    <div class="card-content table-responsive table-full-width">
+                        <table class="table">
+                            <thead class="text-success">
+    
+                                <th>Dermatologist ID</th>
+                    
+                                <th>Date From</th>
+                                <th>Date To</th>
+                                <th>Status</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor='let k of allVacations'>
+    
+                                    <td>{{k.dermatologistId}}</td>
+                            
+                                    <td>{{k.dateFrom}}</td>
+                                    <td>{{k.dateTo}}</td>
+                                    <td>{{k.status}}</td>
+    
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+    
+            <h3>Accept a vacation from dermatologist</h3>
+            <form (ngSubmit)="acceptAnOffer()" #offerForm="ngForm">
+                <div class="row">
+                    <div class="col">
+    
+    
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Dermatologist Id</mat-label>
+                                <mat-select name="nemamPojma1" #nemamPojma1="ngModel" [(ngModel)]='acceptedId'>
+                                    <mat-option *ngFor="let offer of allVacations" [value]="offer.id">{{offer.id}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+    
+                        <div>
+                            <input type="submit" value="Accept" mat-raised-button class="btn btn-success">
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <h3>Reject a vacation from dermatologist</h3>
+            <form (ngSubmit)="rejectAnOffer()" #offerForm="ngForm">
+                <div class="row">
+                    <div class="col">
+    
+    
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Dermatologist Id</mat-label>
+                                <mat-select name="nemamPojma13" #nemamPojma13="ngModel" [(ngModel)]='rejectedId'>
+                                    <mat-option *ngFor="let offer of allVacations" [value]="offer.id">{{offer.id}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <input type="text" value="" placeholder="Description" class="form-control"
+                                    name="nemamPojma33" #nemamPojma33="ngModel" [(ngModel)]="opis" />
+                            </div>
+                        </div>
+                        <div>
+                            <input type="submit" value="Reject" mat-raised-button class="btn btn-success">
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
 
 

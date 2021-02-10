@@ -12,6 +12,8 @@ import { SearchPharmacist } from "../model/SearchPharmacist";
 import { Orders } from "../model/Orders";
 import { OrderOffer } from "../model/OrderOffer";
 import { OrderItem } from "../model/OrderItem";
+import { DermatologistVacation } from "../model/DermatologistVacation";
+import { PharmacistVacation } from "../model/PharmacistVacation";
 
 
 @Injectable()
@@ -60,6 +62,14 @@ export class PharmacyAdminService {
     return this.http.get<Orders[]>("/api/pharmacy-admin/allorders/" + pharmacyId);
   }
 
+  public getAllDermaVacations(pharmacyId: number): Observable<DermatologistVacation[]> {
+    return this.http.get<DermatologistVacation[]>("/api/pharmacy-admin/allVacationsDermatologist/" + pharmacyId);
+  }
+
+  public getAllPharmaVacations(pharmacyId: number): Observable<PharmacistVacation[]> {
+    return this.http.get<PharmacistVacation[]>("/api/pharmacy-admin/allVacationsPharmacist/" + pharmacyId);
+  }
+
   public getOffers(orderId: number): Observable<OrderOffer[]> {
     return this.http.get<OrderOffer[]>("/api/pharmacy-admin/offers/" + orderId);
   }
@@ -74,6 +84,7 @@ export class PharmacyAdminService {
     return this.http.get<OrderOffer>("/api/pharmacy-admin/acceptOffer/" + id);
   }
 
+
   public deleteOrder(id: number): Observable<OrderOffer> {
     return this.http.delete<OrderOffer>("/api/pharmacy-admin/order/" + id);
   }
@@ -84,6 +95,18 @@ export class PharmacyAdminService {
 
   public createOrderItems(items: OrderItem[]) {
     return this.http.post<number>("/api/pharmacy-admin/orderItems", items);
+  }
+  public acceptVP(idVacation: number): Observable<PharmacistVacation> {
+    return this.http.get<PharmacistVacation>("/api/pharmacy-admin/acceptVacationPharmacist/" + idVacation);
+  }
+  public acceptVD(idVacation: number): Observable<DermatologistVacation> {
+    return this.http.get<DermatologistVacation>("/api/pharmacy-admin/acceptVacationDermatologist/" + idVacation);
+  }
+  public rejectVD(idVacation: number, opis : string): Observable<DermatologistVacation> {
+    return this.http.get<DermatologistVacation>("/api/pharmacy-admin/rejectVacationDermatologist/" + idVacation+"/"+opis);
+  }
+  public rejectVP(idVacation: number, opis:string): Observable<PharmacistVacation> {
+    return this.http.get<PharmacistVacation>("/api/pharmacy-admin/rejectVacationPharmacist/" + idVacation+"/"+opis);
   }
 
 }

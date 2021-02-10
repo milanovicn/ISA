@@ -43,6 +43,17 @@ public class DermatologistScheduleServiceImpl implements DermatologistScheduleSe
         return ret;
     }
 
+    //vraca true ako dermatolog radi u apoteci, false ako ne radi
+    @Override
+    public boolean workInPharmacy(Long dermatologistId, Long pharmacyId){
+        for(DermatologistSchedule ds : dermatologistScheduleRepository.findAll()){
+            if(dermatologistId == ds.getDermatologistId() && pharmacyId==ds.getPharmacyId()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     //vraca raspored odredjenog dermatologa u odredjenoj apoteci na odredjeni dan
     @Override
     public ArrayList<DermatologistSchedule> getByDermatologistAndPharmacyAndDay(Long dermatologistId, Long pharmacyId, String day) {

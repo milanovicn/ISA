@@ -35,6 +35,8 @@ public class PharmacyController {
     private ActionsService actionsService;
 
     @Autowired
+    private EmailService emailService;
+    @Autowired
     private PharmacyRepository pharmacyRepository;
 
     @Autowired
@@ -230,6 +232,7 @@ public class PharmacyController {
             mailMessage.setSubject("New action in our Pharmacy!");
             mailMessage.setFrom("ISA.tim66@gmail.com");
             mailMessage.setText("New actions in our pharmacy is:  " + a.getDescription());
+            emailService.sendEmail(mailMessage);
         }
         return new ResponseEntity<Actions>(a, HttpStatus.CREATED);
     }

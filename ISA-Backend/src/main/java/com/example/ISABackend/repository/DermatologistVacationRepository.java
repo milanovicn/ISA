@@ -10,4 +10,5 @@ import java.util.ArrayList;
 @Repository
 public interface DermatologistVacationRepository extends JpaRepository<DermatologistVacation, Long> {
     ArrayList<DermatologistVacation> findByDermatologistId(Long dermatologistId);
+
 }

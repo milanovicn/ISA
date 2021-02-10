@@ -9,18 +9,26 @@ import com.example.ISABackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Properties;
 
 @RestController
 @RequestMapping("/api/pharmacy-admin")
 public class PharmacyAdminController {
 
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private DermatologistService dermatologistService;
 
     @Autowired
     private PharmacyAdminRepository pharmacyAdminRepository;
@@ -39,6 +47,12 @@ public class PharmacyAdminController {
 
     @Autowired
     private PharmacistAppointmentService pharmacistAppointmentService;
+
+    @Autowired
+    private DermatologistVacationService dermatologistVacationService;
+
+    @Autowired
+    private PharmacistVacationService pharmacistVacationService;
 
     @Autowired
     OrdersService ordersService;
@@ -241,6 +255,114 @@ public class PharmacyAdminController {
         } else  {
             return new ResponseEntity<Long>(o, HttpStatus.CREATED);
         }
+    }
+
+    @GetMapping(value = "/allVacationsDermatologist/{pharmacyId}")
+    public Object getAllVacationsD(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return dermatologistVacationService.getDermaVacationsForPharmacy(pharmacyId);
+    }
+
+    @GetMapping(value = "/allVacationsPharmacist/{pharmacyId}")
+    public Object getAllVacationsP(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return pharmacistVacationService.getDermaVacationsForPharmacy(pharmacyId);
+    }
+    @GetMapping(value = "/acceptVacationPharmacist/{idVacation}")
+    public Object acceptVP(@PathVariable("idVacation") Long idVacation, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        PharmacistVacation dv = pharmacistVacationService.acceptVacation(idVacation);
+        Pharmacist pharmacist = pharmacistService.getById(dv.getPharmacistId());
+
+        Properties props = new Properties();
+        props.put("mail.mime.address.strict", "false");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        Session session = Session.getDefaultInstance(props);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(pharmacist.getEmail());
+        mailMessage.setSubject("Vacation!");
+        mailMessage.setFrom("ISA.tim66@gmail.com");
+        mailMessage.setText("We have approved your vacation! ");
+
+        emailService.sendEmail(mailMessage);
+        return dv;
+    }
+
+    @GetMapping(value = "/acceptVacationDermatologist/{idVacation}")
+    public Object acceptVD(@PathVariable("idVacation") Long idVacation, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        DermatologistVacation dv = dermatologistVacationService.acceptVacation(idVacation);
+        Dermatologist dermatologist = dermatologistService.getById(dv.getDermatologistId());
+
+        Properties props = new Properties();
+        props.put("mail.mime.address.strict", "false");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        Session session = Session.getDefaultInstance(props);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(dermatologist.getEmail());
+        mailMessage.setSubject("Vacation!");
+        mailMessage.setFrom("ISA.tim66@gmail.com");
+        mailMessage.setText("We have approved your vacation! ");
+
+        emailService.sendEmail(mailMessage);
+        return dv;
+    }
+    @GetMapping(value = "/rejectVacationDermatologist/{idVacation}/{opis}")
+    public Object rejectVD(@PathVariable("idVacation") Long idVacation,@PathVariable("opis") String opis, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+
+        DermatologistVacation dv = dermatologistVacationService.rejectVacation(idVacation);
+        Dermatologist dermatologist = dermatologistService.getById(dv.getDermatologistId());
+
+        Properties props = new Properties();
+        props.put("mail.mime.address.strict", "false");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        Session session = Session.getDefaultInstance(props);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(dermatologist.getEmail());
+        mailMessage.setSubject("Vacation!");
+        mailMessage.setFrom("ISA.tim66@gmail.com");
+        mailMessage.setText("We have rejected your vacation because" + opis);
+
+        emailService.sendEmail(mailMessage);
+        return dv;
+    }
+
+    @GetMapping(value = "/rejectVacationPharmacist/{idVacation}/{opis}")
+    public Object rejectVP(@PathVariable("idVacation") Long idVacation,@PathVariable("opis") String opis, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        PharmacistVacation dv = pharmacistVacationService.rejectVacation(idVacation);
+        Pharmacist pharmacist = pharmacistService.getById(dv.getPharmacistId());
+
+        Properties props = new Properties();
+        props.put("mail.mime.address.strict", "false");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        Session session = Session.getDefaultInstance(props);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(pharmacist.getEmail());
+        mailMessage.setSubject("Vacation!");
+        mailMessage.setFrom("ISA.tim66@gmail.com");
+        mailMessage.setText("We have rejected your vacation because" + opis);
+
+        emailService.sendEmail(mailMessage);
+        return dv;
     }
 
 }
