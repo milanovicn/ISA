@@ -1,6 +1,7 @@
 package com.example.ISABackend.service;
 
 import com.example.ISABackend.dto.DermatologistAppointmentDTO;
+import com.example.ISABackend.model.Dermatologist;
 import com.example.ISABackend.model.DermatologistAppointment;
 import com.example.ISABackend.model.DermatologistSchedule;
 
@@ -27,5 +28,7 @@ public interface DermatologistAppointmentService {
 
     public ArrayList<DermatologistAppointmentDTO> getByPatientId(Long patientId);
     public DermatologistAppointment cancelReservation(Long appointmentId);
+
+    public ArrayList<Dermatologist> getDermatologistsForPatient(Long patientId);
 
 }

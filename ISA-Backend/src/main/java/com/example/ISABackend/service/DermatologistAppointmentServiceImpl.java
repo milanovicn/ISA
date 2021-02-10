@@ -303,4 +303,24 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
         return appointment;
     }
 
+
+    @Override
+    public ArrayList<Dermatologist> getDermatologistsForPatient(Long patientId) {
+        ArrayList<DermatologistAppointment> byPatient = dermatologistAppointmentRepository.findByPatientId(patientId);
+        ArrayList<Dermatologist> ret = new ArrayList<>();
+
+        for(DermatologistAppointment da : byPatient){
+            if(da.getStatus().equals(AppointmentStatus.DONE) ){
+                Dermatologist dermatologist = dermatologistService.getById(da.getDermatologistId());
+                if(!ret.contains(dermatologist)){
+                ret.add(dermatologist);
+                  }
+            }
+        }
+
+
+        return ret;
+    }
+
+
 }

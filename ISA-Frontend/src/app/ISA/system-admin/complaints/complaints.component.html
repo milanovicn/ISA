@@ -1,0 +1,48 @@
+<system-admin-navbar></system-admin-navbar>
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>Unanswered complaints</h1>
+
+    <h1>Complaints </h1>
+    <div class="row " style="margin-top: 50px;">
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Unanswered complaints</h4>
+                <p class="card-category">This is the list of all unanswered complaints.</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+
+                <table class="table">
+                    <thead class="text-success">
+                        <th>Patient email</th>
+                        <th>Complaint subject</th>
+                        <th>Description </th>
+                        <th>Status </th>
+                        <th> </th>
+                        <th> </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of unansweredComplaints'>
+                            <td>{{k.patientEmail}}</td>
+                            <td>{{k.complaintSubject}}</td>
+                            <td>{{k.complaintText}}</td>
+                            <td>{{k.status}}</td>
+                            <td><input type="text" value="" placeholder="Answer" class="form-control" required
+                                    name="description" #description="ngModel" [(ngModel)]="k.complaintAnswer" /></td>
+                            <td><button mat-raised-button class="btn btn-success btn-sm"
+                                    (click)="answer([k])">Answer</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+</div>

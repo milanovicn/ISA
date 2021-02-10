@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ComplaintsComponent } from './complaints/complaints.component';
 import { MedicinesComponent } from './medicines/medicines.component';
 import { NewPharmacyAdminComponent } from './new-pharmacy-admin/new-pharmacy-admin.component';
 import { NewPharmacyComponent } from './new-pharmacy/new-pharmacy.component';
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'system-admin-homepage/system-admins', component: NewSystemAdminComponent },
   { path: 'system-admin-homepage/pharmacies', component: NewPharmacyComponent },
   { path: 'system-admin-homepage/pharmacy-admins', component: NewPharmacyAdminComponent },
+  { path: 'system-admin-homepage/complaints', component: ComplaintsComponent },
 ];
 
 @NgModule({

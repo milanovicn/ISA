@@ -11,6 +11,10 @@ import { NewSystemAdminComponent } from './new-system-admin/new-system-admin.com
 import { NewPharmacyComponent } from './new-pharmacy/new-pharmacy.component';
 import { NewPharmacyAdminComponent } from './new-pharmacy-admin/new-pharmacy-admin.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { ComplaintsComponent } from './complaints/complaints.component';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     NewSystemAdminComponent,
     NewPharmacyComponent,
     NewPharmacyAdminComponent,
+    ComplaintsComponent,
   ],
   imports: [
     CommonModule,
@@ -27,7 +32,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     RouterModule,
     FormsModule,
     MatSelectModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class SystemAdminModule { }
