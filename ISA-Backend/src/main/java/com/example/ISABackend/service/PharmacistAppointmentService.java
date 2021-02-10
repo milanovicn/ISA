@@ -3,6 +3,7 @@ package com.example.ISABackend.service;
 import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.dto.PharmacistAppointmentDTO;
 import com.example.ISABackend.model.DermatologistAppointment;
+import com.example.ISABackend.model.Pharmacist;
 import com.example.ISABackend.model.PharmacistAppointment;
 import com.example.ISABackend.model.Pharmacy;
 
@@ -23,6 +24,5 @@ public interface PharmacistAppointmentService {
     public ArrayList<Pharmacy> getPharmaciesByAppointmentDate(String appointmentTime, LocalDate appointmentDate);
     public ArrayList<DermatologistAppointmentDTO>  getByPatientId(Long patientId);
     public PharmacistAppointment cancelReservation(Long appointmentId);
-
-
+    public ArrayList<Pharmacist> getPharmacistsForPatient(Long patientId);
 }

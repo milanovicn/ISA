@@ -223,5 +223,23 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
         return appointment;
     }
 
+    @Override
+    public ArrayList<Pharmacist> getPharmacistsForPatient(Long patientId) {
+        ArrayList<PharmacistAppointment> byPatient = pharmacistAppointmentRepository.findByPatientId(patientId);
+        ArrayList<Pharmacist> ret = new ArrayList<>();
+
+        for(PharmacistAppointment pa : byPatient){
+            if(pa.getStatus().equals(AppointmentStatus.DONE) ){
+                Pharmacist pharmacist = pharmacistService.getById(pa.getPharmacistId());
+                if(!ret.contains(pharmacist)){
+                    ret.add(pharmacist);
+                }
+            }
+        }
+
+
+        return ret;
+    }
+
 
 }

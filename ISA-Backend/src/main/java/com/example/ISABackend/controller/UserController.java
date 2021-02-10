@@ -47,6 +47,11 @@ public class UserController {
     @Autowired
     private ActionsService actionsService;
 
+    @Autowired
+    private ComplaintService complaintService;
+
+
+
     @PostMapping(value = "/register")
     public ResponseEntity registerUser(@RequestBody User newUser, @Context HttpServletRequest request) {
 
@@ -279,8 +284,8 @@ public class UserController {
             mailMessage.setSubject("Medicine is reserved!");
             mailMessage.setFrom("ISA.tim66@gmail.com");
             mailMessage.setText("You have successfully made the reservation of a medicine: " + app.getMedicineName()
-                    + ", at pharmacy" +app.getPharmacyName() + ". RESERVATION IDENTIFICATION NUMBER: " + app.getId());
-
+                    + ", at pharmacy" +app.getPharmacyName() + ". \nRESERVATION IDENTIFICATION NUMBER: " + app.getId());
+            emailService.sendEmail(mailMessage);
             return new ResponseEntity<MedicineReservation>(app, HttpStatus.CREATED);
         }
     }
@@ -365,6 +370,53 @@ public class UserController {
 
     }
 
+    @GetMapping(value = "/getMyDermatologists/{patientId}")
+    public ResponseEntity<?> getMyDermatologists(@PathVariable("patientId") Long patientId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        ArrayList<Dermatologist> app = dermatologistAppointmentService.getDermatologistsForPatient(patientId);
+
+        return new ResponseEntity<ArrayList<Dermatologist> >(app, HttpStatus.CREATED);
+
+    }
+
+    @GetMapping(value = "/getMyPharmacists/{patientId}")
+    public ResponseEntity<?> getMyPharmacists(@PathVariable("patientId") Long patientId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        ArrayList<Pharmacist> app = pharmacistAppointmentService.getPharmacistsForPatient(patientId);
+
+        return new ResponseEntity<ArrayList<Pharmacist> >(app, HttpStatus.CREATED);
+
+    }
+
+    @GetMapping(value = "/getMyPharmacies/{patientId}")
+    public ResponseEntity<?> getMyPharmacies(@PathVariable("patientId") Long patientId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        ArrayList<Pharmacy> app = medicineReservationService.getPharmaciesForPatient(patientId);
+
+        return new ResponseEntity<ArrayList<Pharmacy> >(app, HttpStatus.CREATED);
+
+    }
+
+    @PostMapping(value = "/complaint")
+    public ResponseEntity<?> complain(@RequestBody Complaint newComplaint, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        Complaint app = complaintService.create(newComplaint);
+
+        return new ResponseEntity<Complaint>(app, HttpStatus.CREATED);
+
+    }
 
     private User authorize(HttpServletRequest request){
         HttpSession session = request.getSession();

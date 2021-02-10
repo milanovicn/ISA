@@ -6,6 +6,9 @@ import { Medicine } from "../model/Medicine";
 import { DermatologistAppointmentDTO } from "../model/DermatologistAppointmentDTO";
 import { MedicineReservation } from "../model/MedicineReservation";
 import { Pharmacy } from "../model/Pharmacy";
+import { Complaint } from "../model/Complaint";
+import { Dermatologist } from "../model/Dermatologist";
+import { Pharmacist } from "../model/Pharmacist";
 
 
 @Injectable()
@@ -93,6 +96,23 @@ export class UserService {
     
   public subscribe(patientId: number, pharmacyId:number): Observable<boolean> {
     return this.http.get<boolean>("/api/user/subscribeToAction/" + patientId +"/"+pharmacyId);
+  }
+
+  
+  public makeComplaint(newComplaint: Complaint): Observable<Complaint> {
+    return this.http.post<Complaint>("/api/user/complaint", newComplaint);
+  }
+
+  public getMyPharmacies(patientId: number): Observable<Pharmacy[]> {
+    return this.http.get<Pharmacy[]>("/api/user/getMyPharmacies/" + patientId);
+  }
+
+  public getMyPharmacists(patientId: number): Observable<Pharmacist[]> {
+    return this.http.get<Pharmacist[]>("/api/user/getMyPharmacists/" + patientId);
+  }
+
+  public getMyDermatologists(patientId: number): Observable<Dermatologist[]> {
+    return this.http.get<Dermatologist[]>("/api/user/getMyDermatologists/" + patientId);
   }
 
 

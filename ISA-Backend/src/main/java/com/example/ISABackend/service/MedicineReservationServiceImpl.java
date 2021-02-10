@@ -1,5 +1,6 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.enums.AppointmentStatus;
 import com.example.ISABackend.enums.MedicineReservationStatus;
 import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.MedicineReservationRepository;
@@ -123,6 +124,24 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
                 ret.add(pharmacy);
             }
         }
+        return ret;
+    }
+
+    @Override
+    public ArrayList<Pharmacy> getPharmaciesForPatient(Long patientId) {
+        ArrayList<MedicineReservation> byPatient = getByPatientId(patientId);
+        ArrayList<Pharmacy> ret = new ArrayList<>();
+
+        for(MedicineReservation mr : byPatient){
+            if(mr.getStatus().equals(MedicineReservationStatus.ENDED) ){
+                Pharmacy pharmacy = pharmacyService.getById(mr.getPharmacyId());
+                if(!ret.contains(pharmacy)){
+                    ret.add(pharmacy);
+                }
+            }
+        }
+
+
         return ret;
     }
 

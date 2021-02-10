@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { DermatologistAppointmentsComponent } from './dermatologist-appointments/dermatologist-appointments.component';
 import { PharmacistAppointmentsComponent } from './pharmacist-appointment/pharmacist-appointment.component';
 import { UserMedicinesComponent } from './medicines/medicines.component';
+import { ComplaintComponent } from './complaint/complaint.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { UserMedicinesComponent } from './medicines/medicines.component';
     DermatologistAppointmentsComponent,
     PharmacistAppointmentsComponent,
     UserMedicinesComponent,
+    ComplaintComponent
    ],
   imports: [
     CommonModule,

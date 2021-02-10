@@ -7,6 +7,7 @@ import { SupplierHomepageComponent } from "app/ISA/supplier/supplier-homepage/su
 import { Supplier } from "../model/Supplier";
 import { Pharmacy } from "../model/Pharmacy";
 import { PharmacyAdmin } from "../model/PharmacyAdmin";
+import { Complaint } from "../model/Complaint";
 
 
 @Injectable()
@@ -42,5 +43,17 @@ export class SystemAdminService {
     public registerPharmacyAdmin(newPhAdmin: PharmacyAdmin, pharmacyId:number) {
         return this.http.post<PharmacyAdmin>("/api/system-admin/pharmacy-admin/" + pharmacyId, newPhAdmin);
     }
+
+    public answerComplaint(commplaintId: number, answer:string): Observable<Complaint> {
+        console.log(answer);
+        console.log(commplaintId);
+        return this.http.post<Complaint>("/api/system-admin/answerComplaint/" + commplaintId, answer);
+    }
+
+    public getUnanswered():Observable<Complaint[]>  {
+        return this.http.get<Complaint[]>("/api/system-admin/complaints");
+    }
+
+    
 
 }

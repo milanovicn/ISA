@@ -1,0 +1,38 @@
+<user-navbar></user-navbar>
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>Make new complaint</h1>
+   
+    <form (ngSubmit)="makeComplaint()" #registrationForm="ngForm">
+        <div class="row">
+            <div class="col">
+
+               
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Description" class="form-control" required
+                            name="description" #description="ngModel" [(ngModel)]="newComplaint.complaintText"/>
+                    </div>
+                </div>
+                
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Complaint subject</mat-label>
+                        <mat-select name="nemamPojma11" #nemamPojma11="ngModel" [(ngModel)]="newComplaint.complaintSubject">
+                         
+                           <!-- <mat-option *ngFor="let subj of subjects" [value]="subj">{{subj}}</mat-option>-->
+                            <mat-option *ngFor="let dermatologist of myDermatologists" [value]="'Dermatologist:' + dermatologist.firstName + ' '+ dermatologist.lastName">Dermatologist: {{dermatologist.firstName}} {{dermatologist.lastName}}</mat-option>
+                            <mat-option *ngFor="let pharmacist of myPharmacists" [value]="'Pharmacist:' + pharmacist.firstName + ' '+ pharmacist.firstName">Pharmacist: {{pharmacist.firstName}} {{pharmacist.lastName}}</mat-option>
+                            <mat-option *ngFor="let pharmacy of myPharmacies" [value]="'Pharmacy:' + pharmacy.name">Pharmacy: {{pharmacy.name}}</mat-option>
+                        </mat-select> 
+                    </mat-form-field>
+                </div>
+                
+
+                <div>
+                    <input type="submit" value="Send" mat-raised-button class="btn btn-success">
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
