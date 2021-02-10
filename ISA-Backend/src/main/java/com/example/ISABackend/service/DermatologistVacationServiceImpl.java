@@ -2,6 +2,7 @@ package com.example.ISABackend.service;
 
 import com.example.ISABackend.enums.VacationStatus;
 import com.example.ISABackend.model.Dermatologist;
+import com.example.ISABackend.model.DermatologistSchedule;
 import com.example.ISABackend.model.DermatologistVacation;
 import com.example.ISABackend.model.PharmacistVacation;
 import com.example.ISABackend.repository.DermatologistVacationRepository;
@@ -19,6 +20,10 @@ public class DermatologistVacationServiceImpl implements DermatologistVacationSe
 
     @Autowired
     private DermatologistVacationRepository dermatologistVacationRepository;
+
+    @Autowired
+    private DermatologistScheduleService dermatologistScheduleService;
+
     @Override
     public DermatologistVacation getById(Long id){
         return  dermatologistVacationRepository.findById(id).orElseGet(null);
@@ -43,9 +48,42 @@ public class DermatologistVacationServiceImpl implements DermatologistVacationSe
         return vacation;
 
     }
+    @Override
     public ArrayList<DermatologistVacation> getVacations(Long dermatologistId){
         ArrayList<DermatologistVacation> vacations = dermatologistVacationRepository.findByDermatologistId(dermatologistId);
 
         return vacations;
+    }
+
+    @Override
+    public ArrayList<DermatologistVacation> getDermaVacationsForPharmacy(Long pharmacyId){
+        ArrayList<DermatologistVacation> ret = new ArrayList<>();
+        List<DermatologistVacation> vacations = dermatologistVacationRepository.findAll();
+        for(DermatologistVacation prolazim : vacations){
+            if(dermatologistScheduleService.workInPharmacy(prolazim.getDermatologistId(),pharmacyId)){
+               if(prolazim.getStatus().equals(VacationStatus.SUBMITED))
+                ret.add(prolazim);
+            }
+
+        }
+        return ret;
+    }
+
+    @Override
+    public DermatologistVacation acceptVacation(Long idOdmora){
+        //id dermatologa koji je podneo zahtev za odmor
+        DermatologistVacation podneoZahtev = dermatologistVacationRepository.findById(idOdmora).orElseGet(null);
+        podneoZahtev.setStatus(VacationStatus.APPROVED);
+        dermatologistVacationRepository.save(podneoZahtev);
+        return podneoZahtev;
+    }
+
+    @Override
+    public DermatologistVacation rejectVacation(Long idOdmora){
+        //id dermatologa koji je podneo zahtev za odmor
+        DermatologistVacation podneoZahtev = dermatologistVacationRepository.findById(idOdmora).orElseGet(null);
+        podneoZahtev.setStatus(VacationStatus.REJECTED);
+        dermatologistVacationRepository.save(podneoZahtev);
+        return podneoZahtev;
     }
 }

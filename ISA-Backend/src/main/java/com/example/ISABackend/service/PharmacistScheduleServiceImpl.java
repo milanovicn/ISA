@@ -26,7 +26,16 @@ public class PharmacistScheduleServiceImpl implements PharmacistScheduleService{
     public ArrayList<PharmacistSchedule> getFindByPharmacistLong(Long pharmacistId) {
         return pharmacistScheduleRepository.findByPharmacistId(pharmacistId);
     }
-
+    //vraca true ako dermatolog radi u apoteci, false ako ne radi
+    @Override
+    public boolean workInPharmacy(Long pharmacistId, Long pharmacyId){
+        for(PharmacistSchedule ds : pharmacistScheduleRepository.findAll()){
+            if(pharmacistId == ds.getPharmacistId() && pharmacyId==ds.getPharmacyId()){
+                return true;
+            }
+        }
+        return false;
+    }
     //vraca raspored odredjenog farmaceuta u odredjenoj apoteci
     @Override
     public ArrayList<PharmacistSchedule> getByPharmacistAndPharmacy(Long pharmacistId, Long pharmacyId) {

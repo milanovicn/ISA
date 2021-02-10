@@ -14,6 +14,7 @@ import { Dermatologist } from 'app/ISA/shared/model/Dermatologist';
 import { Pharmacist } from 'app/ISA/shared/model/Pharmacist';
 import { SearchPharmacist } from 'app/ISA/shared/model/SearchPharmacist';
 import { asLiteral } from '@angular/compiler/src/render3/view/util';
+import { PharmacistVacation } from 'app/ISA/shared/model/PharmacistVacation';
 
 @Component({
   selector: 'pharmas-pharmacy',
@@ -35,8 +36,10 @@ export class PharmasComponent implements OnInit {
   appointmentDate:Date=new Date(); 
   appointmentPrice:number=0;
   ret: Object;
-  
-
+  allVacations : PharmacistVacation[] = [];
+  acceptedId = 0;
+  rejectedId=0;
+opis:string = "";
   constructor(private _router: Router, private pharmacyService: PharmacyService, 
     private pharmacyAdminService: PharmacyAdminService, 
     private loginService: LoginService, private medicineService: MedicineService) {
@@ -46,11 +49,13 @@ export class PharmasComponent implements OnInit {
     this.myPharmas=[];
     this.searchParameters = new SearchPharmacist();
     this.newPharma = new User();
+    this.allVacations=[];
   }
 
   ngOnInit(): void {
     this.getUser();
 
+   
 
     console.log(this.user);
   }
@@ -61,7 +66,34 @@ export class PharmasComponent implements OnInit {
     this.pharmacyService.updatePharmacy(this.myPharmacy).subscribe();
     this.refresh();
   }
-  
+
+  getAllVacations() {
+    this.pharmacyAdminService.getAllPharmaVacations(this.myPharmacy.id).subscribe({
+      next: x => {
+        this.allVacations = x;
+      }
+    });
+  }
+
+  acceptAnOffer() {
+    this.pharmacyAdminService.acceptVP(this.acceptedId).subscribe(
+        ret => {
+            this.ret = ret;
+        }
+    );
+    this.refresh();
+
+}
+
+rejectAnOffer() {
+  this.pharmacyAdminService.rejectVP(this.rejectedId, this.opis).subscribe(
+      ret => {
+          this.ret = ret;
+      }
+  );
+  this.refresh();
+
+}
   searchPharmas() {
     let sp = new SearchPharmacist();
     if (this.searchParameters.email == undefined) {
@@ -188,7 +220,8 @@ export class PharmasComponent implements OnInit {
       next: pharmacy => {
         this.myPharmacy = pharmacy;
         this.getAllPharmas();
-        this.getAllDermas();
+        this.getAllDermas(); 
+        this.getAllVacations();
         
         //this.getAllMedicine();
         

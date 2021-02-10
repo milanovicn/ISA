@@ -140,10 +140,8 @@ public class DermatologistController {
         if (authorize(request) == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        
+
         DermatologistVacation a = dermatologistVacationService.addVacation(newAction, dermatologistId);
-
-
         return new ResponseEntity<DermatologistVacation>(a, HttpStatus.CREATED);
     }
 

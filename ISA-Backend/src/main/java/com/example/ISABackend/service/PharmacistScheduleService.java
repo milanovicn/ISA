@@ -13,5 +13,5 @@ public interface PharmacistScheduleService {
     public ArrayList<PharmacistSchedule> getFindByPharmacistLong(Long pharmacistId);
     public ArrayList<PharmacistSchedule> getByPharmacistAndPharmacy(Long pharmacistId, Long pharmacyId);
     public ArrayList<PharmacistSchedule> getByPharmacistAndPharmacyAndDay(Long pharmacistId, Long pharmacyId, String day);
-
+    public boolean workInPharmacy(Long pharmacistId, Long pharmacyId);
 }
