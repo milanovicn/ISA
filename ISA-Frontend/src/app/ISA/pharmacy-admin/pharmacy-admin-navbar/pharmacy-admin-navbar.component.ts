@@ -27,13 +27,13 @@ export class PharmacyAdminNavbarComponent implements OnInit {
 
 
   logOut() {
-    this.loginService.logout(this.request).subscribe(result => this.redirect());
+    this.loginService.logout(this.request).subscribe(result => this.homepage());
   }
 
 
 
-  redirect() {
-    this.router.navigate(["/homepage"]);
-  }
+  homepage(){
+    this.router.navigate(["/pharmac-admin-homepage"]);
+}
 
 }

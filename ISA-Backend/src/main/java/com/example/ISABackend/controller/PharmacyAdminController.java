@@ -158,6 +158,15 @@ public class PharmacyAdminController {
         return new ResponseEntity<ArrayList<Orders>>(orders, HttpStatus.CREATED);
     }
 
+    @GetMapping(value = "/allorders/{pharmacyId}")
+    public ResponseEntity getAllOrders(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        ArrayList<Orders> orders = ordersService.getAllOrdersByPharmacy(pharmacyId);
+        return new ResponseEntity<ArrayList<Orders>>(orders, HttpStatus.CREATED);
+    }
+
     @GetMapping(value = "/acceptOffer/{offerId}")
     public ResponseEntity acceptOrder(@PathVariable("offerId") Long offerId, @Context HttpServletRequest request) {
         if (authorize(request) == null) {

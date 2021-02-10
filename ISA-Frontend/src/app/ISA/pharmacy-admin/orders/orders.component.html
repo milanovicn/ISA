@@ -4,24 +4,28 @@
 
     <div style="margin-left:300px; margin-top:50px; padding:60px;">
         <h1>Active orders</h1>
-
+        
         <div class="card" style="margin-top: 50px;">
             <div class="card-header card-header-success">
                 <h4 class="card-title">Active orders </h4>
                 <p class="card-category">Orders that are still available for offer</p>
             </div>
+            
             <div class="card-content table-responsive table-full-width">
                 <table class="table">
                     <thead class="text-success">
                         <th>ID</th>
                         <th>Pharmacy </th>
                         <th>Deadline </th>
+                        <th>Status</th>
                     </thead>
                     <tbody>
                         <tr *ngFor='let order of activeOrders'>
                             <td><a [routerLink]="[order.id]">{{order.id}}</a></td>
                             <td>{{order.pharmacyName}}</td>
                             <td>{{order.deadline}}</td>
+                            <td>{{order.orderStatus}}</td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -77,7 +81,51 @@
             </div>
         </div>
 
+        <div class="card" style="margin-top: 50px;">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">All orders </h4>
+                
+        
+            </div>
+            <form (ngSubmit)="filter()" #newDermatologistForm="ngForm">
+                <div class="row">
+                    <div class="col">
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Filter by Status</mat-label>
+                                <mat-select name="nemamPojma5" #nemamPojma5="ngModel" [(ngModel)]='filterValue'>
+                                    <mat-option value="ACTIVE">Active</mat-option>
+                                    <mat-option value="INACTIVE">Inactive</mat-option>
+                                    <mat-option value="DELETED">Deleted</mat-option>      
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div>
+                            <input type="submit" value="Filter" mat-raised-button class="btn btn-success">
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-success">
+                        <th>ID</th>
+                        <th>Pharmacy </th>
+                        <th>Deadline </th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let order of filteredOffers'>
+                            <td><a [routerLink]="[order.id]">{{order.id}}</a></td>
+                            <td>{{order.pharmacyName}}</td>
+                            <td>{{order.deadline}}</td>
+                            <td>{{order.orderStatus}}</td>
 
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
 
     </div>

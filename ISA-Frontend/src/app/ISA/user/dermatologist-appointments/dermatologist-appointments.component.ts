@@ -67,7 +67,7 @@ export class DermatologistAppointmentsComponent implements OnInit {
             next: appointmentIdRet => {
                 this.ret = appointmentIdRet;
                 if(this.ret==null){
-                    alert("Reservation can be canceled up to 24h beafore!");
+                    alert("Reservation can be canceled up to 24h before!");
                 } else {
                     alert("Reservation successfully canceled!");
                 }
