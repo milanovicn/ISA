@@ -163,9 +163,11 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
 
                 Pharmacist pharmacist = pharmacistService.getById(pa.getPharmacistId());
                 String phName = pharmacyService.getById(pharmacyId).getName();
-                DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(pa.getId(),
-                        pa.getPharmacistId(), pharmacist.getFirstName().concat(" ") + pharmacist.getLastName(), pharmacist.getRate(), pa.getPharmacyId(),
-                        phName, pa.getTime(), pa.getDate(), pa.getPrice(), pa.getStatus());
+
+                DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(pa.getId(), pa.getPharmacistId(),
+                        pharmacist.getFirstName().concat(" ") + pharmacist.getLastName(), pharmacist.getRate(),
+                        pa.getPharmacyId(), phName, pa.getTime(), pa.getDate(), pa.getPrice(),
+                        "patientName", null, pa.getStatus());
 
                 ret.add(toAdd);
 
@@ -198,9 +200,12 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
 
             Pharmacist pharmacist = pharmacistService.getById(appointment.getPharmacistId());
             String phName= pharmacyService.getById(appointment.getPharmacyId()).getName();
+
             DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(appointment.getId(),
-                    appointment.getPharmacistId(), pharmacist.getFirstName().concat(" ") + pharmacist.getLastName(), pharmacist.getRate(), appointment.getPharmacyId(),
-                    phName, appointment.getTime(), appointment.getDate(), appointment.getPrice(), appointment.getStatus());
+                    appointment.getPharmacistId(), pharmacist.getFirstName().concat(" ") + pharmacist.getLastName(),
+                    pharmacist.getRate(), appointment.getPharmacyId(), phName, appointment.getTime(),
+                    appointment.getDate(), appointment.getPrice(),
+                    "patientName", null, appointment.getStatus());
 
             ret.add(toAdd);
         }
