@@ -56,6 +56,10 @@ export class PharmacyAdminService {
     return this.http.get<Orders[]>("/api/pharmacy-admin/orders/" + pharmacyId);
   }
 
+  public getAllOrders(pharmacyId: number): Observable<Orders[]> {
+    return this.http.get<Orders[]>("/api/pharmacy-admin/allorders/" + pharmacyId);
+  }
+
   public getOffers(orderId: number): Observable<OrderOffer[]> {
     return this.http.get<OrderOffer[]>("/api/pharmacy-admin/offers/" + orderId);
   }

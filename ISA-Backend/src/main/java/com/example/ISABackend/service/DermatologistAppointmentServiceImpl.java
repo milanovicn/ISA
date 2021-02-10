@@ -124,7 +124,7 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
         ArrayList<DermatologistAppointment> byPharmacy = this.getByPharmacy(pharmacyId);
 
         for(DermatologistAppointment da : byPharmacy){
-            //vrati cak i otkazane
+            //vrati cak i otkazanege
             if(da.getStatus().equals(AppointmentStatus.AVAILABLE) || da.getStatus().equals(AppointmentStatus.CANCELED)){
 
                 Dermatologist derm = dermatologistService.getById(da.getDermatologistId());

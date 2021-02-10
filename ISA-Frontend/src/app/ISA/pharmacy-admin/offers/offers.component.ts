@@ -21,12 +21,14 @@ export class OffersComponent implements OnInit {
     offers: OrderOffer[] = [];
     acceptedId = 0;
     active: boolean = false;
-
+    filteredOffers: OrderOffer[] = [];
+    filterValue:string = "";
 
     constructor(private httpClient: HttpClient, private route: ActivatedRoute, private router: Router, private pharmacyAdminService: PharmacyAdminService) {
         this.order = new Orders();
+    
     }
-
+    
 
     ngOnInit() {
         const param = this.route.snapshot.paramMap.get('id');

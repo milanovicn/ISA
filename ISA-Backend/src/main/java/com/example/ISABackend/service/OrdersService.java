@@ -16,6 +16,7 @@ public interface OrdersService {
     public ArrayList<OrderOffer> myOffers(Long supplierId);
     public OrderOffer acceptOffer(Long offerId);
     public ArrayList<Orders> getOrdersByPharmacy(Long pharmacyId);
+    public ArrayList<Orders> getAllOrdersByPharmacy(Long pharmacyId);
     public Boolean checkAdmin(Long offerId, Long adminId);
     public Boolean checkDeadline(Long offerId);
     public ArrayList<OrderOffer> getOffersByOrder(Long orderId);
