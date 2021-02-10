@@ -2,14 +2,11 @@ package com.example.ISABackend.controller;
 
 import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.dto.SearchPharmacy;
-import com.example.ISABackend.model.Dermatologist;
-import com.example.ISABackend.model.DermatologistAppointment;
-import com.example.ISABackend.model.Pharmacist;
-import com.example.ISABackend.model.User;
-import com.example.ISABackend.model.Pharmacy_Admin;
+import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.DermatologistRepository;
 import com.example.ISABackend.service.DermatologistAppointmentService;
 import com.example.ISABackend.service.DermatologistService;
+import com.example.ISABackend.service.DermatologistVacationService;
 import com.example.ISABackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +30,9 @@ public class DermatologistController {
 
     @Autowired
     private DermatologistAppointmentService dermatologistAppointmentService;
+
+    @Autowired
+    private DermatologistVacationService dermatologistVacationService;
 
     @PutMapping(value = "/edit")
     public ResponseEntity updateDermatologist(@RequestBody Dermatologist updateDermatologist, @Context HttpServletRequest request) {
@@ -125,6 +125,27 @@ public class DermatologistController {
         dermatologistService.delete(dermatologistId,d.getPharmacy().getId());
         return new ResponseEntity<Dermatologist>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping(value = "/myvacations/{dermatologistId}")
+    public Object getMyVacations(@PathVariable("dermatologistId") Long dermatologistId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return dermatologistVacationService.getVacations(dermatologistId);
+    }
+
+
+    @PostMapping(value = "/newvacation/{dermatologistId}")
+    public Object addVacation(@RequestBody DermatologistVacation newAction, @PathVariable("dermatologistId") Long dermatologistId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        DermatologistVacation a = dermatologistVacationService.addVacation(newAction, dermatologistId);
+
+
+        return new ResponseEntity<DermatologistVacation>(a, HttpStatus.CREATED);
+    }
+
 
 }
 
