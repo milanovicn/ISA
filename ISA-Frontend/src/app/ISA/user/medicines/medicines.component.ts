@@ -19,6 +19,7 @@ import { UserService } from 'app/ISA/shared/service/user.service';
 export class UserMedicinesComponent implements OnInit {
     allReservations: MedicineReservation[] = [];
     futureReservations: MedicineReservation[] = [];
+    oldReservations: MedicineReservation[] = [];
     allMedicines: Medicine[] = [];
     availablePharmacies: Pharmacy[] = [];
     newReservation: MedicineReservation;
@@ -76,7 +77,9 @@ export class UserMedicinesComponent implements OnInit {
                 for (let i = 0; i < this.allReservations.length; i++) {
                     if (this.allReservations[i].status == "RESERVED") {
                         this.futureReservations.push(this.allReservations[i]);
-                    } 
+                    } else {
+                        this.oldReservations.push(this.allReservations[i]);
+                    }
                 }    
             }
         });

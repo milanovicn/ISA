@@ -19,4 +19,6 @@ public interface MedicineReservationService {
     public MedicineReservation cancelReservation(Long id);
     public ArrayList<Pharmacy> getPharmaciesWithAvailableMedicine(Long medicineId);
     public ArrayList<Pharmacy> getPharmaciesForPatient(Long patientId);
+    public MedicineReservation checkMedicineReservationCode(String reservationCode);
+    public MedicineReservation issueMedicineReservation(Long reservationId);
 }

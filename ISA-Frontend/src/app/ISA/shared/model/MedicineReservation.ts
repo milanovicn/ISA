@@ -9,4 +9,5 @@ export class MedicineReservation{
     status:string;
     patientEmail:string;
     isPickedUp:boolean;
+    reservationCode:string;
 }

@@ -50,8 +50,11 @@ export class RegistrationComponent implements OnInit {
             alert("Password and repeated password don't match!");
         }
 
+        this.refresh();
     }
-
+    refresh() {
+        window.location.reload();
+    }
     getUser() {
 
         this.loginService.getLoggedInUser().subscribe({

@@ -5,6 +5,7 @@ import com.example.ISABackend.enums.MedicineReservationStatus;
 import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.MedicineReservationRepository;
 import com.example.ISABackend.repository.PatientPenaltyRepository;
+import com.example.ISABackend.repository.PharmacyStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MedicineReservationServiceImpl implements MedicineReservationService {
@@ -34,6 +36,10 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 
     @Autowired
     private PatientPenaltyRepository patientPenaltyRepository;
+
+    @Autowired
+    private PharmacyStockRepository pharmacyStockRepository;
+
 
     @Override
     public List<MedicineReservation> getAll() {
@@ -81,7 +87,7 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
         ret.setPatientEmail(userService.getById(newReservation.getPatientId()).getEmail());
         ret.setPharmacyName(pharmacyService.getById(newReservation.getPharmacyId()).getName());
         ret.setMedicineName(medicineService.getById(newReservation.getMedicineId()).getName());
-
+        ret.setReservationCode( UUID.randomUUID().toString());
         medicineReservationRepository.save(ret);
 
         Long stockId = pharmacyStockService.updateReservedMedicineStock(ret.getMedicineId(), ret.getPharmacyId());
@@ -143,6 +149,38 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
 
 
         return ret;
+    }
+
+    //vraca rezervaciju sa dobrim kodom ako ne postoji vraca null
+    @Override
+    public MedicineReservation checkMedicineReservationCode(String reservationCode) {
+        LocalDate now = LocalDate.now();
+        for(MedicineReservation mr : medicineReservationRepository.findAll()){
+            if(mr.getReservationCode().toUpperCase().equals(reservationCode.toUpperCase())){
+                if(now.isAfter(mr.getPickUpDate().minusDays(1))){
+                    return null;
+                }
+                return mr;
+            }
+
+        }
+
+        return null;
+    }
+
+    //zavrsava rezervaciju i updateuje stanje leka u apoteci
+    @Override
+    public MedicineReservation issueMedicineReservation(Long reservationId) {
+       MedicineReservation mr = getById(reservationId);
+       mr.setPickedUp(true);
+       mr.setStatus(MedicineReservationStatus.ENDED);
+       medicineReservationRepository.save(mr);
+       ArrayList<PharmacyStock> ps = pharmacyStockService.getByMedicineAndPharmacy(mr.getMedicineId(), mr.getPharmacyId());
+       PharmacyStock realOne = ps.get(0);
+        realOne.setReserved(realOne.getReserved()-1);
+        realOne.setInStock(realOne.getInStock()-1);
+        pharmacyStockRepository.save(realOne);
+        return mr;
     }
 
     //trazi nepreuzete rezervacije lekova i dodaje penale korisniku ako nisu preuzeti

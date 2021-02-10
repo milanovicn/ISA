@@ -11,10 +11,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MedicineReservationComponent } from './medicine-reservation/medicine-reservation.component';
 
 
 @NgModule({
-  declarations: [PharmacistNavbarComponent, PharmacistProfileComponent, PharmacistSchedulingCounseling,
+  declarations: 
+  [PharmacistNavbarComponent, 
+    PharmacistProfileComponent, 
+    PharmacistSchedulingCounseling,
+    MedicineReservationComponent
   ],
   imports: [
     CommonModule,

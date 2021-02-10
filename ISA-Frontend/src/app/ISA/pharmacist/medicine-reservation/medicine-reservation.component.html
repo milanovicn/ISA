@@ -1,0 +1,30 @@
+<pharmacist-navbar></pharmacist-navbar>
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>Issue Medicines</h1>
+    <div style="margin-top: 50px;"><h5>Enter medicine reservation code:</h5></div>
+    
+    <div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <input type="text" value="" placeholder="Reservation code" class="form-control" name="nzm"
+                    #nzm="ngModel" [(ngModel)]="reservationCode" />
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <button mat-raised-button class="btn btn-success btn-sm" (click)="checkCode()">Check</button>
+        </div>
+    </div>
+
+    <div style="margin-top:50px;" *ngIf="approved">
+        <h4>Patient email: {{medicineReservation.patientEmail}}</h4>
+        <h4>Reservation code: {{medicineReservation.reservationCode}}</h4>
+        <h4>Medicine: {{medicineReservation.medicineName}}</h4>
+        <div class="col-sm-6">
+            <button mat-raised-button class="btn btn-success btn-sm" (click)="issueMedicine()">Issue</button>
+        </div>
+
+    </div>
+
+
+
+</div>
