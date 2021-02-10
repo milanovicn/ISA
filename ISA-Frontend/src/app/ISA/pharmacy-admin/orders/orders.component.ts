@@ -18,12 +18,15 @@ import { PharmacyAdminService } from "app/ISA/shared/service/pharmacy-admin.serv
 export class OrdersComponent implements OnInit {
   ret:Object=new Object();
   activeOrders: Orders[] = [];
+  allOrders: Orders[] = [];
   allMedicines: Medicine[] = [];
   newOrderItems: OrderItem[] = [];
   newOrder: Orders;
   newItem: OrderItem;
   user: User;
   myPharmacy: Pharmacy;
+  filteredOffers: Orders[] = [];
+  filterValue:string = "";
 
 
   constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService,
@@ -32,16 +35,35 @@ export class OrdersComponent implements OnInit {
     this.myPharmacy = new Pharmacy();
     this.newOrder = new Orders();
     this.newItem = new OrderItem();
+   
+    
 
   }
 
   ngOnInit(): void {
-
+    this.pharmacyAdminService.getAllOrders(this.myPharmacy.id).subscribe(
+      allOrders => {
+          console.log("proba");
+        this.allOrders = allOrders;
+        this.filteredOffers = allOrders;
+      }
+    );
     this.getUser();
     this.getAllMedicines();
+ 
+   
 
   }
+ 
+  filter(){
+    this.filteredOffers = [];
+    for(let i=0; i<this.allOrders.length; i++){
+      if(this.allOrders[i].orderStatus==this.filterValue){
+        this.filteredOffers.push(this.allOrders[i]);
+      }
+    }
 
+  }
   getAllMedicines() {
 
     this.medicineService.getAllMedicines().subscribe({
@@ -61,6 +83,17 @@ export class OrdersComponent implements OnInit {
     );
 
   }
+
+  getAllOrders() {
+    this.pharmacyAdminService.getAllOrders(this.myPharmacy.id).subscribe(
+      allOrders => {
+        this.allOrders = allOrders;
+        this.filteredOffers = allOrders;
+      }
+    );
+
+  }
+
 
   getUser() {
 
@@ -82,6 +115,7 @@ export class OrdersComponent implements OnInit {
       next: pharmacy => {
         this.myPharmacy = pharmacy;
         this.getOrders();
+        this.getAllOrders();
 
 
       }

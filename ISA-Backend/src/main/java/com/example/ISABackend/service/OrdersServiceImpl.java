@@ -179,6 +179,18 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     @Override
+    public ArrayList<Orders> getAllOrdersByPharmacy(Long pharmacyId) {
+        ArrayList<Orders>  ret =  new  ArrayList<Orders>();
+
+        for (Orders o : ordersRepository.findByPharmacyId(pharmacyId)  ) {
+
+                ret.add(o);
+
+        }
+        return ret;
+    }
+
+    @Override
     public Orders deleteOrder(Long orderId) {
 
         //pregleda da li postoji data ponuda koja nije ni odbijena ni prihvacena

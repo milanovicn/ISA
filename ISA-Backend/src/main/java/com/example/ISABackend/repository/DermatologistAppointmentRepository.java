@@ -1,5 +1,6 @@
 package com.example.ISABackend.repository;
 
+import com.example.ISABackend.model.Dermatologist;
 import com.example.ISABackend.model.DermatologistAppointment;
 import com.example.ISABackend.model.DermatologistSchedule;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +12,5 @@ public interface DermatologistAppointmentRepository extends JpaRepository<Dermat
     ArrayList<DermatologistAppointment> findByDermatologistId(Long dermatologistId);
     ArrayList<DermatologistAppointment> findByPharmacyId(Long pharmacyId);
     ArrayList<DermatologistAppointment> findByPatientId(Long patientId);
+
 }

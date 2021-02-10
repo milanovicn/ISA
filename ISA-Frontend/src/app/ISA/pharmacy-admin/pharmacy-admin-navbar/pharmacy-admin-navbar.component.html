@@ -9,56 +9,14 @@
         </a>
     </div>
     <div class="sidebar-wrapper">
-        <ul class="nav">
-            
-            <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link sidebar-1" [routerLink]="['./pharmacy-admin-profile']" > <i class="material-icons">badge</i>
-                    <p style="color: green; font-weight: 500;">My Profile</p>
-                </a>
-            </li>
-
-            <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link sidebar-1" [routerLink]="['./pharmacy-admin-hispharmacy']"> <i
-                        class="material-icons">store</i>
-                    <p style="color: green; font-weight: 500;">My Pharmacy</p>
-                </a>
-            </li>
-            
-            <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link sidebar-1" [routerLink]="['./dermas-pharmacy']"> <i
-                        class="material-icons">person</i>
-                    <p style="color: green; font-weight: 500;">Dermatologists</p>
-                </a>
-            </li>
-
-            <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link sidebar-1" [routerLink]="['./pharmas-pharmacy']"> <i
-                        class="material-icons">person</i>
-                    <p style="color: green; font-weight: 500;">Pharmacists</p>
-                </a>
-            </li>
-
-            <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link sidebar-1" [routerLink]="['./pharmacy-medicine']"> <i
-                        class="material-icons">scatter_plot</i>
-                    <p style="color: green; font-weight: 500;">Medicines</p>
-                </a>
-            </li>
+    <ul class="nav">
+        <li class="nav-item">
+            <a (click)="homepage()"  class="nav-link sidebar-1" > <i class="material-icons">reply</i>
+                <p style="color: green; font-weight: 500;">Homepage</p>
+            </a>
+        </li>
           
-            <li routerLinkActive="active" class="nav-item">
-                <a class="nav-link sidebar-1" [routerLink]="['./pharmacy-admin-orders']" > <i class="material-icons">article</i>
-                    <p style="color: green; font-weight: 500;">Orders</p>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a (click)="logOut()" class="nav-link sidebar-1"> <i class="material-icons">power_settings_new</i>
-                    <p style="color: green; font-weight: 500;">Log Out</p>
-                </a>
-            </li>
-
-
-
-        </ul>
-    </div>
+        
+    </ul>
+</div>
 </div>

@@ -1,0 +1,65 @@
+<dermatologist-navbar></dermatologist-navbar>
+<div>
+
+
+    <div style="margin-left:300px; margin-top:-50px; padding:60px;">
+        <h1>Patients</h1>
+
+
+        <form (ngSubmit)="searchPatients()" #allergyForm="ngForm">
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="First Name" class="form-control" name="name"
+                            #name="ngModel" [(ngModel)]="searchParameters.firstName" />
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <input type="text" value="" placeholder="Last Name" class="form-control" name="lastname"
+                            #lastname="ngModel" [(ngModel)]="searchParameters.lastName" />
+                    </div>
+                </div>
+
+                
+                <div class="col-sm-3">
+                    <input type="submit" value="Search" mat-raised-button class="btn btn-success">
+                </div>
+                <form (ngSubmit)="getMyPatients()" #allergyForm="ngForm">
+                    <div class="col-sm-3">
+                        <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
+                    </div>
+                </form>
+
+            </div>
+        </form>
+
+
+        <div class="row">
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Patients</h4>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+                        <thead class="text-success">
+
+                            <th>First Name</th>
+                            <th>Last name</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let k of myPatients'>
+
+                                <td>{{k.firstName}}</td>
+                                <td>{{k.lastName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

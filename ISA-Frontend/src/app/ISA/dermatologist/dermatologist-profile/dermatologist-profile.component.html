@@ -68,6 +68,80 @@
 
             </div>
         </form>
+        <div class="row">
+
+
+            <h1>My Vacations list</h1>
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Vacations</h4>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+                    <table class="table">
+                        <thead class="text-success">
+
+                          
+                            <th>Date From</th>
+                            <th>Date To</th>
+                            <th>Status</th>
+
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let k of myVacations'>
+
+                                
+                                <td>{{k.dateFrom}}</td>
+                                <td>{{k.dateTo}}</td>
+                                <td>{{k.status}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        
+        <div>
+            <h1>New Vacation</h1>
+            <form (ngSubmit)="addVacation()" #newDermatologistForm="ngForm">
+                <div class="row">
+                    <div class="col">
+
+                
+
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Vacation Start Date</mat-label>
+                                <input required matInput [matDatepicker]="picker1" name="nemamPojma4"
+                                    #nemamPojma4="ngModel" [(ngModel)]='newVacation.dateFrom'>
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-sm-8">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Vacation End Date</mat-label>
+                                <input required matInput [matDatepicker]="picker2" name="nemamPojma34"
+                                    #nemamPojma4="ngModel" [(ngModel)]='newVacation.dateTo'>
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+
+
+
+                        <div>
+                            <input type="submit" value="Create" mat-raised-button class="btn btn-success">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
     </div>
 
 
