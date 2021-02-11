@@ -6,11 +6,13 @@ import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.DermatologistRepository;
 import com.example.ISABackend.repository.PharmacistAppointmentRepository;
 import com.example.ISABackend.repository.PharmacistRepository;
+import com.example.ISABackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +29,9 @@ public class PharmacistServiceImpl implements PharmacistService {
 
     @Autowired
     PharmacyService pharmacyService;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public List<Pharmacist> getAll() {
@@ -118,6 +123,48 @@ public class PharmacistServiceImpl implements PharmacistService {
 
     }
 
+    @Override
+    public List<User> getAllUsers(Long pharmacistId) {
+
+        ArrayList<User> ret = new ArrayList<User>();
+
+        List<PharmacistAppointment> byPharmacist = pharmacistAppointmentService.getByPharmacist(pharmacistId);
+
+        for (PharmacistAppointment i: byPharmacist) {
+
+            User user = userRepository.findById(i.getPatientId()).orElseGet(null);
+
+            if(!ret.contains(user)) {
+                ret.add(user);
+            }
+
+        }
+
+        return ret;
+    }
+
+    @Override
+    public ArrayList<User> searchUser(String firstname, String lastname, Long pharmacistId) {
+
+
+        ArrayList<User> ret = new ArrayList<User>();
+        // getting all patients
+        for (User u : getAllUsers(pharmacistId)){
+            ret.add(u);
+        }
+
+
+        for (User u : getAllUsers(pharmacistId)){
+
+            if (!u.getFirstName().toLowerCase().contains(firstname.toLowerCase()) ||
+                    !u.getLastName().toLowerCase().equalsIgnoreCase(lastname.toLowerCase())) {
+                ret.remove(u);
+            }
+        }
+
+        System.out.println("RET : " + ret);
+        return ret;
+    }
 
 }
 

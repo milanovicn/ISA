@@ -1,4 +1,4 @@
-<dermatologist-navbar></dermatologist-navbar>
+<pharmacist-navbar></pharmacist-navbar>
 
 <div style="margin-left:300px; margin-top:50px; padding:60px;">
 
@@ -7,13 +7,13 @@
 
     <div class="card" style="margin-top: 150px;">
         <div class="card-header card-header-success">
-            <h4 class="card-title">Reserve Dermatologist Appointment</h4>
-            <p class="card-category">This is the list of all the available appointments. You can reserve them here.</p>
+            <h4 class="card-title">Reserve Pharmacist Counseling</h4>
+            <p class="card-category">This is the list of all the available counseling. You can reserve them here.</p>
         </div>
         <div class="card-content table-responsive table-full-width">
             <table class="table">
                 <thead class="text-success">
-                    <th>Dermatologist Name</th>
+                    <th>Pharmacist Name</th>
                     <th>Pharmacy Name</th>
                     <th>Date </th>
                     <th>Time </th>
@@ -21,13 +21,13 @@
                     <th>Make Reservation </th>
                 </thead>
                 <tbody>
-                    <tr *ngFor='let k of availableDermatologistAppointments'>
-                        <td>{{k.dermatologistName}}</td>
+                    <tr *ngFor='let k of availablePharmacistAppointments'>
+                        <td>{{k.pharmacistName}}</td>
                         <td>{{k.pharmacyName}}</td>
                         <td>{{k.date}}</td>
                         <td>{{k.time}}</td>
                         <td>{{k.price}}</td>
-                        <td><button mat-raised-button class="btn btn-success btn-sm" (click)="makeDermatologistAppointment([k.appointmentId])">Reserve</button></td>
+                        <td><button mat-raised-button class="btn btn-success btn-sm" (click)="makePharmacistAppointment([k.appointmentId])">Reserve</button></td>
                     </tr>
                 </tbody>
             </table>

@@ -1,11 +1,11 @@
 package com.example.ISABackend.controller;
 
+import com.example.ISABackend.dto.DermatologistAppointmentDTO;
+import com.example.ISABackend.dto.PharmacistAppointmentDTO;
 import com.example.ISABackend.model.*;
+import com.example.ISABackend.repository.ConfirmationTokenRepository;
 import com.example.ISABackend.repository.PharmacistRepository;
-import com.example.ISABackend.service.EmailService;
-import com.example.ISABackend.service.MedicineReservationService;
-import com.example.ISABackend.service.PharmacistService;
-import com.example.ISABackend.service.PharmacistVacationService;
+import com.example.ISABackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +39,13 @@ public class PharmacistController {
 
     @Autowired
     MedicineReservationService medicineReservationService;
+
+    @Autowired
+    PharmacistAppointmentService pharmacistAppointmentService;
+
+    @Autowired
+    UserService userService;
+
 
     @PutMapping(value = "/edit")
     public ResponseEntity updatePharmacist(@RequestBody Pharmacist updatePharmacist, @Context HttpServletRequest request) {
@@ -132,4 +139,85 @@ public class PharmacistController {
 
     }
 
-}
+    @PostMapping(value = "/search/{firstname}")
+    public Object searchUser(@PathVariable("firstname") String firstname,
+                             @RequestBody String lastname, @Context HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Pharmacist pharmacist = (Pharmacist) session.getAttribute("pharmacist");
+
+        return pharmacistService.searchUser(firstname, lastname, pharmacist.getId());
+    }
+
+
+    @GetMapping(value = "/patients")
+    public Object getMyPatients (@Context HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Pharmacist pharmacist = (Pharmacist) session.getAttribute("pharmacist");
+
+        return  pharmacistService.getAllUsers(pharmacist.getId());
+    }
+
+    @GetMapping(value = "/reservedAppointments")
+    public Object reservedAppointments (@Context HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Pharmacist pharmacist = (Pharmacist) session.getAttribute("pharmacist");
+
+        ArrayList<PharmacistAppointmentDTO> appointmentsList =
+                pharmacistAppointmentService.getReservedAppointments(pharmacist.getId());
+
+        return appointmentsList;
+
+    }
+
+    @GetMapping(value = "/availableAppointments")
+    public Object availableAppointments (@Context HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Pharmacist pharmacist = (Pharmacist) session.getAttribute("pharmacist");
+
+        ArrayList<PharmacistAppointmentDTO> appointmentsList =
+                pharmacistAppointmentService.getAvailableAppointments(pharmacist.getId());
+
+        return appointmentsList;
+
+    }
+
+    @GetMapping(value = "/appointment/{appointmentId}")
+    public Object getAppointemnt (@PathVariable("appointmentId") Long appointmentId) {
+
+        PharmacistAppointmentDTO pharmacistAppointmentDTO = pharmacistAppointmentService.getDTOById(appointmentId);
+        return pharmacistAppointmentDTO;
+    }
+
+    @GetMapping(value = "/appointmentReserveForUser/{appointmentId}/{patientId}")
+    public Object appointmentReserveForUser (@PathVariable("appointmentId") Long appointmentId,
+                                             @PathVariable("patientId") Long patientId) {
+
+
+
+        User user = userService.getById(patientId);
+
+        Properties props = new Properties();
+        props.put("mail.mime.address.strict", "false");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        Session session = Session.getDefaultInstance(props);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Complete reservation!");
+        mailMessage.setFrom("ISA.tim66@gmail.com");
+        mailMessage.setText("To confirm your account, please click here : ");
+
+
+        PharmacistAppointment pharmacistAppointment = pharmacistAppointmentService.appointmentReserveForUser(appointmentId,patientId );
+
+        if( pharmacistAppointment != null) {
+            emailService.sendEmail(mailMessage);
+        }
+
+        return pharmacistAppointment;
+
+    }
+    }

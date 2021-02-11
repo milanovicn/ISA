@@ -57,6 +57,7 @@ public class UserController {
 
         User user = userService.registerUser(newUser);
         if(user != null) {
+
             Properties props = new Properties();
             props.put("mail.mime.address.strict", "false");
             props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
