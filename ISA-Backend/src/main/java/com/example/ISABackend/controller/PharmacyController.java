@@ -221,20 +221,22 @@ public class PharmacyController {
             // pacijenta u pacijent servisu i odatle mu
             //  uzmem mail i na taj mail posaljem
 
-            User neko = userService.getById(prolazim.getId());
+            if(prolazim.getUserId()!=0) {
 
-            Properties props = new Properties();
-            props.put("mail.mime.address.strict", "false");
-            props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-            Session session = Session.getDefaultInstance(props);
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(neko.getEmail());
-            mailMessage.setSubject("New action in our Pharmacy!");
-            mailMessage.setFrom("ISA.tim66@gmail.com");
-            mailMessage.setText("New actions in our pharmacy is:  " + a.getDescription());
-            emailService.sendEmail(mailMessage);
+                User neko = userService.getById(prolazim.getUserId());
+                Properties props = new Properties();
+                props.put("mail.mime.address.strict", "false");
+                props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+                Session session = Session.getDefaultInstance(props);
+                SimpleMailMessage mailMessage = new SimpleMailMessage();
+                mailMessage.setTo(neko.getEmail());
+                mailMessage.setSubject("New action in our Pharmacy!");
+                mailMessage.setFrom("ISA.tim66@gmail.com");
+                mailMessage.setText("New actions in our pharmacy is:  " + a.getDescription());
+                emailService.sendEmail(mailMessage);
+            }
         }
-        return new ResponseEntity<Actions>(a, HttpStatus.CREATED);
+        return a;
     }
 
 
