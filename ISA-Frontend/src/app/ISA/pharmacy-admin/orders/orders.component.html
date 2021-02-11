@@ -4,6 +4,7 @@
 
     <div style="margin-left:300px; margin-top:50px; padding:60px;">
         <h1>Active orders</h1>
+        <h2>You can see offers by clicking on Pharmacy ID!</h2>
         
         <div class="card" style="margin-top: 50px;">
             <div class="card-header card-header-success">
@@ -31,27 +32,30 @@
                 </table>
             </div>
         </div>
-
-        <h3>Create new order</h3>
+        &nbsp;
+        <h2>Create new order</h2>
+        <h2>Please first add all items to order and when you finish, you can proceed to the next step!</h2>
 
         <div class="row">
             <div class="col">
 
-                <h5>Order items:</h5>
+                <h3>Order items:</h3>
                 <p *ngFor="let item of newOrderItems">{{item.medicineName}}, {{item.quantity}}</p>
 
                 <div class="col-sm-8">
                     <div class="form-group">
+                        <h3>Step 1:</h3>
                         <mat-label>New item - quantity</mat-label>
-                        <input type="number" value="" placeholder="Price" class="form-control" name="nemamPojma33"
+                        <input type="number" value="" placeholder="Price" class="form-control" required name="nemamPojma33"
                             #nemamPojma33="ngModel" [(ngModel)]="newItem.quantity" />
                     </div>
                 </div>
 
                 <div class="col-sm-8">
                     <mat-form-field appearance="fill">
+                        
                         <mat-label>New item - medicine</mat-label>
-                        <mat-select name="nemamPojma3" #nemamPojma3="ngModel" [(ngModel)]='newItem.medicineId'>
+                        <mat-select required name="nemamPojma3" #nemamPojma3="ngModel" [(ngModel)]='newItem.medicineId'>
                             <mat-option *ngFor="let medicine of allMedicines" [value]="medicine.id">
                                 {{medicine.name}}</mat-option>
                         </mat-select>
@@ -63,11 +67,12 @@
                     <button mat-raised-button class="btn btn-success btn-sm" (click)="addItemToOrder()">Add item to
                         order</button>
                 </div>
-
+                &nbsp;
                 <div class="col-sm-8">
+                    <h3>Step 2:</h3>
                     <mat-form-field appearance="fill">
                         <mat-label>Offers placement deadline</mat-label>
-                        <input matInput [matDatepicker]="picker" name="nemamPojma4" #nemamPojma4="ngModel"
+                        <input required matInput [matDatepicker]="picker" name="nemamPojma4" #nemamPojma4="ngModel"
                             [(ngModel)]='newOrder.deadline'>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
@@ -80,13 +85,15 @@
 
             </div>
         </div>
-
+        &nbsp;
+        <h2>List of all orders that can be filtered by current status:</h2>
         <div class="card" style="margin-top: 50px;">
             <div class="card-header card-header-success">
                 <h4 class="card-title">All orders </h4>
                 
         
             </div>
+            
             <form (ngSubmit)="filter()" #newDermatologistForm="ngForm">
                 <div class="row">
                     <div class="col">
@@ -100,12 +107,17 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
+                        
                         <div>
                             <input type="submit" value="Filter" mat-raised-button class="btn btn-success">
                         </div>
+                       
                     </div>
+                   
                 </div>
+                
             </form>
+            
             <div class="card-content table-responsive table-full-width">
                 <table class="table">
                     <thead class="text-success">

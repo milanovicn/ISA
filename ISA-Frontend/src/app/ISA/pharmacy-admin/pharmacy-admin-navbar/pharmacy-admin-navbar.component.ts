@@ -33,7 +33,7 @@ export class PharmacyAdminNavbarComponent implements OnInit {
 
 
   homepage(){
-    this.router.navigate(["/pharmac-admin-homepage"]);
+    this.router.navigate(["/pharmacy-admin-homepage"]);
 }
 
 }

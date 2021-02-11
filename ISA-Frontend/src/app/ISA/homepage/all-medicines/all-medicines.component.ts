@@ -33,6 +33,9 @@ export class AllMedicinesComponent implements OnInit {
         });
 
     }
+    refresh() {
+        window.location.reload();
+      }
 
     searchMedicine(){
         let sm = new SearchMedicine();

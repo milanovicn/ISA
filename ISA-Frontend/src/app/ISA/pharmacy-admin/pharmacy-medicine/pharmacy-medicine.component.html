@@ -49,12 +49,12 @@
             </div>
         </form>
 
-
+        &nbsp;
 
         <div class="row">
             <div class="card">
                 <div class="card-header card-header-success">
-                    <h4 class="card-title">Medicines available</h4>
+                    <h4 class="card-title">Medicines Available In My Pharmacy </h4>
                 </div>
                 <div class="card-content table-responsive table-full-width">
                     <table class="table">
@@ -79,10 +79,11 @@
                 </div>
             </div>
         </div>
-
+        &nbsp;
 
         <div>
             <h2>Add more medicines</h2>
+            <h3>Please select one medication and his quantity</h3>
             <form (ngSubmit)="addMedicine()" #medicineForm="ngForm">
 
                 <div class="col-sm-8">
@@ -107,7 +108,7 @@
 
             </form>
         </div>
-
+        &nbsp;
         <div>
             <h2>Delete medicine from Medicine stock</h2>
             <form (ngSubmit)="deleteMedicine()" #medicine1Form="ngForm">
@@ -130,7 +131,7 @@
             </form>
         </div>
 
-
+        &nbsp;
 
 
         <div class="row">
@@ -159,11 +160,12 @@
                 </div>
             </div>
         </div>
-
+        &nbsp;
         <div class="row">
 
-
+            
             <h2>Medicine prices</h2>
+            
             <div class="card">
                 <div class="card-header card-header-success">
                     <h4 class="card-title">Medicine</h4>
@@ -194,7 +196,7 @@
         </div>
         <div>
             <h2>Add Medicine Price</h2>
-
+            <h3>Please select one medicine, period of time and enter price</h3>
             <form (ngSubmit)="addPrice()" #newDermatologistForm="ngForm">
                 <div class="row">
                     <div class="col">
