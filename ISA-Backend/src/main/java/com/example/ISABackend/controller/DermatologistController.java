@@ -4,19 +4,19 @@ import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.dto.SearchPharmacy;
 import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.DermatologistRepository;
-import com.example.ISABackend.service.DermatologistAppointmentService;
-import com.example.ISABackend.service.DermatologistService;
-import com.example.ISABackend.service.DermatologistVacationService;
-import com.example.ISABackend.service.UserService;
+import com.example.ISABackend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
 import java.util.ArrayList;
+import java.util.Properties;
 
 @RestController
 @RequestMapping("/api/dermatologist")
@@ -34,6 +34,12 @@ public class DermatologistController {
     @Autowired
     private DermatologistVacationService dermatologistVacationService;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private EmailService emailService;
+
     @PutMapping(value = "/edit")
     public ResponseEntity updateDermatologist(@RequestBody Dermatologist updateDermatologist, @Context HttpServletRequest request) {
         if(authorize(request) == null ) {
@@ -48,13 +54,6 @@ public class DermatologistController {
         HttpSession session = request.getSession();
         Dermatologist d = (Dermatologist) session.getAttribute("dermatologist");
         return d;
-    }
-
-
-    @GetMapping(value = "/availableDermatologistAppointments/{dermatologistId}")
-    public Object availableDermatologistAppointments(@PathVariable("dermatologistId") Long dermatologistId) {
-
-        return  dermatologistAppointmentService.getApproprietAppoinment(dermatologistId);
     }
 
     @PostMapping(value = "/search/{firstname}")
@@ -112,7 +111,28 @@ public class DermatologistController {
     public Object appointmentReserveForUser (@PathVariable("appointmentId") Long appointmentId,
                                              @PathVariable("patientId") Long patientId) {
 
+
+
+        User user = userService.getById(patientId);
+
+        Properties props = new Properties();
+        props.put("mail.mime.address.strict", "false");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        Session session = Session.getDefaultInstance(props);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("Complete reservation!");
+        mailMessage.setFrom("ISA.tim66@gmail.com");
+        mailMessage.setText("To confirm your account, please click here : ");
+
         DermatologistAppointment dermatologistAppointment = dermatologistAppointmentService.appointmentReserveForUser(appointmentId,patientId );
+
+        if( dermatologistAppointment != null) {
+            emailService.sendEmail(mailMessage);
+        }
+
+
         return dermatologistAppointment;
 
     }

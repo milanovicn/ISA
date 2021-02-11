@@ -1,8 +1,11 @@
 package com.example.ISABackend.service;
 
+import com.example.ISABackend.dto.PharmacistAppointmentDTO;
 import com.example.ISABackend.model.Dermatologist;
 import com.example.ISABackend.model.Pharmacist;
+import com.example.ISABackend.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface PharmacistService {
@@ -14,4 +17,6 @@ public interface PharmacistService {
     public Pharmacist addNew(Pharmacist newPharma, Long pharmacyId);
     public List<Pharmacist> getAll();
     public Long delete(Long id);
+    public List<User> getAllUsers(Long pharmacistId);
+    public ArrayList<User> searchUser(String firstname, String lastname, Long pharmacistId);
 }

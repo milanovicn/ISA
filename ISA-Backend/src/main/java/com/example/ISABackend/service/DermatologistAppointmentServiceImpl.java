@@ -13,6 +13,7 @@ import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.DermatologistAppointmentRepository;
 import com.example.ISABackend.repository.DermatologistScheduleRepository;
 import com.example.ISABackend.repository.PatientPenaltyRepository;
+import com.example.ISABackend.repository.PharmacistAppointmentRepository;
 import net.bytebuddy.build.BuildLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,9 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
 
     @Autowired
     private PatientPenaltyRepository patientPenaltyRepository;
+
+    @Autowired
+    private PharmacistAppointmentRepository pharmacistAppointmentRepository;
 
     @Override
     public List<DermatologistAppointment> getAll() {
@@ -178,11 +182,6 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
         return null;
     }
 
-    @Override
-    public ArrayList<DermatologistAppointmentDTO> getApproprietAppoinment(Long dermatologistId) {
-        return null;
-    }
-
     //prva
     @Override
     public ArrayList<DermatologistAppointmentDTO> getReservedAppointments(Long id) {
@@ -256,6 +255,7 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
 
         DermatologistAppointment toReserve = getById(appointmentId);
         ArrayList<DermatologistAppointment> byPatient = dermatologistAppointmentRepository.findByPatientId(patientId);
+        ArrayList<PharmacistAppointment> phByPatient = pharmacistAppointmentRepository.findByPatientId(patientId);
 
         for (DermatologistAppointment i: byPatient) {
 
@@ -266,6 +266,12 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
 
         //odradi isto za proveru kod farmaceuta
 
+        for (PharmacistAppointment i: phByPatient) {
+
+            if(i.getDate().equals(toReserve.getDate()) && i.getTime().equals(toReserve.getTime()) && i.getStatus().equals(AppointmentStatus.RESERVED)) {
+                return null;
+            }
+        }
 
         toReserve.setPatientId(patientId);
         toReserve.setStatus(AppointmentStatus.RESERVED);
@@ -283,12 +289,14 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
 
             Dermatologist derm = dermatologistService.getById(appointment.getDermatologistId());
             String phName= pharmacyService.getById(appointment.getPharmacyId()).getName();
+            User patient = userService.getById(patientId);
+            String patientName = patient.getFirstName()+ " "+ patient.getLastName();
 
 
             DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(appointment.getId(),
                     appointment.getDermatologistId(), derm.getFirstName().concat(" ") + derm.getLastName(), derm.getRate(),
                     appointment.getPharmacyId(), "pharmacyName", appointment.getTime(), appointment.getDate(), appointment.getPrice(),
-                    "patientName", appointment.getId(), appointment.getStatus());
+                    patientName, patientId, appointment.getStatus());
 
             toAdd.setAppointmentStatus(appointment.getStatus());
             ret.add(toAdd);
