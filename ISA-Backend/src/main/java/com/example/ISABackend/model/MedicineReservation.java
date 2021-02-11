@@ -4,6 +4,7 @@ import com.example.ISABackend.enums.MedicineReservationStatus;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 public class MedicineReservation {
@@ -39,6 +40,9 @@ public class MedicineReservation {
     @Column(name = "pickedUp", nullable = false)
     private boolean pickedUp;
 
+    @Column(name = "reservationCode", nullable = false)
+    private String reservationCode;
+
     public MedicineReservation(Long medicineId, String medicineName, Long pharmacyId, String pharmacyName, Long patientId,
                                String patientEmail, LocalDate pickUpDate, MedicineReservationStatus status, boolean pickedUp) {
         this.medicineId = medicineId;
@@ -50,6 +54,7 @@ public class MedicineReservation {
         this.pickUpDate = pickUpDate;
         this.status = status;
         this.pickedUp = pickedUp;
+        this.reservationCode  = UUID.randomUUID().toString();
     }
 
     public MedicineReservation() {
@@ -133,5 +138,13 @@ public class MedicineReservation {
 
     public void setPickedUp(boolean pickedUp) {
         this.pickedUp = pickedUp;
+    }
+
+    public String getReservationCode() {
+        return reservationCode;
+    }
+
+    public void setReservationCode(String reservationCode) {
+        this.reservationCode = reservationCode;
     }
 }

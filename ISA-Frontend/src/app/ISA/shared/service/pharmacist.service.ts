@@ -5,31 +5,43 @@ import { User } from "../model/User";
 import { Medicine } from "../model/Medicine";
 import { Pharmacist } from "../model/Pharmacist";
 import { PharmacistVacation } from "../model/PharmacistVacation";
+import { MedicineReservation } from "../model/MedicineReservation";
 
 
 @Injectable()
 export class PharmacistService {
-   
-    adapter: any;
+
+  adapter: any;
 
 
-    constructor(private http: HttpClient) {
-    }
+  constructor(private http: HttpClient) {
+  }
 
-    public getMyVacations(pharmacistId: number): Observable<PharmacistVacation[]> {
-      return this.http.get<PharmacistVacation[]>("/api/pharmacist/myvacations/" + pharmacistId);
-    }
-   
-    public addVacation(newVacation: PharmacistVacation, pharmacistId: number) {
-      return this.http.post<PharmacistVacation>("/api/pharmacist/newvacation/"+ pharmacistId , newVacation);
-    }
-    
-    public update(updatedUser:User){
-        return this.http.put("/api/pharmacist/edit", updatedUser);
-    }
+  public getMyVacations(pharmacistId: number): Observable<PharmacistVacation[]> {
+    return this.http.get<PharmacistVacation[]>("/api/pharmacist/myvacations/" + pharmacistId);
+  }
 
-    public availablePharmacistCounseling(pharmacistId:number):Observable<Pharmacist[]>{
-        return this.http.get<Pharmacist[]>("/api/pharmacist/availablePharmacistCounseling/" + pharmacistId);
-      }
+  public addVacation(newVacation: PharmacistVacation, pharmacistId: number) {
+    return this.http.post<PharmacistVacation>("/api/pharmacist/newvacation/" + pharmacistId, newVacation);
+  }
+
+  public update(updatedUser: User) {
+    return this.http.put("/api/pharmacist/edit", updatedUser);
+  }
+
+  public availablePharmacistCounseling(pharmacistId: number): Observable<Pharmacist[]> {
+    return this.http.get<Pharmacist[]>("/api/pharmacist/availablePharmacistCounseling/" + pharmacistId);
+  }
+
+  public checkMedicineReservationCode(reservationCode: string): Observable<MedicineReservation> {
+    return this.http.get<MedicineReservation>("/api/pharmacist/checkMedicineReservationCode/" + reservationCode);
+
+  }
+
+  public issueMedicineReservation(reservationId: number): Observable<MedicineReservation> {
+    return this.http.get<MedicineReservation>("/api/pharmacist/issueMedicineReservation/" + reservationId);
+
+  }
+
 
 }

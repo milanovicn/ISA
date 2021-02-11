@@ -129,11 +129,19 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
 
                 Dermatologist derm = dermatologistService.getById(da.getDermatologistId());
                 String phName= pharmacyService.getById(pharmacyId).getName();
+
+
                 User patient = userService.getById(da.getPatientId());
+                String patientName="";
+                Long patientId = (long) 0;
+                if(patient!=null){
+                    patientId=patient.getId();
+                    patientName=patient.getFirstName() + " " + patient.getLastName();
+                }
                 DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(da.getId(),
                         da.getDermatologistId(),  derm.getFirstName().concat(" ") + derm.getLastName(), derm.getRate(), da.getPharmacyId(),
                         phName, da.getTime(), da.getDate(), da.getPrice(),
-                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), da.getStatus());
+                        patientName,patientId, da.getStatus());
 
                 ret.add(toAdd);
 

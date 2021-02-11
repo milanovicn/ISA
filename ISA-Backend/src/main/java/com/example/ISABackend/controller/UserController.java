@@ -283,8 +283,11 @@ public class UserController {
             mailMessage.setTo(user.getEmail());
             mailMessage.setSubject("Medicine is reserved!");
             mailMessage.setFrom("ISA.tim66@gmail.com");
-            mailMessage.setText("You have successfully made the reservation of a medicine: " + app.getMedicineName()
-                    + ", at pharmacy" +app.getPharmacyName() + ". \nRESERVATION IDENTIFICATION NUMBER: " + app.getId());
+            mailMessage.setText("You have successfully made the reservation for  medicine: " + app.getMedicineName()
+                    + "\nAt pharmacy: " +app.getPharmacyName()
+                    + "\nLast day to pick it up: " + app.getPickUpDate()
+                    + "\nRESERVATION IDENTIFICATION NUMBER: " + app.getReservationCode()
+                    + "\nSave this number as you will have to show it to your pharmacist");
             emailService.sendEmail(mailMessage);
             return new ResponseEntity<MedicineReservation>(app, HttpStatus.CREATED);
         }
@@ -300,6 +303,7 @@ public class UserController {
         if (app == null) {
             return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
         } else  {
+
             return new ResponseEntity<ArrayList<Pharmacy>>(app, HttpStatus.CREATED);
         }
     }
