@@ -2,6 +2,7 @@ package com.example.ISABackend.service;
 
 import com.example.ISABackend.enums.AppointmentStatus;
 import com.example.ISABackend.enums.MedicineReservationStatus;
+import com.example.ISABackend.enums.RatedEntity;
 import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.MedicineReservationRepository;
 import com.example.ISABackend.repository.PatientPenaltyRepository;
@@ -82,6 +83,8 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
         ret.setPharmacyId(newReservation.getPharmacyId());
         ret.setPickUpDate(newReservation.getPickUpDate().plusDays(1));
         ret.setPickedUp(false);
+        ret.setRatedMedicine(false);
+        ret.setRatedPharmacy(false);
         ret.setStatus(MedicineReservationStatus.RESERVED);
 
         ret.setPatientEmail(userService.getById(newReservation.getPatientId()).getEmail());
@@ -182,6 +185,32 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
         pharmacyStockRepository.save(realOne);
         return mr;
     }
+
+    @Override
+    public ArrayList<MedicineReservation> getUnratedMedicines(Long patientId) {
+        ArrayList<MedicineReservation> ret = new ArrayList<>();
+
+        for(MedicineReservation mr : medicineReservationRepository.findAll() ){
+            if(!mr.isRatedMedicine() && mr.getStatus().equals(MedicineReservationStatus.ENDED) && mr.getPatientId()==patientId){
+                ret.add(mr);
+            }
+        }
+        return ret;
+    }
+
+    @Override
+    public ArrayList<MedicineReservation> getUnratedPharmacies(Long patientId) {
+        ArrayList<MedicineReservation> ret = new ArrayList<>();
+
+        for(MedicineReservation mr : medicineReservationRepository.findAll() ){
+            if(!mr.isRatedPharmacy() && mr.getStatus().equals(MedicineReservationStatus.ENDED) && mr.getPatientId()==patientId){
+                ret.add(mr);
+            }
+        }
+        return ret;
+    }
+
+
 
     //trazi nepreuzete rezervacije lekova i dodaje penale korisniku ako nisu preuzeti
     //poziva se svaki dan u 1am

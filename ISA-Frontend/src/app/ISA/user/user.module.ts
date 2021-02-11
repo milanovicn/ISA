@@ -17,6 +17,7 @@ import { DermatologistAppointmentsComponent } from './dermatologist-appointments
 import { PharmacistAppointmentsComponent } from './pharmacist-appointment/pharmacist-appointment.component';
 import { UserMedicinesComponent } from './medicines/medicines.component';
 import { ComplaintComponent } from './complaint/complaint.component';
+import { RatesComponent } from './rates/rates.coponent';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ComplaintComponent } from './complaint/complaint.component';
     DermatologistAppointmentsComponent,
     PharmacistAppointmentsComponent,
     UserMedicinesComponent,
-    ComplaintComponent
+    ComplaintComponent,
+    RatesComponent
    ],
   imports: [
     CommonModule,

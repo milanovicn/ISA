@@ -93,6 +93,7 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
         newDA.setTime(appointmentTime);
         newDA.setStatus(AppointmentStatus.AVAILABLE);
         newDA.setPatientId((long) 0);
+        newDA.setRated(false);
         dermatologistAppointmentRepository.save(newDA);
 
         return newDA;
@@ -131,17 +132,20 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
                 String phName= pharmacyService.getById(pharmacyId).getName();
 
 
-                User patient = userService.getById(da.getPatientId());
+                //User patient = userService.getById(da.getPatientId());
+
                 String patientName="";
                 Long patientId = (long) 0;
-                if(patient!=null){
-                    patientId=patient.getId();
-                    patientName=patient.getFirstName() + " " + patient.getLastName();
-                }
+
+               // if(patient!=null){
+                //    patientId=patient.getId();
+                //    patientName=patient.getFirstName() + " " + patient.getLastName();
+                //}
+
                 DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(da.getId(),
                         da.getDermatologistId(),  derm.getFirstName().concat(" ") + derm.getLastName(), derm.getRate(), da.getPharmacyId(),
                         phName, da.getTime(), da.getDate(), da.getPrice(),
-                        patientName,patientId, da.getStatus());
+                        patientName,patientId, da.getStatus(), da.isRated());
 
                 ret.add(toAdd);
 
@@ -199,7 +203,8 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
                 DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(i.getId(),
                         i.getDermatologistId(), "ime", 1, i.getPharmacyId(),
                         phName, i.getTime(), i.getDate(), i.getPrice(),
-                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), i.getStatus());
+                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), i.getStatus(),
+                        i.isRated());
 
                 ret.add(toAdd);
             }
@@ -223,7 +228,8 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
                 DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(i.getId(),
                         i.getDermatologistId(), "ime", 1, i.getPharmacyId(),
                         phName, i.getTime(), i.getDate(), i.getPrice(),
-                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), i.getStatus());
+                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), i.getStatus(),
+                        i.isRated());
 
                 ret.add(toAdd);
             }
@@ -244,7 +250,7 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
         DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(i.getId(),
                 i.getDermatologistId(), "ime", 1, i.getPharmacyId(),
                 phName, i.getTime(), i.getDate(), i.getPrice(),
-                patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), i.getStatus());
+                patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), i.getStatus(), i.isRated());
 
         return toAdd;
     }
@@ -288,7 +294,7 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
             DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(appointment.getId(),
                     appointment.getDermatologistId(), derm.getFirstName().concat(" ") + derm.getLastName(), derm.getRate(),
                     appointment.getPharmacyId(), "pharmacyName", appointment.getTime(), appointment.getDate(), appointment.getPrice(),
-                    "patientName", appointment.getId(), appointment.getStatus());
+                    "patientName", appointment.getId(), appointment.getStatus(), appointment.isRated());
 
             toAdd.setAppointmentStatus(appointment.getStatus());
             ret.add(toAdd);
@@ -326,6 +332,19 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
             }
         }
 
+
+        return ret;
+    }
+
+    @Override
+    public ArrayList<DermatologistAppointmentDTO> getUnratedDermatologistsAppointments(Long patientId) {
+        ArrayList<DermatologistAppointmentDTO> ret = new ArrayList<>();
+        for(DermatologistAppointmentDTO da : getByPatientId(patientId)){
+            if(!da.isRated()){
+                ret.add(da);
+            }
+
+        }
 
         return ret;
     }

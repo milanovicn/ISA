@@ -25,4 +25,5 @@ public interface PharmacistAppointmentService {
     public ArrayList<DermatologistAppointmentDTO>  getByPatientId(Long patientId);
     public PharmacistAppointment cancelReservation(Long appointmentId);
     public ArrayList<Pharmacist> getPharmacistsForPatient(Long patientId);
+    public ArrayList<DermatologistAppointmentDTO> getUnratedPharmacistsAppointments(Long patientId);
 }

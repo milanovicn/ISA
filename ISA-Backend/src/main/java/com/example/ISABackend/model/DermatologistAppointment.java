@@ -34,10 +34,14 @@ public class DermatologistAppointment {
     @Column(name = "status", nullable = false)
     private AppointmentStatus status;
 
+    @Column(name = "rated", nullable = false)
+    private boolean rated;
+
     public DermatologistAppointment() {
     }
 
-    public DermatologistAppointment(Long dermatologistId, Long pharmacyId, Long patientId, String time, LocalDate date, double price, AppointmentStatus status) {
+    public DermatologistAppointment(Long dermatologistId, Long pharmacyId, Long patientId, String time, LocalDate date,
+                                    double price, AppointmentStatus status, boolean rated) {
         this.dermatologistId = dermatologistId;
         this.pharmacyId = pharmacyId;
         this.patientId = patientId;
@@ -45,6 +49,7 @@ public class DermatologistAppointment {
         this.date = date;
         this.price = price;
         this.status = status;
+        this.rated = rated;
     }
 
     public Long getId() {
@@ -109,5 +114,13 @@ public class DermatologistAppointment {
 
     public void setStatus(AppointmentStatus status) {
         this.status = status;
+    }
+
+    public boolean isRated() {
+        return rated;
+    }
+
+    public void setRated(boolean rated) {
+        this.rated = rated;
     }
 }

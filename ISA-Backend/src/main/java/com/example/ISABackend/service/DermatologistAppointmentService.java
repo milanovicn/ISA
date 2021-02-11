@@ -31,4 +31,5 @@ public interface DermatologistAppointmentService {
 
     public ArrayList<Dermatologist> getDermatologistsForPatient(Long patientId);
 
+    public ArrayList<DermatologistAppointmentDTO> getUnratedDermatologistsAppointments(Long patientId);
 }

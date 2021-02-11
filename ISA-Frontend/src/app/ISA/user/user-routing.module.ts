@@ -4,6 +4,7 @@ import { ComplaintComponent } from './complaint/complaint.component';
 import { DermatologistAppointmentsComponent } from './dermatologist-appointments/dermatologist-appointments.component';
 import { UserMedicinesComponent } from './medicines/medicines.component';
 import { PharmacistAppointmentsComponent } from './pharmacist-appointment/pharmacist-appointment.component';
+import { RatesComponent } from './rates/rates.coponent';
 import { UserHomepageComponent } from './user-homepage/user-homepage.component';
 import { UserPharmaciesComponent } from './user-pharmacies/user-pharmacies.component';
 import { UserPharmacyComponent } from './user-pharmacy/user-pharmacy.component';
@@ -19,6 +20,8 @@ const routes: Routes = [
   { path: 'user-homepage/pharmacist-appointments', component: PharmacistAppointmentsComponent },
   { path: 'user-homepage/user-medicines', component: UserMedicinesComponent },
   { path: 'user-homepage/user-complaint', component: ComplaintComponent },
+  { path: 'user-homepage/user-rates', component: RatesComponent },
+  
 ];
 
 @NgModule({

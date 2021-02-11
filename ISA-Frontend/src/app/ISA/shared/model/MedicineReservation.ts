@@ -10,4 +10,6 @@ export class MedicineReservation{
     patientEmail:string;
     isPickedUp:boolean;
     reservationCode:string;
+    ratedPharmacy:boolean;
+    ratedMedicine:boolean;
 }

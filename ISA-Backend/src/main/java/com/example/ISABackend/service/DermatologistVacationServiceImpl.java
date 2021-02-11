@@ -1,10 +1,8 @@
 package com.example.ISABackend.service;
 
 import com.example.ISABackend.enums.VacationStatus;
-import com.example.ISABackend.model.Dermatologist;
-import com.example.ISABackend.model.DermatologistSchedule;
-import com.example.ISABackend.model.DermatologistVacation;
-import com.example.ISABackend.model.PharmacistVacation;
+import com.example.ISABackend.model.*;
+import com.example.ISABackend.repository.DermatologistAppointmentRepository;
 import com.example.ISABackend.repository.DermatologistVacationRepository;
 import com.example.ISABackend.repository.PharmacistVacationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +18,9 @@ public class DermatologistVacationServiceImpl implements DermatologistVacationSe
 
     @Autowired
     private DermatologistVacationRepository dermatologistVacationRepository;
+
+    @Autowired
+    private DermatologistAppointmentRepository dermatologistAppointmentRepository;
 
     @Autowired
     private DermatologistScheduleService dermatologistScheduleService;
@@ -38,11 +39,19 @@ public class DermatologistVacationServiceImpl implements DermatologistVacationSe
     @Override
     public DermatologistVacation addVacation(DermatologistVacation newVacation, Long id){
 
+       // ArrayList<DermatologistAppointment> myAppointments = dermatologistAppointmentRepository.findByDermatologistId(id);
+      // for(DermatologistAppointment da : myAppointments){
+
+      //  }
+
+
         DermatologistVacation vacation = new DermatologistVacation();
         vacation.setDermatologistId(id);
         vacation.setDateFrom(newVacation.getDateFrom().plusDays(1));
         vacation.setDateTo(newVacation.getDateTo().plusDays(1));
         vacation.setStatus(VacationStatus.SUBMITED);
+
+
 
         dermatologistVacationRepository.save(vacation);
         return vacation;

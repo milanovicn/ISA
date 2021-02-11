@@ -1,0 +1,250 @@
+<user-navbar></user-navbar>
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>Unrated reservations</h1>
+
+
+    <div class="row " style="margin-top: 100px;">
+        <h3 class="card-title">Unrated Pharmacies</h3>
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Unrated Pharmacies</h4>
+                <p class="card-category">This is the list of all unrated pharmacies that you ordered medicine from.</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+
+                <table class="table">
+                    <thead class="text-success">
+                        <th>Pharmacy Name</th>
+                        <th>Medicine Reserved</th>
+                        <th>Date </th>
+                        <th>Status </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of unratedPharmacies'>
+                            <td>{{k.pharmacyName}}</td>
+                            <td>{{k.medicineName}}</td>
+                            <td>{{k.pickUpDate}}</td>
+                            <td>{{k.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <mat-form-field appearance="fill">
+                <mat-label>Pharmacy</mat-label>
+                <mat-select name="nemamPojma3" #nemamPojma3="ngModel" [(ngModel)]='pharmacyToRateId'>
+                    <mat-option *ngFor="let pharmacy of unratedPharmacies" [value]="pharmacy.id">
+                        {{pharmacy.pharmacyName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-8">
+            <input type="number" min="1" max="5" placeholder="Rate" class="form-control" required name="description"
+                #description="ngModel" [(ngModel)]="pharmacyRateValue" />
+        </div>
+        <div class="col-sm-8">
+            <button mat-raised-button class="btn btn-success btn" (click)="ratePharmacy()">Rate
+                Pharmacy</button>
+        </div>
+
+
+    </div>
+
+
+    <div class="row " style="margin-top: 100px;">
+
+        <h3 class="card-title">Unrated Medicines</h3>
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Unrated Medicines</h4>
+                <p class="card-category">This is the list of all unrated medicines that you ordered.</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+
+                <table class="table">
+                    <thead class="text-success">
+                        <th>Pharmacy Name</th>
+                        <th>Medicine Reserved</th>
+                        <th>Date </th>
+                        <th>Status </th>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of unratedMedicines'>
+                            <td>{{k.pharmacyName}}</td>
+                            <td>{{k.medicineName}}</td>
+                            <td>{{k.pickUpDate}}</td>
+                            <td>{{k.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <mat-form-field appearance="fill">
+                <mat-label>Medicine</mat-label>
+                <mat-select name="nemamPojma3" #nemamPojma3="ngModel" [(ngModel)]='medicineToRateId'>
+                    <mat-option *ngFor="let medicine of unratedMedicines" [value]="medicine.id">
+                        {{medicine.medicineName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-8">
+            <input type="number" min="1" max="5" value="" placeholder="Rate" class="form-control" required
+                name="description555" #description555="ngModel" [(ngModel)]="medicineRateValue" />
+        </div>
+        <div class="col-sm-8">
+            <button mat-raised-button class="btn btn-success btn" (click)="rateMedicine()">Rate
+                Medicine</button>
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <div class="row " style="margin-top: 100px;">
+
+        <h3 class="card-title">Unrated Dermatologist</h3>
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Unrated Dermatologist</h4>
+                <p class="card-category">This is the list of all unrated dermatologist appointments.</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+
+                <table class="table">
+                    <thead class="text-success">
+                        <th>Dermatologist Name</th>
+                        <th>Appointment Date </th>
+                        <th>Appointment Time </th>
+                        <th>Status </th>
+                        <th> </th>
+                        <th> </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of unratedDermatologists'>
+                            <td>{{k.dermatologistName}}</td>
+                            <td>{{k.date}}</td>
+                            <td>{{k.time}}</td>
+                            <td>{{k.appointmentStatus}}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <mat-form-field appearance="fill">
+                <mat-label>Dermatologist</mat-label>
+                <mat-select name="nemamPojma3" #nemamPojma3="ngModel" [(ngModel)]='dermatologistToRateId'>
+                    <mat-option *ngFor="let dermatologist of unratedDermatologists"
+                        [value]="dermatologist.appointmentId">
+                        {{dermatologist.dermatologistName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-8">
+            <input type="number" min="1" max="5" value="" placeholder="Rate" class="form-control" required
+                name="description11116" #description11116="ngModel" [(ngModel)]="dermatologistRateValue" />
+        </div>
+        <div class="col-sm-8">
+            <button mat-raised-button class="btn btn-success btn" (click)="rateDermatologist()">Rate
+                Dermatologist</button>
+        </div>
+
+
+    </div>
+
+    <div class="row " style="margin-top: 100px;">
+
+        <h3 class="card-title">Unrated Pharmacists</h3>
+        <div class="card">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Unrated Pharmacists</h4>
+                <p class="card-category">This is the list of all unrated pharmacist appointments.</p>
+            </div>
+            <div class="card-content table-responsive table-full-width">
+
+                <table class="table">
+                    <thead class="text-success">
+                        <th>Pharmacist Name</th>
+                        <th>Appointment Date </th>
+                        <th>Appointment Time </th>
+                        <th>Status </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let k of unratedPharmacists'>
+                            <td>{{k.dermatologistName}}</td>
+                            <td>{{k.date}}</td>
+                            <td>{{k.time}}</td>
+                            <td>{{k.appointmentStatus}}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-sm-8">
+            <mat-form-field appearance="fill">
+                <mat-label>Pharmacist</mat-label>
+                <mat-select name="nemamPojma3" #nemamPojma3="ngModel" [(ngModel)]='pharmacistToRateId'>
+                    <mat-option *ngFor="let pharmacist of unratedPharmacists" [value]="pharmacist.appointmentId">
+                        {{pharmacist.dermatologistName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-8">
+            <input type="number" min="1" max="5" value="" placeholder="Rate" class="form-control" required
+                name="description1111" #description1111="ngModel" [(ngModel)]="pharmacistRateValue" />
+        </div>
+        <div class="col-sm-8">
+            <button mat-raised-button class="btn btn-success btn" (click)="ratePharmacist()">Rate
+                Pharmacist</button>
+        </div>
+
+
+    </div>
+
+    <div style="margin-top: 100px;">
+        <h1>Your rates</h1>
+        <div class="row " style="margin-top: 50px;">
+            <div class="card">
+                <div class="card-header card-header-success">
+                    <h4 class="card-title">Given Rates</h4>
+                    <p class="card-category">This is the list of all rates that you gave.</p>
+                </div>
+                <div class="card-content table-responsive table-full-width">
+
+                    <table class="table">
+                        <thead class="text-success">
+                            <th>Subject</th>
+                            <th>Rate</th>
+                            <th></th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let k of myRates'>
+                                <td>{{k.ratedSubject}}</td>
+                                <td><input type="number" value="" placeholder="Rate" class="form-control" required
+                                        name="description" #description="ngModel" [(ngModel)]="k.rate" /></td>
+                                <td><button mat-raised-button class="btn btn-success btn-sm"
+                                        (click)="editRate([k])">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
