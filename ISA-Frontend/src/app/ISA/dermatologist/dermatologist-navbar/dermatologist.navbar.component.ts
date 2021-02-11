@@ -35,5 +35,7 @@ logOut(){
   redirect(){
     this.router.navigate(["/homepage"]);
 }
-
+homepage(){
+  this.router.navigate(["/dermatologist-homepage"]);
+}
 }

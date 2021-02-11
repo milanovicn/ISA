@@ -123,10 +123,10 @@ export class DermasComponent implements OnInit {
         this.ret = X;
         this.refresh();
     if(this.ret == null){
-      alert("Check the pharmacist list to see if you were able to delete this pharmacist");
+      alert("Check the dermatologists list to see if you were able to remove this person. If he/she has an appointmet booked, you can not remove him/her from pharmacy!");
     }
     else
-    alert("Check the pharmacist list to see if you were able to delete this pharmacist");
+    alert("Check the dermatologists list to see if you were able to remove this person. If he/she has an appointmet booked, you can not remove him/her from pharmacy");
       }
     });
 }

@@ -109,7 +109,8 @@
             </div>
        
             <div>
-                <h2>First assign working days for pharmacist in order to add them to pharmacy and in order to create consultations</h2>
+                <h1>Important:</h1>
+                <h2>In order to be able to create consultations, remove persons or see the list of theirs pending vacations, please assign working days to all pharmacists from the list above!</h2>
                 <form (ngSubmit)="addPharmacist()" #newDermatologistForm="ngForm">
                     <div class="row">
                         <div class="col">
@@ -146,7 +147,7 @@
                     </div>
                 </form>
             </div>
-
+            &nbsp;
             <div>
                 <h2>Remove Pharmacist</h2>
                 <form (ngSubmit)="deletePharma()" #deleteForm="ngForm">
@@ -176,9 +177,10 @@
             </div>
 
 
-
+            &nbsp;
             <div>
                 <h2>Create Pharmacists Consultation</h2>
+                <h3>Please select pharmacist, date, time and enter price. Do not forget to assign his working days!</h3>
                 <form (ngSubmit)="createAppointment()" #newDermatologistForm="ngForm">
                     <div class="row">
                         <div class="col">
@@ -244,6 +246,7 @@
                 </form>
     
             </div>
+            &nbsp;
             <h1>Register new pharmacist</h1>
            <form (ngSubmit)="registerPharma()" #registrationForm="ngForm">
             <div class="row">
@@ -313,8 +316,10 @@
 
         </div>
     </form>
+    &nbsp;
     <div class="row">
         <h1>All pharmacists vacation that are waiting to be approved</h1>
+        <h3>After you accept/reject vacation, pharmacist will be able to check his updated list of vacations and he will receive an email</h3>
 
         <div class="card">
             <div class="card-header card-header-success">
@@ -343,7 +348,7 @@
             </div>
         </div>
     </div>
-    <h3>Accept an offer from supplier</h3>
+    <h3>Accept vacation from pharmacist</h3>
     <form (ngSubmit)="acceptAnOffer()" #offerForm="ngForm">
         <div class="row">
             <div class="col">
@@ -365,7 +370,8 @@
             </div>
         </div>
     </form>
-    <h3>Reject a vacation from dermatologist</h3>
+    
+    <h3>Reject vacation from pharmacist</h3>
     <form (ngSubmit)="rejectAnOffer()" #offerForm="ngForm">
         <div class="row">
             <div class="col">
@@ -382,7 +388,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <input type="text" value="" placeholder="Description" class="form-control"
+                        <input type="text" value="" placeholder="Reason" class="form-control"
                             name="nemamPojma33" #nemamPojma33="ngModel" [(ngModel)]="opis" />
                     </div>
                 </div>

@@ -1,5 +1,7 @@
 package com.example.ISABackend.dto;
 
+import com.example.ISABackend.enums.AppointmentStatus;
+
 import java.time.LocalDate;
 
 public class PharmacistAppointmentDTO {
@@ -12,11 +14,16 @@ public class PharmacistAppointmentDTO {
     private String time;
     private LocalDate date;
     private double price;
+    private String patientName;
+    private Long patientId;
+    private AppointmentStatus appointmentStatus;
 
     public PharmacistAppointmentDTO() {
     }
 
-    public PharmacistAppointmentDTO(Long appointmentId, Long pharmacistId, String pharmacistName, double pharmacistRate, Long pharmacyId, String pharmacyName, String time, LocalDate date, double price) {
+    public PharmacistAppointmentDTO(Long appointmentId, Long pharmacistId, String pharmacistName, double pharmacistRate,
+                                    Long pharmacyId, String pharmacyName, String time, LocalDate date, double price,
+                                    String patientName, Long patientId, AppointmentStatus appointmentStatus) {
         this.appointmentId = appointmentId;
         this.pharmacistId = pharmacistId;
         this.pharmacistName = pharmacistName;
@@ -26,6 +33,9 @@ public class PharmacistAppointmentDTO {
         this.time = time;
         this.date = date;
         this.price = price;
+        this.patientName = patientName;
+        this.patientId = patientId;
+        this.appointmentStatus = appointmentStatus;
     }
 
     public Long getAppointmentId() {
@@ -98,5 +108,29 @@ public class PharmacistAppointmentDTO {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
+    }
+
+    public AppointmentStatus getAppointmentStatus() {
+        return appointmentStatus;
+    }
+
+    public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
+        this.appointmentStatus = appointmentStatus;
     }
 }

@@ -5,21 +5,26 @@ import { FormsModule } from '@angular/forms';
 import { PharmacistRoutingModule } from './pharmacist-routing.module';
 import { PharmacistNavbarComponent } from './pharmacist-navbar/pharmacist-navbar.component';
 import { PharmacistProfileComponent } from './pharmacist-profile/pharmacist-profile.component';
-import { PharmacistSchedulingCounseling } from './pharmacist-schedulingCounseling/pharmacist-schedulingCounseling.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MedicineReservationComponent } from './medicine-reservation/medicine-reservation.component';
+import { PharmacistAppointmentComponent } from './pharmacist-appointment/pharmacist-appointment.component';
+import { PharmacistAppointmentsComponent } from './pharmacist-appointments/pharmacist-appointments.component';
+import { PatientsFarmComponent } from './patients/patients.component';
+
 
 
 @NgModule({
   declarations: 
   [PharmacistNavbarComponent, 
     PharmacistProfileComponent, 
-    PharmacistSchedulingCounseling,
-    MedicineReservationComponent
+    MedicineReservationComponent,
+    PharmacistAppointmentComponent,
+    PharmacistAppointmentsComponent,
+    PatientsFarmComponent
   ],
   imports: [
     CommonModule,

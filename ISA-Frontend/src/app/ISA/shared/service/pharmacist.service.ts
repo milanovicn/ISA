@@ -6,6 +6,7 @@ import { Medicine } from "../model/Medicine";
 import { Pharmacist } from "../model/Pharmacist";
 import { PharmacistVacation } from "../model/PharmacistVacation";
 import { MedicineReservation } from "../model/MedicineReservation";
+import { PharmacistAppointmentDTO } from "../model/PharmacistAppointmentDTO";
 
 
 @Injectable()
@@ -43,5 +44,28 @@ export class PharmacistService {
 
   }
 
+  public searchPatients(firstName: String, lastName: String): Observable<User[]> {
+    return this.http.post<User[]>("/api/pharmacist/search/" + firstName, lastName);
+   }
+
+   public getMyPatients (): Observable<User[]> {
+    return this.http.get<User[]>("/api/pharmacist/patients");
+   }
+   
+   public getReservedAppointments (): Observable<PharmacistAppointmentDTO[]> {
+    return this.http.get<PharmacistAppointmentDTO[]>("/api/pharmacist/reservedAppointments");
+   }
+
+   public getAvailableAppointments (): Observable<PharmacistAppointmentDTO[]> {
+    return this.http.get<PharmacistAppointmentDTO[]>("/api/pharmacist/availableAppointments");
+   }
+
+   public getAppointmentId(appointmentId: number): Observable<PharmacistAppointmentDTO> {
+    return this.http.get<PharmacistAppointmentDTO>("/api/pharmacist/appointment/" + appointmentId);
+   }
+
+   public appointmentReserveForUser(appointmentId: number, patientId: number): Observable<Object> {
+    return this.http.get<Object>("/api/pharmacist/appointmentReserveForUser/" + appointmentId + "/" + patientId);
+   }
 
 }

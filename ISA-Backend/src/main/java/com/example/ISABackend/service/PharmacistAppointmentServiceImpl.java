@@ -31,6 +31,12 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
     @Autowired
     private PatientPenaltyRepository patientPenaltyRepository;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private DermatologistAppointmentRepository dermatologistAppointmentRepository;
+
     @Override
     public List<PharmacistAppointment> getAll() {
         return pharmacistAppointmentRepository.findAll();
@@ -117,7 +123,8 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
                 String phName = pharmacyService.getById(pharmacyId).getName();
                 PharmacistAppointmentDTO toAdd = new PharmacistAppointmentDTO(da.getId(),
                         da.getPharmacistId(), "ime", 1, da.getPharmacyId(),
-                        phName, da.getTime(), da.getDate(), da.getPrice());
+                        phName, da.getTime(), da.getDate(), da.getPrice(),
+                        "patientName", null, da.getStatus());
 
                 ret.add(toAdd);
 
@@ -260,6 +267,96 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
         return ret;
     }
 
+    @Override
+    public ArrayList<PharmacistAppointmentDTO> getReservedAppointments(Long id) {
+
+        ArrayList<PharmacistAppointment> listAppointment = getByPharmacist(id);
+        ArrayList<PharmacistAppointmentDTO> ret = new ArrayList<>();
+
+        for (PharmacistAppointment i : listAppointment) {
+            if (i.getStatus().equals(AppointmentStatus.RESERVED)) {
+
+                String phName= pharmacyService.getById(i.getPharmacyId()).getName();
+                User patient = userService.getById(i.getPatientId());
+
+                PharmacistAppointmentDTO toAdd = new PharmacistAppointmentDTO(i.getId(),
+                        i.getPharmacistId(), "ime", 1, i.getPharmacyId(),
+                        phName, i.getTime(), i.getDate(), i.getPrice(),
+                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), i.getStatus());
+
+                ret.add(toAdd);
+            }
+        }
+        return ret;
+    }
+
+    @Override
+    public ArrayList<PharmacistAppointmentDTO> getAvailableAppointments(Long id) {
+
+        ArrayList<PharmacistAppointment> listAppointment = getByPharmacist(id);
+        ArrayList<PharmacistAppointmentDTO> ret = new ArrayList<>();
+
+        for (PharmacistAppointment i : listAppointment) {
+            if (i.getStatus().equals(AppointmentStatus.AVAILABLE)) {
+
+                String phName= pharmacyService.getById(i.getPharmacyId()).getName();
+                User patient = userService.getById(i.getPatientId());
+
+                PharmacistAppointmentDTO toAdd = new PharmacistAppointmentDTO(i.getId(),
+                        i.getPharmacistId(), "ime", 1, i.getPharmacyId(),
+                        phName, i.getTime(), i.getDate(), i.getPrice(),
+                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), i.getStatus());
+
+                ret.add(toAdd);
+            }
+        }
+        return ret;
+    }
+
+    @Override
+    public PharmacistAppointmentDTO getDTOById(Long appointmentId) {
+
+
+        PharmacistAppointment i = getById(appointmentId);
+
+        String phName= pharmacyService.getById(i.getPharmacyId()).getName();
+        User patient = userService.getById(i.getPatientId());
+
+        PharmacistAppointmentDTO toAdd = new PharmacistAppointmentDTO(i.getId(),
+                i.getPharmacistId(), "ime", 1, i.getPharmacyId(),
+                phName, i.getTime(), i.getDate(), i.getPrice(),
+                patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), i.getStatus());
+
+        return toAdd;
+    }
+
+    @Override
+    public PharmacistAppointment appointmentReserveForUser(Long appointmentId, Long patientId) {
+
+        PharmacistAppointment toReserve = getById(appointmentId);
+        ArrayList<DermatologistAppointment> byPatient = dermatologistAppointmentRepository.findByPatientId(patientId);
+        ArrayList<PharmacistAppointment> phByPatient = pharmacistAppointmentRepository.findByPatientId(patientId);
+
+        for (DermatologistAppointment i: byPatient) {
+
+            if(i.getDate().equals(toReserve.getDate()) && i.getTime().equals(toReserve.getTime()) && i.getStatus().equals(AppointmentStatus.RESERVED)) {
+                return null;
+            }
+        }
+
+        for (PharmacistAppointment i: phByPatient) {
+
+            if(i.getDate().equals(toReserve.getDate()) && i.getTime().equals(toReserve.getTime()) && i.getStatus().equals(AppointmentStatus.RESERVED)) {
+                return null;
+            }
+        }
+
+        toReserve.setPatientId(patientId);
+        toReserve.setStatus(AppointmentStatus.RESERVED);
+        pharmacistAppointmentRepository.save(toReserve);
+
+        return toReserve;
+    }
 
 
 }
