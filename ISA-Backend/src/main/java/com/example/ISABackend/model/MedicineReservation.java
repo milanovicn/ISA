@@ -43,8 +43,15 @@ public class MedicineReservation {
     @Column(name = "reservationCode", nullable = false)
     private String reservationCode;
 
+    @Column(name = "ratedPharmacy", nullable = false)
+    private boolean ratedPharmacy;
+
+    @Column(name = "ratedMedicine", nullable = false)
+    private boolean ratedMedicine;
+
     public MedicineReservation(Long medicineId, String medicineName, Long pharmacyId, String pharmacyName, Long patientId,
-                               String patientEmail, LocalDate pickUpDate, MedicineReservationStatus status, boolean pickedUp) {
+                               String patientEmail, LocalDate pickUpDate, MedicineReservationStatus status, boolean pickedUp,
+                               boolean ratedMedicine, boolean ratedPharmacy) {
         this.medicineId = medicineId;
         this.medicineName = medicineName;
         this.pharmacyId = pharmacyId;
@@ -55,6 +62,9 @@ public class MedicineReservation {
         this.status = status;
         this.pickedUp = pickedUp;
         this.reservationCode  = UUID.randomUUID().toString();
+        this.ratedMedicine = ratedMedicine;
+        this.ratedPharmacy  = ratedPharmacy;
+
     }
 
     public MedicineReservation() {
@@ -146,5 +156,21 @@ public class MedicineReservation {
 
     public void setReservationCode(String reservationCode) {
         this.reservationCode = reservationCode;
+    }
+
+    public boolean isRatedPharmacy() {
+        return ratedPharmacy;
+    }
+
+    public void setRatedPharmacy(boolean ratedPharmacy) {
+        this.ratedPharmacy = ratedPharmacy;
+    }
+
+    public boolean isRatedMedicine() {
+        return ratedMedicine;
+    }
+
+    public void setRatedMedicine(boolean ratedMedicine) {
+        this.ratedMedicine = ratedMedicine;
     }
 }

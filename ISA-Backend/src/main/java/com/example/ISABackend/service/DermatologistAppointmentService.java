@@ -27,4 +27,5 @@ public interface DermatologistAppointmentService {
     public DermatologistAppointment cancelReservation(Long appointmentId);
     public ArrayList<Dermatologist> getDermatologistsForPatient(Long patientId);
 
+    public ArrayList<DermatologistAppointmentDTO> getUnratedDermatologistsAppointments(Long patientId);
 }

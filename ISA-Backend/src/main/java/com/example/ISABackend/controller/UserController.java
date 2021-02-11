@@ -50,7 +50,8 @@ public class UserController {
     @Autowired
     private ComplaintService complaintService;
 
-
+    @Autowired
+    RateService rateService;
 
     @PostMapping(value = "/register")
     public ResponseEntity registerUser(@RequestBody User newUser, @Context HttpServletRequest request) {
@@ -422,6 +423,106 @@ public class UserController {
         return new ResponseEntity<Complaint>(app, HttpStatus.CREATED);
 
     }
+
+    @GetMapping(value = "/getUnratedDermatologistsAppointments/{patientId}")
+    public ResponseEntity<?> getUnratedDermatologistsAppointments(@PathVariable("patientId") Long patientId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        ArrayList<DermatologistAppointmentDTO> app = dermatologistAppointmentService.getUnratedDermatologistsAppointments(patientId);
+        if (app == null) {
+            return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
+        } else  {
+            return new ResponseEntity<ArrayList<DermatologistAppointmentDTO>>(app, HttpStatus.CREATED);
+        }
+    }
+
+    @GetMapping(value = "/getUnratedPharmacistsAppointments/{patientId}")
+    public ResponseEntity<?> getUnratedPharmacistsAppointments(@PathVariable("patientId") Long patientId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        ArrayList<DermatologistAppointmentDTO> app = pharmacistAppointmentService.getUnratedPharmacistsAppointments(patientId);
+        if (app == null) {
+            return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
+        } else  {
+            return new ResponseEntity<ArrayList<DermatologistAppointmentDTO>>(app, HttpStatus.CREATED);
+        }
+    }
+
+    @GetMapping(value = "/getUnratedPharmacies/{patientId}")
+    public ResponseEntity<?> getUnratedPharmacies(@PathVariable("patientId") Long patientId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        ArrayList<MedicineReservation> app = medicineReservationService.getUnratedPharmacies(patientId);
+        if (app == null) {
+            return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
+        } else  {
+            return new ResponseEntity<ArrayList<MedicineReservation>>(app, HttpStatus.CREATED);
+        }
+    }
+
+    @GetMapping(value = "/getUnratedMedicines/{patientId}")
+    public ResponseEntity<?> getUnratedMedicines(@PathVariable("patientId") Long patientId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        ArrayList<MedicineReservation> app = medicineReservationService.getUnratedMedicines(patientId);
+        if (app == null) {
+            return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
+        } else  {
+            return new ResponseEntity<ArrayList<MedicineReservation>>(app, HttpStatus.CREATED);
+        }
+    }
+
+    @PostMapping(value = "/rate")
+    public ResponseEntity<?> newRate(@RequestBody Rate newRate, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        Rate app = rateService.newRate(newRate);
+        if (app == null) {
+            return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
+        } else  {
+            return new ResponseEntity<Rate>(app, HttpStatus.CREATED);
+        }
+    }
+
+    @GetMapping(value = "/rate/{patientId}")
+    public ResponseEntity<?> myRates(@PathVariable("patientId") Long patientId, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        ArrayList<Rate> app = rateService.myRates(patientId);
+        if (app == null) {
+            return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
+        } else  {
+            return new ResponseEntity<ArrayList<Rate>>(app, HttpStatus.CREATED);
+        }
+    }
+
+
+    @PutMapping(value = "/rate")
+    public ResponseEntity<?> editRate(@RequestBody Rate newRate, @Context HttpServletRequest request) {
+        if(authorize(request) == null ) {
+            return new ResponseEntity<>( HttpStatus.UNAUTHORIZED);
+        }
+
+        Rate app = rateService.editRate(newRate);
+        if (app == null) {
+            return new ResponseEntity<Object>(null, HttpStatus.ACCEPTED);
+        } else  {
+            return new ResponseEntity<Rate>(app, HttpStatus.CREATED);
+        }
+    }
+
 
     private User authorize(HttpServletRequest request){
         HttpSession session = request.getSession();

@@ -4,6 +4,7 @@ import com.example.ISABackend.dto.DermatologistAppointmentDTO;
 import com.example.ISABackend.model.DermatologistAppointment;
 import com.example.ISABackend.model.MedicineReservation;
 import com.example.ISABackend.model.Pharmacy;
+import com.example.ISABackend.model.Rate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,4 +22,7 @@ public interface MedicineReservationService {
     public ArrayList<Pharmacy> getPharmaciesForPatient(Long patientId);
     public MedicineReservation checkMedicineReservationCode(String reservationCode);
     public MedicineReservation issueMedicineReservation(Long reservationId);
+    public ArrayList<MedicineReservation> getUnratedMedicines(Long patientId);
+    public ArrayList<MedicineReservation> getUnratedPharmacies(Long patientId);
+
 }

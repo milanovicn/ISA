@@ -86,6 +86,7 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
         newDA.setTime(appointmentTime);
         newDA.setStatus(AppointmentStatus.AVAILABLE);
         newDA.setPatientId((long) 0);
+        newDA.setRated(false);
         pharmacistAppointmentRepository.save(newDA);
 
         return newDA;
@@ -174,7 +175,7 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
                 DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(pa.getId(), pa.getPharmacistId(),
                         pharmacist.getFirstName().concat(" ") + pharmacist.getLastName(), pharmacist.getRate(),
                         pa.getPharmacyId(), phName, pa.getTime(), pa.getDate(), pa.getPrice(),
-                        "patientName", null, pa.getStatus());
+                        "patientName", null, pa.getStatus(), pa.isRated());
 
                 ret.add(toAdd);
 
@@ -212,7 +213,7 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
                     appointment.getPharmacistId(), pharmacist.getFirstName().concat(" ") + pharmacist.getLastName(),
                     pharmacist.getRate(), appointment.getPharmacyId(), phName, appointment.getTime(),
                     appointment.getDate(), appointment.getPrice(),
-                    "patientName", null, appointment.getStatus());
+                    "patientName", null, appointment.getStatus(), appointment.isRated());
 
             ret.add(toAdd);
         }
@@ -249,6 +250,19 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
             }
         }
 
+
+        return ret;
+    }
+
+    @Override
+    public ArrayList<DermatologistAppointmentDTO> getUnratedPharmacistsAppointments(Long patientId) {
+        ArrayList<DermatologistAppointmentDTO> ret = new ArrayList<>();
+        for(DermatologistAppointmentDTO da : getByPatientId(patientId)){
+            if(!da.isRated() && da.getAppointmentStatus().equals(AppointmentStatus.DONE)){
+                ret.add(da);
+            }
+
+        }
 
         return ret;
     }
