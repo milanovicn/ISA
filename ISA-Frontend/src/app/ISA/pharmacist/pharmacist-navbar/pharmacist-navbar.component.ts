@@ -36,4 +36,8 @@ logOut(){
     this.router.navigate(["/homepage"]);
 }
 
+homepage(){
+  this.router.navigate(["/pharmacy-admin-homepage"]);
+}
+
 }

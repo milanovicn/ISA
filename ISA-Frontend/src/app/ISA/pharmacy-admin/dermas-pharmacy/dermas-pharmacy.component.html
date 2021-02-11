@@ -68,12 +68,12 @@
 
             </div>
         </form>
-
+        &nbsp;
 
         <div class="row">
             <div class="card">
                 <div class="card-header card-header-success">
-                    <h4 class="card-title">Dermatologist</h4>
+                    <h4 class="card-title">List of dermatologists who work in my pharmacy</h4>
                 </div>
                 <div class="card-content table-responsive table-full-width">
                     <table class="table">
@@ -100,9 +100,10 @@
                 </div>
             </div>
         </div>
-
+        &nbsp;
         <div>
-            <h2>Add Dermatologist to Pharmacy</h2>
+            <h2>Add Dermatologist</h2>
+            <h3>Please select one dermatologist and his working days</h3>
             <form (ngSubmit)="addDermatologist()" #newDermatologistForm="ngForm">
                 <div class="row">
                     <div class="col">
@@ -140,6 +141,7 @@
             </form>
         </div>
         <div>
+            &nbsp;
             <h2>Remove Dermatologist</h2>
             <form (ngSubmit)="deleteDerma()" #deleteForm="ngForm">
                 <div class="row">
@@ -166,10 +168,11 @@
                 </div>
             </form>
         </div>
-
+        &nbsp;
 
         <div>
             <h2>Create Dermatologists Appointment</h2>
+            <h3>Please select dermatologist, date, time and enter price</h3>
             <form (ngSubmit)="createAppointment()" #newDermatologistForm="ngForm">
                 <div class="row">
                     <div class="col">
@@ -233,10 +236,10 @@
                     </div>
                 </div>
             </form>
-
+            &nbsp;
             <div class="row">
                 <h1>All dermatologists vacation that are waiting to be approved</h1>
-
+                <h3>After you accept/reject vacation, dermatologist will be able to check his updated list of vacations and he will receive an email</h3>
                 <div class="card">
                     <div class="card-header card-header-success">
                         <h4 class="card-title">Vacations</h4>
@@ -267,7 +270,7 @@
                 </div>
             </div>
     
-            <h3>Accept a vacation from dermatologist</h3>
+            <h3>Accept vacation from dermatologist</h3>
             <form (ngSubmit)="acceptAnOffer()" #offerForm="ngForm">
                 <div class="row">
                     <div class="col">
@@ -289,7 +292,7 @@
                     </div>
                 </div>
             </form>
-            <h3>Reject a vacation from dermatologist</h3>
+            <h3>Reject vacation from dermatologist</h3>
             <form (ngSubmit)="rejectAnOffer()" #offerForm="ngForm">
                 <div class="row">
                     <div class="col">

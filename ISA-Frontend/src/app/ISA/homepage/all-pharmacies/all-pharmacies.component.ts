@@ -23,7 +23,9 @@ export class AllPharmaciesComponent implements OnInit {
     } 
   
    
-
+    refresh() {
+        window.location.reload();
+      }
 
     ngOnInit(): void {
         this.pharmacyService.getAllPhamracies().subscribe({

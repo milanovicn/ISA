@@ -78,7 +78,11 @@
                     <div class="col-sm-3">
                         <input type="submit" value="Search" mat-raised-button class="btn btn-success">
                     </div>
-
+                    <form (ngSubmit)="refresh()" #allergyForm="ngForm">
+                        <div class="col-sm-3">
+                            <input type="submit" value="Refresh" mat-raised-button class="btn btn-success">
+                        </div>
+                    </form>
                 </div>
 
 
