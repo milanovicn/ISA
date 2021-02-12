@@ -55,6 +55,9 @@ public class PharmacyAdminController {
     private PharmacistVacationService pharmacistVacationService;
 
     @Autowired
+    private InquiryService inquiryService;
+
+    @Autowired
     OrdersService ordersService;
 
     private Pharmacy_Admin authorize(HttpServletRequest request){
@@ -365,9 +368,12 @@ public class PharmacyAdminController {
         return dv;
     }
 
+    @GetMapping(value = "/inquiry/{pharmacyId}")
+    public Object getAllInquiries(@PathVariable("pharmacyId") Long pharmacyId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return inquiryService.getByPharmacy(pharmacyId);
+    }
+
 }
-
-
-
-
-
