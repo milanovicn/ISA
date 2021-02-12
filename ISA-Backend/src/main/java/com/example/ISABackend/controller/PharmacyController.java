@@ -221,7 +221,7 @@ public class PharmacyController {
             // pacijenta u pacijent servisu i odatle mu
             //  uzmem mail i na taj mail posaljem
 
-            if(prolazim.getUserId()!=0) {
+
 
                 User neko = userService.getById(prolazim.getUserId());
                 Properties props = new Properties();
@@ -235,7 +235,7 @@ public class PharmacyController {
                 mailMessage.setText("New actions in our pharmacy is:  " + a.getDescription());
                 emailService.sendEmail(mailMessage);
             }
-        }
+        
         return a;
     }
 
