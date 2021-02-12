@@ -44,22 +44,42 @@ insert into pharmacy.dermatologist(id, email, first_name, last_name, password, p
 insert into pharmacy.dermatologist(id, email, first_name, last_name, password, phone_number, user_role, address, city, country, rate, prvi_put_logovan) values (6, 'dermatologist6@pharmacy.com', 'Milos', 'Rajkovic', '123', 066321323, 4, 'Ulica Dermatologa 6', 'Novi Sad', 'Srbija',4, 1)
 
 
-
+--PRVI DERMATOLOG JE U APOTECI 1 SVAKI RADNI DAN
 INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('1', '1', '1', '0')
 INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('2', '1', '1', '1')
 INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('3', '1', '1', '2')
 INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('4', '1', '1', '3')
 INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('5', '1', '1', '4')
-INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('6', '1', '2', '2')
-INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('7', '1', '2', '3')
-INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('8', '1', '2', '4')
-INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('9', '2', '1', '0')
-INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('10', '2', '1', '1')
+--DRUGI DERMATOLOG JE U APOTECI 1 SVAKI DAN
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('6', '2', '1', '0')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('7', '2', '1', '1')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('8', '2', '1', '2')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('9', '2', '1', '3')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('10', '2', '1', '4')
+--TRECI DERMATOLOG JE U APOTECI 2 SVAKI DAN
 INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('11', '3', '2', '0')
-INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('12', '3', '3', '0')
-INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('13', '4', '4', '0')
-INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('14', '5', '5', '0')
-INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('15', '6', '6', '0')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('12', '3', '2', '1')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('13', '3', '2', '2')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('14', '3', '2', '3')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('15', '3', '2', '4')
+--CETVRTI JE U APOTECI 3 SVAKI DAN
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('16', '4', '3', '0')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('17', '4', '3', '1')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('18', '4', '3', '2')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('19', '4', '3', '3')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('20', '4', '3', '4')
+--PETI JE U APOTECI 4 SVAKI DAN
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('21', '5', '4', '0')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('22', '5', '4', '1')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('23', '5', '4', '2')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('24', '5', '4', '3')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('25', '5', '4', '4')
+--SESTI JE U APOTECI 5 PON, UTOR I SREDA A U APOTECI 6 CETV I PETAK
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('26', '6', '5', '0')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('27', '6', '5', '1')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('28', '6', '5', '2')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('29', '6', '6', '3')
+INSERT INTO pharmacy.dermatologist_schedule(id, dermatologist_id, pharmacy_id, work_day) VALUES ('30', '6', '6', '4')
 
 
 
