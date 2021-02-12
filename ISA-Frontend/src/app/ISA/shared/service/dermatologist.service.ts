@@ -81,7 +81,7 @@ export class DermatologistService {
     return this.http.post<Object>("/api/dermatologist/createReport/" + appointmentId+"/"+dermatologistId+"/"+reportMedicineId+"/"+reportDuration, reportText );
   }
   didntShowUp(appointmentId: number) {
-    return this.http.get<Object>("/api/dermatologist/didntShowUp/"+appointmentId);
+    return this.http.get<Object>("/api/dermatologist/didntShowUp/"+appointmentId); 
   }
 
   getMedicineForUser(patientId: number) {

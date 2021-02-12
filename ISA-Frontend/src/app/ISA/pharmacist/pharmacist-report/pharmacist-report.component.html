@@ -1,0 +1,61 @@
+<pharmacist-navbar></pharmacist-navbar>
+
+<div style="margin-left:300px; margin-top:50px; padding:60px;">
+    <h1>Report: </h1>
+    <div class="row " style="margin-top: 50px;">
+
+        <div class="col-sm-8">
+        <button mat-raised-button class="btn btn-success btn"
+                (click)="patientDidntShowUp()">patient didn't Show up</button>
+        </div>
+
+
+
+        <div>
+            <div class="row">
+                <div class="col">
+
+                    <div class="col-sm-8">
+                        <textarea rows="8" cols="70" name="nemamPojma1" #nemamPojma1="ngModel" [(ngModel)]='reportText'>
+                                Enter information about medical examination...</textarea>
+                        </div>
+
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Prescribed medicine</mat-label>
+                            <mat-select name="nemamPojma1" #nemamPojma1="ngModel" [(ngModel)]='reportMedicineId'>
+                                <mat-option *ngFor="let medicine of availableMedicine"
+                                    [value]="medicine.id">{{medicine.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="col-sm-8">
+                        <button mat-raised-button class="btn btn-success btn"
+                                (click)="checkAvailability()">Check availability</button>
+                    </div>
+
+                    <div class="col-sm-8">Enter duration of therapy
+                        <input type="number" name="nemamPojma1" #nemamPojma1="ngModel" [(ngModel)]='reportDuration'>
+                    </div>
+
+                    <div *ngIf="available" class="col-sm-8">
+                        <p>Medicine available</p>
+                        <button mat-raised-button class="btn btn-success btn"
+                                (click)="createReport()">Send Report</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div *ngIf="!available" class="col-sm-8">
+            <p>Medicine not available</p>
+            <button mat-raised-button class="btn btn-success btn-sm"
+                        (click)="sendInquiry()">Send inquiry for medicine</button>
+        </div>
+
+    </div>
+</div>

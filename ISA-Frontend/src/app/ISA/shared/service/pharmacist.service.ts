@@ -72,4 +72,21 @@ export class PharmacistService {
     return this.http.get<Object>("/api/pharmacist/appointmentReserveForUser/" + appointmentId + "/" + patientId);
    }
 
+   sendInquiry(reportMedicineId: number, pharmacyId: number) {
+    return this.http.get<Object>("/api/pharmacist/sendInquiry/"+pharmacyId+"/"+reportMedicineId);
+  }
+  checkAvailability(pharmacyId: number, reportMedicineId: number) {
+    return this.http.get<boolean>("/api/pharmacist/checkAvailability/"+pharmacyId+"/"+reportMedicineId);
+  }
+  createReport(appointmentId: number, reportText: String, pharmacistId: number, reportMedicineId: number, reportDuration: number) {
+    return this.http.post<Object>("/api/pharmacist/createReport/" + appointmentId+"/"+pharmacistId+"/"+reportMedicineId+"/"+reportDuration, reportText );
+  }
+  didntShowUp(appointmentId: number) {
+    return this.http.get<Object>("/api/pharmacist/didntShowUp/"+appointmentId);
+  }
+
+  getMedicineForUser(patientId: number) {
+    return this.http.get<Medicine[]>("/api/pharmacist/getMedicineForUser/"+patientId);
+  }
+
 }
