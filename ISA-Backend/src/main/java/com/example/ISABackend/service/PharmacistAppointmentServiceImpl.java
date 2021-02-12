@@ -9,6 +9,8 @@ import com.example.ISABackend.repository.PatientPenaltyRepository;
 import com.example.ISABackend.repository.PharmacistAppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -137,6 +139,7 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
     }
 
     @Override
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     public PharmacistAppointment makeReservation(Long userId, Long appointmentId) {
         for(PatientPenalty pp : patientPenaltyRepository.findAll()){
             //ako se pp odnosi na korisnika koji pokusava rezervaciju i ima 3 ili vise penala vrati null

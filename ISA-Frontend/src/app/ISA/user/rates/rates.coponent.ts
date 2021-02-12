@@ -110,7 +110,7 @@ export class RatesComponent implements OnInit {
                 this.ret = ret;
                 console.log(this.ret);
                 alert("Rate successful!");
-               // this.refresh();
+               this.refresh();
             }
 
         });
@@ -132,7 +132,7 @@ export class RatesComponent implements OnInit {
                 this.ret = ret;
                 console.log(this.ret);
                 alert("Rate successful!");
-               // this.refresh();
+               this.refresh();
             }
 
         });
@@ -154,7 +154,7 @@ export class RatesComponent implements OnInit {
                 this.ret = ret;
                 console.log(this.ret);
                 alert("Rate successful!");
-               // this.refresh();
+                this.refresh();
             }
 
         });
@@ -176,7 +176,7 @@ export class RatesComponent implements OnInit {
                 this.ret = ret;
                 console.log(this.ret);
                 alert("Rate successful!");
-               // this.refresh();
+                this.refresh();
             }
 
         });
@@ -184,12 +184,14 @@ export class RatesComponent implements OnInit {
 
     editRate(updatedRate:Rate){
         console.log(updatedRate);
-        this.userService.editRate(updatedRate).subscribe({
+
+        let toSend =updatedRate[0];
+        this.userService.editRate(toSend).subscribe({
             next: ret => {
                 this.ret = ret;
                 console.log(this.ret);
                 alert("Rate edit successful!");
-               // this.refresh();
+               this.refresh();
             }
 
         });

@@ -118,7 +118,7 @@ export class UserService {
 
 
   editRate(updatedRate: Rate):Observable<Rate> {
-    return this.http.put<Rate>("/api/user/rate/", updatedRate);
+    return this.http.put<Rate>("/api/user/rate", updatedRate);
   }
   
   rate(newRate: Rate):Observable<Rate> {

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +78,7 @@ public class PharmacyController {
     }
 
     @PostMapping(value = "/search")
+    @Transactional(readOnly = true)
     public Object searchPharmacy(@RequestBody SearchPharmacy searchParameters) {
 
         return pharmacyService.search(searchParameters);

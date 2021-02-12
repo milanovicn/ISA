@@ -6,6 +6,7 @@ import com.example.ISABackend.model.*;
 import com.example.ISABackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -52,6 +53,7 @@ public class PharmacyServiceImpl implements PharmacyService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ArrayList<Pharmacy> search(SearchPharmacy searchParameters) {
 
         ArrayList<Pharmacy> ret = new ArrayList<Pharmacy>();
