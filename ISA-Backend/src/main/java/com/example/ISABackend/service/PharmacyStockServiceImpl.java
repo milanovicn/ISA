@@ -8,6 +8,7 @@ import com.example.ISABackend.model.PharmacyStock;
 import com.example.ISABackend.repository.PharmacyStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,6 +159,7 @@ public class PharmacyStockServiceImpl implements PharmacyStockService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public Long updateReservedMedicineStock(Long medicineId, Long pharmacyId) {
         PharmacyStock ps = getByMedicineAndPharmacy(medicineId, pharmacyId).get(0);
         ps.setReserved(ps.getReserved()+1);

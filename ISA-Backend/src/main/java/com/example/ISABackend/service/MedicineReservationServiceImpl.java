@@ -10,6 +10,7 @@ import com.example.ISABackend.repository.PharmacyStockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -68,6 +69,7 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
     }
 
     @Override
+    @Transactional(readOnly = false)
     public MedicineReservation makeReservation(MedicineReservation newReservation) {
         //zabrani rezervaciju ako ima 3 penala
         for(PatientPenalty pp : patientPenaltyRepository.findAll()){
@@ -91,7 +93,16 @@ public class MedicineReservationServiceImpl implements MedicineReservationServic
         ret.setPharmacyName(pharmacyService.getById(newReservation.getPharmacyId()).getName());
         ret.setMedicineName(medicineService.getById(newReservation.getMedicineId()).getName());
         ret.setReservationCode( UUID.randomUUID().toString());
-        medicineReservationRepository.save(ret);
+
+
+        try{
+            MedicineReservation mr=medicineReservationRepository.findOneById(newReservation.getId());
+            if(mr!=null) throw new RuntimeException("Medicine reservation is already reserved");
+            else
+                medicineReservationRepository.save(ret);
+        }catch (Exception e){
+            throw new RuntimeException("Medicine reservation already created!");
+        }
 
         Long stockId = pharmacyStockService.updateReservedMedicineStock(ret.getMedicineId(), ret.getPharmacyId());
         if(stockId == null){

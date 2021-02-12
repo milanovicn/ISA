@@ -5,6 +5,7 @@ import com.example.ISABackend.model.Complaint;
 import com.example.ISABackend.repository.ComplaintRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public Complaint answer(String answer, Long complaintId) {
         Complaint complaint = getById(complaintId);
         complaint.setComplainAnswer(answer);
