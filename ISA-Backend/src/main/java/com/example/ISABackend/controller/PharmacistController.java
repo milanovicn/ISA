@@ -46,6 +46,15 @@ public class PharmacistController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    InquiryService inquiryService;
+
+    @Autowired
+    PharmacyStockService pharmacyStockService;
+
+    @Autowired
+    ReportService reportService;
+
 
     @PutMapping(value = "/edit")
     public ResponseEntity updatePharmacist(@RequestBody Pharmacist updatePharmacist, @Context HttpServletRequest request) {
@@ -233,4 +242,62 @@ public class PharmacistController {
         return appointmentsList;
 
     }
+
+
+    @GetMapping(value = "/sendInquiry/{pharmacyId}/{reportMedicineId}")
+    public Object sendInquiry(@PathVariable("pharmacyId") Long pharmacyId, @PathVariable("reportMedicineId") Long reportMedicineId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return inquiryService.create(pharmacyId, reportMedicineId);
+    }
+
+    //return this.http.get<boolean>("/api/dermatologist/checkAvailability/"+pharmacyId+"/"+reportMedicineId);
+
+    @GetMapping(value = "/checkAvailability/{pharmacyId}/{reportMedicineId}")
+    public Object checkAvailability(@PathVariable("pharmacyId") Long pharmacyId, @PathVariable("reportMedicineId") Long reportMedicineId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return pharmacyStockService.checkAvailability(pharmacyId, reportMedicineId);
+    }
+
+    //return this.http.post<Object>("/api/dermatologist/createReport/" + appointmentId+"/"+dermatologistId+"/"+reportMedicineId+"/"+reportDuration, reportText );
+
+    @PostMapping(value = "/createReport/{appointmentId}/{pharmacistId}/{reportMedicineId}/{reportDuration}")
+    public Object createReport(@RequestBody String reportText, @PathVariable("appointmentId") Long appointmentId,
+                               @PathVariable("pharmacistId") Long pharmacistId,
+                               @PathVariable("reportMedicineId") Long reportMedicineId,
+                               @PathVariable("reportDuration") Long reportDuration,
+                               @Context HttpServletRequest request) {
+
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        return reportService.createReport(appointmentId, pharmacistId,reportMedicineId,reportDuration,reportText);
+    }
+
+    //return this.http.get<Object>("/api/dermatologist/didntShowUp/"+appointmentId);
+
+    @GetMapping(value = "/didntShowUp/{appointmentId}")
+    public Object didntShowUp(@PathVariable("appointmentId") Long appointmentId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return pharmacistAppointmentService.didntShowUp(appointmentId);
+    }
+
+    //return this.http.get<Medicine[]>("/api/dermatologist/getMedicineForUser/"+patientId);
+
+    @GetMapping(value = "/getMedicineForUser/{patientId}")
+    public Object getMedicineForUser(@PathVariable("patientId") Long patientId, @Context HttpServletRequest request) {
+        if (authorize(request) == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return userService.getNonAlergyMedicine(patientId);
+    }
+
+
+
     }

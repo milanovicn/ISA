@@ -384,5 +384,15 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
         return ret;
     }
 
+    @Override
+    public PharmacistAppointment didntShowUp(Long appointmentId) {
+
+        PharmacistAppointment da = getById(appointmentId);
+        da.setStatus(AppointmentStatus.DONE);
+        userService.addPenalty(da.getPatientId());
+        pharmacistAppointmentRepository.save(da);
+        return da;
+    }
+
 
 }

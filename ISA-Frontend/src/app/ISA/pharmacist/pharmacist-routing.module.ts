@@ -7,6 +7,7 @@ import { PharmacistAppointmentsComponent } from './pharmacist-appointments/pharm
 import { PharmacistHomepageComponent } from './pharmacist-homepage/pharmacist-homepage.component';
 import { PharmacistProfileComponent } from './pharmacist-profile/pharmacist-profile.component';
 import { PharmacistReportsComponent } from './pharmacist-reports/pharmacist-reports.components';
+import { PharmacistReportComponent } from './pharmacist-report/pharmacist-report.component';
 
 
 
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'pharmacist-homepage/pharmacist-appointments', component: PharmacistAppointmentsComponent},
   { path: 'pharmacist-homepage/pharmacist-appointments/:id', component: PharmacistAppointmentComponent},
   { path: 'pharmacist-homepage/patients', component: PatientsFarmComponent},
-  { path: 'pharmacist-homepage/pharmacist-reports', component: PharmacistReportsComponent}
+  { path: 'pharmacist-homepage/pharmacist-reports', component: PharmacistReportsComponent},
+  { path: 'pharmacist-homepage/pharmacist-reports/:id', component: PharmacistReportComponent}
 ];
 
 @NgModule({

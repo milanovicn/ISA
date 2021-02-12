@@ -15,6 +15,7 @@ import { PharmacistAppointmentComponent } from './pharmacist-appointment/pharmac
 import { PharmacistAppointmentsComponent } from './pharmacist-appointments/pharmacist-appointments.component';
 import { PatientsFarmComponent } from './patients/patients.component';
 import { PharmacistReportsComponent } from './pharmacist-reports/pharmacist-reports.components';
+import { PharmacistReportComponent } from './pharmacist-report/pharmacist-report.component';
 
 
 
@@ -26,7 +27,8 @@ import { PharmacistReportsComponent } from './pharmacist-reports/pharmacist-repo
     PharmacistAppointmentComponent,
     PharmacistAppointmentsComponent,
     PatientsFarmComponent,
-    PharmacistReportsComponent
+    PharmacistReportsComponent,
+    PharmacistReportComponent
   ],
   imports: [
     CommonModule,
