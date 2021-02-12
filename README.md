@@ -1,5 +1,9 @@
 Projekat iz predmeta Internet softverske arhitekture
-Tim 66 : Nina Milanovic, Milica Mitrovic i Mateja Kljucevic
+
+Tim 66:
+Nina Milanovic
+Milica Mitrovic
+Mateja Kljucevic
 
 Implementirana aplikacija koja predstavlja centralizovani informacioni sistem apoteka preko kojeg će korisnici moći da rezervišu preparate (lekove) i zakazuju savetovanje sa farmaceutom ili dermatologom.
 
