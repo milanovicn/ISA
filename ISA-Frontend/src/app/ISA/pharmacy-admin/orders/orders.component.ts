@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Inquiry } from "app/ISA/shared/model/Inquiry";
 import { Medicine } from "app/ISA/shared/model/Medicine";
 import { OrderItem } from "app/ISA/shared/model/OrderItem";
 import { Orders } from "app/ISA/shared/model/Orders";
@@ -27,6 +28,7 @@ export class OrdersComponent implements OnInit {
   myPharmacy: Pharmacy;
   filteredOffers: Orders[] = [];
   filterValue:string = "";
+  inquiries:Inquiry[] =[];
 
 
   constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService,
@@ -103,11 +105,19 @@ export class OrdersComponent implements OnInit {
 
         console.log(this.user);
         this.getPharmacyById();
+        
 
       }
 
     });
 
+  }
+  getInquiries() {
+    this.pharmacyAdminService.getInquiries(this.myPharmacy.id).subscribe({
+      next: pharmacy => {
+        this.inquiries = pharmacy;
+      }
+    });
   }
 
   getPharmacyById() {
@@ -116,7 +126,7 @@ export class OrdersComponent implements OnInit {
         this.myPharmacy = pharmacy;
         this.getOrders();
         this.getAllOrders();
-
+        this.getInquiries();
 
       }
     });

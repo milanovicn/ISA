@@ -14,11 +14,13 @@ import { OrderOffer } from "../model/OrderOffer";
 import { OrderItem } from "../model/OrderItem";
 import { DermatologistVacation } from "../model/DermatologistVacation";
 import { PharmacistVacation } from "../model/PharmacistVacation";
+import { Inquiry } from "../model/Inquiry";
 
 
 @Injectable()
 export class PharmacyAdminService {
-  
+
+
 
   constructor(private http: HttpClient) {
   }
@@ -102,11 +104,14 @@ export class PharmacyAdminService {
   public acceptVD(idVacation: number): Observable<DermatologistVacation> {
     return this.http.get<DermatologistVacation>("/api/pharmacy-admin/acceptVacationDermatologist/" + idVacation);
   }
-  public rejectVD(idVacation: number, opis : string): Observable<DermatologistVacation> {
-    return this.http.get<DermatologistVacation>("/api/pharmacy-admin/rejectVacationDermatologist/" + idVacation+"/"+opis);
+  public rejectVD(idVacation: number, opis: string): Observable<DermatologistVacation> {
+    return this.http.get<DermatologistVacation>("/api/pharmacy-admin/rejectVacationDermatologist/" + idVacation + "/" + opis);
   }
-  public rejectVP(idVacation: number, opis:string): Observable<PharmacistVacation> {
-    return this.http.get<PharmacistVacation>("/api/pharmacy-admin/rejectVacationPharmacist/" + idVacation+"/"+opis);
+  public rejectVP(idVacation: number, opis: string): Observable<PharmacistVacation> {
+    return this.http.get<PharmacistVacation>("/api/pharmacy-admin/rejectVacationPharmacist/" + idVacation + "/" + opis);
+  }
+  public getInquiries(pharmacyId: number) {
+    return this.http.get<Inquiry[]>("/api/pharmacy-admin/inquiry/" + pharmacyId);
   }
 
 }

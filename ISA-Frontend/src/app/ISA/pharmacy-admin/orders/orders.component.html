@@ -140,6 +140,30 @@
         </div>
 
 
+
+        <h2>Medication Inquiries</h2>
+        
+        <div class="card" style="margin-top: 50px;">
+            <div class="card-header card-header-success">
+                <h4 class="card-title">Inquiries </h4>
+                <p class="card-category">Medicines that were asked for by pharmacists and dermatologists working in your pharmacy</p>
+            </div>
+            
+            <div class="card-content table-responsive table-full-width">
+                <table class="table">
+                    <thead class="text-success">
+                        <th>ID</th>
+                        <th>Name </th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let inquiry of inquiries'>
+                            <td>{{inquiry.medicineId}}</td>
+                            <td>{{inquiry.medicineName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 
