@@ -361,5 +361,28 @@ public class PharmacistAppointmentServiceImpl implements PharmacistAppointmentSe
         return toReserve;
     }
 
+    @Override
+    public ArrayList<PharmacistAppointmentDTO> getReservedAndDoneAppointments(Long id) {
+
+        ArrayList<PharmacistAppointment> listAppointment = getByPharmacist(id);
+        ArrayList<PharmacistAppointmentDTO> ret = new ArrayList<>();
+
+        for (PharmacistAppointment i : listAppointment) {
+            if (i.getStatus().equals(AppointmentStatus.RESERVED) || i.getStatus().equals(AppointmentStatus.DONE)) {
+
+                String phName= pharmacyService.getById(i.getPharmacyId()).getName();
+                User patient = userService.getById(i.getPatientId());
+
+                PharmacistAppointmentDTO toAdd = new PharmacistAppointmentDTO(i.getId(),
+                        i.getPharmacistId(), "ime", 1, i.getPharmacyId(),
+                        phName, i.getTime(), i.getDate(), i.getPrice(),
+                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), i.getStatus());
+
+                ret.add(toAdd);
+            }
+        }
+        return ret;
+    }
+
 
 }

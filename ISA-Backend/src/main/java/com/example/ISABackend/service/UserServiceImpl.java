@@ -26,6 +26,8 @@ public class UserServiceImpl implements UserService {
     private PatientPenaltyRepository patientPenaltyRepository;
 
 
+
+
     @Override
     public Collection<User> findAll() {
         return userRepository.findAll();
@@ -126,6 +128,43 @@ public class UserServiceImpl implements UserService {
 
         return (long) 0;
     }
+
+    @Override
+    public Long addPenalty(Long patientId) {
+
+        PatientPenalty p = new PatientPenalty();
+
+        for (PatientPenalty pp : patientPenaltyRepository.findAll()) {
+            if(patientId == pp.getPatientId()){
+                pp.setPenaltyNumber(pp.getPenaltyNumber()+1);
+                patientPenaltyRepository.save(pp);
+                return pp.getId();
+            }
+        }
+
+        p.setPenaltyNumber((long) 1);
+        p.setPatientId(patientId);
+        patientPenaltyRepository.save(p);
+        return p.getId();
+    }
+
+    @Override
+    public ArrayList<Medicine> getNonAlergyMedicine(Long patientId) {
+
+        ArrayList<Medicine> ret = (ArrayList<Medicine>) medicineService.getAll();
+        Set<Medicine> allergies = getById(patientId).getAllergies();
+
+        for(Medicine allergy: allergies) {
+
+            if(ret.contains(allergy)) {
+                ret.remove(allergy);
+            }
+        }
+
+        return ret;
+    }
+
+
 
 
 }

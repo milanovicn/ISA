@@ -20,4 +20,5 @@ public interface PharmacyStockService {
     public ArrayList<PharmacyStock> getByMedicineAndPharmacy(Long medicineId, Long pharmacyId);
     public Long updateReservedMedicineStock(Long medicineId, Long pharmacyId);
     public Long updateCanceledMedicineStock(Long medicineId, Long pharmacyId);
+    public Boolean checkAvailability(Long pharmacyId, Long reportMedicineId);
 }

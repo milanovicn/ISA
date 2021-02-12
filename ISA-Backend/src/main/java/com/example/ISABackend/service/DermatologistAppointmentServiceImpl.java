@@ -358,5 +358,39 @@ public class DermatologistAppointmentServiceImpl implements DermatologistAppoint
         return ret;
     }
 
+    @Override
+    public ArrayList<DermatologistAppointmentDTO> getReservedAndDoneAppointments(Long id) {
+
+        ArrayList<DermatologistAppointment> listAppointment = getByDermatologist(id);
+        ArrayList<DermatologistAppointmentDTO> ret = new ArrayList<>();
+
+        for (DermatologistAppointment i : listAppointment) {
+            if (i.getStatus().equals(AppointmentStatus.RESERVED) || i.getStatus().equals(AppointmentStatus.DONE)) {
+
+                String phName= pharmacyService.getById(i.getPharmacyId()).getName();
+                User patient = userService.getById(i.getPatientId());
+
+                DermatologistAppointmentDTO toAdd = new DermatologistAppointmentDTO(i.getId(),
+                        i.getDermatologistId(), "ime", 1, i.getPharmacyId(),
+                        phName, i.getTime(), i.getDate(), i.getPrice(),
+                        patient.getFirstName()+ " " +patient.getLastName(),patient.getId(), i.getStatus(),
+                        i.isRated());
+
+                ret.add(toAdd);
+            }
+        }
+        return ret;
+    }
+
+    @Override
+    public DermatologistAppointment didntShowUp(Long appointmentId) {
+
+        DermatologistAppointment da = getById(appointmentId);
+        da.setStatus(AppointmentStatus.DONE);
+        userService.addPenalty(da.getPatientId());
+        dermatologistAppointmentRepository.save(da);
+        return da;
+    }
+
 
 }

@@ -56,6 +56,10 @@ export class PharmacistService {
     return this.http.get<PharmacistAppointmentDTO[]>("/api/pharmacist/reservedAppointments");
    }
 
+   public getReservedAndDoneAppointments (): Observable<PharmacistAppointmentDTO[]> {
+    return this.http.get<PharmacistAppointmentDTO[]>("/api/pharmacist/reservedAndDoneAppointments");
+   }
+
    public getAvailableAppointments (): Observable<PharmacistAppointmentDTO[]> {
     return this.http.get<PharmacistAppointmentDTO[]>("/api/pharmacist/availableAppointments");
    }

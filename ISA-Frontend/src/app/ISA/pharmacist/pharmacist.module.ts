@@ -14,6 +14,7 @@ import { MedicineReservationComponent } from './medicine-reservation/medicine-re
 import { PharmacistAppointmentComponent } from './pharmacist-appointment/pharmacist-appointment.component';
 import { PharmacistAppointmentsComponent } from './pharmacist-appointments/pharmacist-appointments.component';
 import { PatientsFarmComponent } from './patients/patients.component';
+import { PharmacistReportsComponent } from './pharmacist-reports/pharmacist-reports.components';
 
 
 
@@ -24,7 +25,8 @@ import { PatientsFarmComponent } from './patients/patients.component';
     MedicineReservationComponent,
     PharmacistAppointmentComponent,
     PharmacistAppointmentsComponent,
-    PatientsFarmComponent
+    PatientsFarmComponent,
+    PharmacistReportsComponent
   ],
   imports: [
     CommonModule,
