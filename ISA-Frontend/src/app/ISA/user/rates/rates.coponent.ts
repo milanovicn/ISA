@@ -131,6 +131,7 @@ export class RatesComponent implements OnInit {
             next: ret => {
                 this.ret = ret;
                 console.log(this.ret);
+                this.refresh();
                 alert("Rate successful!");
                this.refresh();
             }
@@ -153,6 +154,7 @@ export class RatesComponent implements OnInit {
             next: ret => {
                 this.ret = ret;
                 console.log(this.ret);
+                this.refresh();
                 alert("Rate successful!");
                 this.refresh();
             }

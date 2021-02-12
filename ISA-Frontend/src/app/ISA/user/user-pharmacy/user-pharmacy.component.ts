@@ -109,9 +109,10 @@ export class UserPharmacyComponent implements OnInit {
         this.userService.makeDermatologistAppointment(this.user, appointmentId).subscribe({
             next: appointmentIdRet => {
                 this.ret = appointmentIdRet;
-                alert("Uspesno ste napravili rezervaciju!");
-
                 this.refresh();
+                alert("Reservation made");
+
+                
             }
 
         });
@@ -127,7 +128,8 @@ export class UserPharmacyComponent implements OnInit {
         this.userService.makePharmacistAppointment(this.user, councelingId).subscribe({
             next: appointmentIdRet => {
                 this.ret = appointmentIdRet;
-                alert("Uspesno ste napravili rezervaciju!");
+                this.refresh();
+                alert("Appointment made");
             }
 
         });
