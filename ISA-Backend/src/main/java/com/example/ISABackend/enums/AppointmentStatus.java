@@ -5,6 +5,5 @@ public enum AppointmentStatus {
     RESERVED,
     DONE,
     CANCELED,
-    FILED,  //ovo ce vrv biti potrebno nakon derm ili farm unesu izvestaj
     ENDED;
 }

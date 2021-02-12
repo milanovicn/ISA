@@ -220,4 +220,17 @@ public class PharmacistController {
         return pharmacistAppointment;
 
     }
+
+    @GetMapping(value = "/reservedAndDoneAppointments")
+    public Object reservedAndDoneAppointments (@Context HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Pharmacist pharmacist = (Pharmacist) session.getAttribute("pharmacist");
+
+        ArrayList<PharmacistAppointmentDTO> appointmentsList =
+                pharmacistAppointmentService.getReservedAndDoneAppointments(pharmacist.getId());
+
+        return appointmentsList;
+
+    }
     }

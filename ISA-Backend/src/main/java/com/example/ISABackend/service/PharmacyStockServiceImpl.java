@@ -177,4 +177,21 @@ public class PharmacyStockServiceImpl implements PharmacyStockService {
         return ps.getId();
     }
 
+    @Override
+    public Boolean checkAvailability(Long pharmacyId, Long reportMedicineId) {
+
+        ArrayList<PharmacyStock> pharmacyStock = getByMedicineAndPharmacy(reportMedicineId,pharmacyId);
+        if(pharmacyStock.isEmpty()) {
+            return false;
+        }
+
+        for(PharmacyStock ps: pharmacyStock) {
+
+            if(ps.getInStock() == 0)
+                return false;
+        }
+
+        return true;
+    }
+
 }

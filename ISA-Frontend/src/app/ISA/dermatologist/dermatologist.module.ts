@@ -13,13 +13,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { DermatologistReportsComponent } from './dermatologist-reports/dermatologist-reports.component';
+import { DermatologistReportComponent } from './dermatologist-report/dermatologist-report.component';
 
 
 
 
 @NgModule({
   declarations: [DermatologistNavbarComponent, DermatologistProfileComponent, DermatologistAppointmentsComponent,
-     PatientsDermComponent, DermatologistAppointmentComponent],
+     PatientsDermComponent, DermatologistAppointmentComponent, DermatologistReportsComponent, DermatologistReportComponent],
   imports: [
     CommonModule,
     DermatologistRoutingModule, 

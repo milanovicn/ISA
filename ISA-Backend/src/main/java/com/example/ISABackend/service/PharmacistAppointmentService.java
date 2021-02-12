@@ -30,5 +30,5 @@ public interface PharmacistAppointmentService {
     public ArrayList<PharmacistAppointmentDTO> getAvailableAppointments(Long id);
     public PharmacistAppointmentDTO getDTOById(Long appointmentId);
     public PharmacistAppointment appointmentReserveForUser(Long appointmentId, Long patientId);
-
+    public ArrayList<PharmacistAppointmentDTO> getReservedAndDoneAppointments(Long id);
 }

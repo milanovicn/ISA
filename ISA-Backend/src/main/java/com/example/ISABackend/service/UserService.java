@@ -1,6 +1,7 @@
 package com.example.ISABackend.service;
 
 import com.example.ISABackend.dto.DermatologistAppointmentDTO;
+import com.example.ISABackend.model.Medicine;
 import com.example.ISABackend.model.Pharmacy;
 import com.example.ISABackend.model.User;
 
@@ -16,4 +17,6 @@ public interface UserService {
     public User registerUser(User newUser);
     public ArrayList<DermatologistAppointmentDTO> sort(ArrayList<DermatologistAppointmentDTO> sortAppointments, String sortType);
     public Long getMyPenalty( Long patientId);
+    public ArrayList<Medicine> getNonAlergyMedicine(Long patientId);
+    public Long addPenalty (Long patientId);
 }

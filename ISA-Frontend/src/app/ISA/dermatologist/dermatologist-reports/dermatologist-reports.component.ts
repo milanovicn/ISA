@@ -4,12 +4,12 @@ import { DermatologistAppointmentDTO } from "app/ISA/shared/model/DermatologistA
 import { DermatologistService } from "app/ISA/shared/service/dermatologist.service";
 
 @Component({
-    selector: 'dermatologist-appointments',
-    templateUrl: './dermatologist-appointments.component.html'
+    selector: 'dermatologist-reports',
+    templateUrl: './dermatologist-reports.component.html'
 })
 
 
-export class DermatologistAppointmentsComponent implements OnInit {
+export class DermatologistReportsComponent implements OnInit {
     allAppointments : DermatologistAppointmentDTO[] = [];
  
 
@@ -20,7 +20,7 @@ export class DermatologistAppointmentsComponent implements OnInit {
    
 
     ngOnInit(): void {
-        this.dermatologistService.getReservedAndDoneAppointments().subscribe({
+        this.dermatologistService.getReservedAppointments().subscribe({
             next: appointments => {
                 this.allAppointments = appointments;
             }
